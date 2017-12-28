@@ -8,22 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F61FF47B2000E024DF /* AppDelegate.swift */; };
-		044159F91FF47B2000E024DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F81FF47B2000E024DF /* ViewController.swift */; };
+		044159F91FF47B2000E024DF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F81FF47B2000E024DF /* PlayerViewController.swift */; };
 		044159FC1FF47B2000E024DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044159FA1FF47B2000E024DF /* Main.storyboard */; };
 		044159FF1FF47B2000E024DF /* MusicStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 044159FD1FF47B2000E024DF /* MusicStatistics.xcdatamodeld */; };
 		04415A011FF47B2000E024DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04415A001FF47B2000E024DF /* Assets.xcassets */; };
 		04415A041FF47B2000E024DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04415A021FF47B2000E024DF /* LaunchScreen.storyboard */; };
+		04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415A0B1FF485E100E024DF /* SongTableViewController.swift */; };
+		04415A0E1FF52F9300E024DF /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415A0D1FF52F9300E024DF /* InfoTableViewController.swift */; };
+		04415A101FF530A900E024DF /* InfoImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415A0F1FF530A900E024DF /* InfoImageTableViewCell.swift */; };
+		04415A121FF563EB00E024DF /* AlbumCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415A111FF563EB00E024DF /* AlbumCollectionViewController.swift */; };
+		04415A141FF57CD900E024DF /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04415A131FF57CD900E024DF /* AlbumCollectionViewCell.swift */; };
+		04E779E51FF5811A004C21CE /* music-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E779E41FF5811A004C21CE /* music-7.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		044159F31FF47B1F00E024DF /* MusicStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		044159F61FF47B2000E024DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		044159F81FF47B2000E024DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		044159F81FF47B2000E024DF /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		044159FB1FF47B2000E024DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		044159FE1FF47B2000E024DF /* MusicStatistics.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MusicStatistics.xcdatamodel; sourceTree = "<group>"; };
 		04415A001FF47B2000E024DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04415A031FF47B2000E024DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04415A051FF47B2000E024DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04415A0B1FF485E100E024DF /* SongTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
+		04415A0D1FF52F9300E024DF /* InfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
+		04415A0F1FF530A900E024DF /* InfoImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoImageTableViewCell.swift; sourceTree = "<group>"; };
+		04415A111FF563EB00E024DF /* AlbumCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewController.swift; sourceTree = "<group>"; };
+		04415A131FF57CD900E024DF /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		04E779E41FF5811A004C21CE /* music-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "music-7.png"; path = "Assets.xcassets/music-7.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +68,19 @@
 		044159F51FF47B1F00E024DF /* MusicStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				04E779E41FF5811A004C21CE /* music-7.png */,
 				044159F61FF47B2000E024DF /* AppDelegate.swift */,
-				044159F81FF47B2000E024DF /* ViewController.swift */,
+				044159F81FF47B2000E024DF /* PlayerViewController.swift */,
 				044159FA1FF47B2000E024DF /* Main.storyboard */,
 				04415A001FF47B2000E024DF /* Assets.xcassets */,
 				04415A021FF47B2000E024DF /* LaunchScreen.storyboard */,
 				04415A051FF47B2000E024DF /* Info.plist */,
 				044159FD1FF47B2000E024DF /* MusicStatistics.xcdatamodeld */,
+				04415A0B1FF485E100E024DF /* SongTableViewController.swift */,
+				04415A0D1FF52F9300E024DF /* InfoTableViewController.swift */,
+				04415A0F1FF530A900E024DF /* InfoImageTableViewCell.swift */,
+				04415A111FF563EB00E024DF /* AlbumCollectionViewController.swift */,
+				04415A131FF57CD900E024DF /* AlbumCollectionViewCell.swift */,
 			);
 			path = MusicStatistics;
 			sourceTree = "<group>";
@@ -129,6 +147,7 @@
 				04415A041FF47B2000E024DF /* LaunchScreen.storyboard in Resources */,
 				04415A011FF47B2000E024DF /* Assets.xcassets in Resources */,
 				044159FC1FF47B2000E024DF /* Main.storyboard in Resources */,
+				04E779E51FF5811A004C21CE /* music-7.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044159F91FF47B2000E024DF /* ViewController.swift in Sources */,
+				04415A141FF57CD900E024DF /* AlbumCollectionViewCell.swift in Sources */,
+				044159F91FF47B2000E024DF /* PlayerViewController.swift in Sources */,
+				04415A121FF563EB00E024DF /* AlbumCollectionViewController.swift in Sources */,
+				04415A101FF530A900E024DF /* InfoImageTableViewCell.swift in Sources */,
+				04415A0E1FF52F9300E024DF /* InfoTableViewController.swift in Sources */,
 				044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */,
+				04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */,
 				044159FF1FF47B2000E024DF /* MusicStatistics.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
