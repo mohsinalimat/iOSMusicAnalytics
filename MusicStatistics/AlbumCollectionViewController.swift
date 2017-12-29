@@ -20,21 +20,25 @@ class AlbumCollectionViewController: UICollectionViewController {
 //        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         albums = MPMediaQuery.albums().items!
         self.title = "Albums"
-        // Do any additional setup after loading the view.
-        
-//        if let layout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
-//            let width = UIScreen.main.bounds.width
-//            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//            layout.itemSize = CGSize(width: width / 2.1, height: width / 2.1)
-//            layout.minimumInteritemSpacing = 0
-//            layout.minimumLineSpacing = 0
-//        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        let width = UIScreen.main.bounds.width
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: width / 2.05, height: width / 1.71)// 2.05 & 1.75
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        collectionView!.collectionViewLayout = layout
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
     // MARK: UICollectionViewDataSource
 

@@ -11,6 +11,7 @@ import MediaPlayer
 
 class SongTableViewController: UITableViewController {
     var songs:[MPMediaItem] = []
+    var sortMode:String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class SongTableViewController: UITableViewController {
             }
         }
         songs = MPMediaQuery.songs().items!
+        sortMode = "Title" // initialize at title sorting mode
         
     }
 
@@ -49,46 +51,29 @@ class SongTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.textLabel?.text = songs[indexPath.row].title
-        cell.detailTextLabel?.text = songs[indexPath.row].artist
+        cell.detailTextLabel?.text = (songs[indexPath.row].artist ?? "") + " · " + (songs[indexPath.row].albumTitle ?? "")
         cell.imageView?.image = songs[indexPath.row].artwork?.image(at: CGSize(width:30,height:30))
 
         return cell
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    @IBAction func updateSortingMode(from segue:UIStoryboardSegue){
+        if let result = segue.source as? SortSongsViewController{
+            if sortMode != result.currentSortingMode{ // only reload data when different
+                sortMode = result.currentSortingMode
+                switch sortMode{
+                case "Title":
+                    songs = MPMediaQuery.songs().items!
+                case "Artist":
+                    songs = MPMediaQuery.albums().items!
+                default:
+                    break
+                }
+                tableView.reloadData()
+            }
+            
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
 
@@ -103,6 +88,9 @@ class SongTableViewController: UITableViewController {
                 dest.nowPlaying = songs[selectedIndex.row]
             }
             
+        }
+        if let dest = destinationViewController as? SortSongsViewController{
+            dest.currentSortingMode = sortMode
         }
     }
 }

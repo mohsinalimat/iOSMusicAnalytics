@@ -15,7 +15,8 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cellArtist: UILabel!
     
     func updateCell(with input:MPMediaItem){
-        cellAlbumCover.image = input.artwork?.image(at: CGSize(width: 162, height: 162))
+        let width = UIScreen.main.bounds.size.width
+        cellAlbumCover.image = input.artwork?.image(at: CGSize(width: width/2, height: width/2)) // used 2 be 162
         cellTitle.text = input.albumTitle
         cellArtist.text = input.artist
     }

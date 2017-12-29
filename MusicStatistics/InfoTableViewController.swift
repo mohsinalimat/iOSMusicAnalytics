@@ -85,13 +85,13 @@ class InfoTableViewController: UITableViewController {
             cell.textLabel?.text = "Last Played"
             var lpdate: String!
             if info.lastPlayedDate == nil { lpdate = "N/A" }
-            else { lpdate = "\(info.lastPlayedDate)"}
+            else { lpdate = "\(info.lastPlayedDate ?? Date())"}
             cell.detailTextLabel?.text = lpdate
         case 9: // 10
             cell.textLabel?.text = "Released"
             var rd:String!
             if info.releaseDate == nil { rd = "N/A"}
-            else {rd = "\(info.releaseDate)"}
+            else {rd = "\(info.releaseDate ?? Date())"}
             cell.detailTextLabel?.text = rd
         case 10: // 11
             cell.textLabel?.text = "Play Count"
