@@ -46,6 +46,9 @@ class InfoTableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
 
+    @IBAction func leaveInfo(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row

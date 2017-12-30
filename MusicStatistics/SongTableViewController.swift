@@ -9,22 +9,18 @@
 import UIKit
 import MediaPlayer
 
-class SongTableViewController: UITableViewController {
+class SongTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     var songs:[MPMediaItem] = []
     var sortMode:String!
+    var lastSong:MPMediaItem? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Songs"
-        let status = MPMediaLibrary.authorizationStatus()
-        if status == .notDetermined{
-            MPMediaLibrary.requestAuthorization() { status in
-                if status == .authorized{ print("authroized") }
-            }
-        }
-        songs = MPMediaQuery.songs().items!
+        songs = MPMediaQuery.songs().items ?? []
         sortMode = "Title" // initialize at title sorting mode
+        self.popoverPresentationController?.delegate = self
         
     }
 
@@ -51,7 +47,10 @@ class SongTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.textLabel?.text = songs[indexPath.row].title
-        cell.detailTextLabel?.text = (songs[indexPath.row].artist ?? "") + " · " + (songs[indexPath.row].albumTitle ?? "")
+        let artistInfo = (songs[indexPath.row].artist ?? "")
+        let albumInfo =  " · " + (songs[indexPath.row].albumTitle ?? "")
+        let genreInfo = " · " + (songs[indexPath.row].genre ?? "")
+        cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
         cell.imageView?.image = songs[indexPath.row].artwork?.image(at: CGSize(width:30,height:30))
 
         return cell
@@ -63,15 +62,18 @@ class SongTableViewController: UITableViewController {
                 sortMode = result.currentSortingMode
                 switch sortMode{
                 case "Title":
-                    songs = MPMediaQuery.songs().items!
+                    songs = MPMediaQuery.songs().items ?? []
                 case "Artist":
-                    songs = MPMediaQuery.albums().items!
+                    songs = MPMediaQuery.artists().items ?? []
+                case "Album":
+                    songs = MPMediaQuery.albums().items ?? []
+                case "Genre":
+                    songs = MPMediaQuery.genres().items ?? []
                 default:
                     break
                 }
                 tableView.reloadData()
             }
-            
         }
     }
 
@@ -84,14 +86,30 @@ class SongTableViewController: UITableViewController {
         }
         if let dest = destinationViewController as? PlayerViewController{
             if let selectedIndex = tableView.indexPathForSelectedRow{
-                dest.navigationItem.title = songs[selectedIndex.row].title
+                //dest.navigationItem.title = songs[selectedIndex.row].title
+                lastSong = songs[selectedIndex.row]
                 dest.nowPlaying = songs[selectedIndex.row]
+            } else if segue.identifier == "toolbar"{
+                dest.nowPlaying = lastSong!
             }
             
         }
         if let dest = destinationViewController as? SortSongsViewController{
             dest.currentSortingMode = sortMode
+            if let ppc = segue.destination.popoverPresentationController{
+                ppc.delegate = self
+            }
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "toolbar" && lastSong == nil{ return false }
+        return true
+    }
+    
+    // change presentation behavior for popover in landscape and portrait mode
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }
 
