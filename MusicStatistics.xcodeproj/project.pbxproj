@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */; };
+		04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */; };
 		044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F61FF47B2000E024DF /* AppDelegate.swift */; };
 		044159F91FF47B2000E024DF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F81FF47B2000E024DF /* PlayerViewController.swift */; };
 		044159FC1FF47B2000E024DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044159FA1FF47B2000E024DF /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewController.swift; sourceTree = "<group>"; };
+		04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoTableViewCell.swift; sourceTree = "<group>"; };
 		044159F31FF47B1F00E024DF /* MusicStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		044159F61FF47B2000E024DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		044159F81FF47B2000E024DF /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 				04415A0F1FF530A900E024DF /* InfoImageTableViewCell.swift */,
 				04415A111FF563EB00E024DF /* AlbumCollectionViewController.swift */,
 				04415A131FF57CD900E024DF /* AlbumCollectionViewCell.swift */,
+				04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */,
+				04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */,
 			);
 			path = MusicStatistics;
 			sourceTree = "<group>";
@@ -180,8 +186,10 @@
 				04415A0E1FF52F9300E024DF /* InfoTableViewController.swift in Sources */,
 				044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */,
 				048BBF6B1FF68D010040817F /* SortSongsViewController.swift in Sources */,
+				04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */,
 				04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */,
 				044159FF1FF47B2000E024DF /* MusicStatistics.xcdatamodeld in Sources */,
+				04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

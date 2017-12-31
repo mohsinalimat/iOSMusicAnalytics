@@ -12,14 +12,35 @@ import MediaPlayer
 private let reuseIdentifier = "album"
 
 class AlbumCollectionViewController: UICollectionViewController {
-    var albums:[MPMediaItem] = []
+    var albums:[[MPMediaItem]] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
 //        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        albums = MPMediaQuery.albums().items!
         self.title = "Albums"
+        //append all songs into double a double array, with each sub-array being a whole album
+        let allAlbums = MPMediaQuery.albums().items ?? []
+        var prev: MPMediaItem! = allAlbums[0]
+        var tempAlbum: [MPMediaItem] = []
+        var count = 0
+        for item in allAlbums{
+            let currAlbumTitle = item.albumTitle ?? "NoAlbum"
+            let prevAlbumTitle = prev.albumTitle ?? "No-Album"
+            if count == 0 {
+                tempAlbum.append(item)
+                prev = item
+                count += 1
+                continue
+            }
+            if (prevAlbumTitle != currAlbumTitle){ // new album
+                albums.append(tempAlbum)
+                tempAlbum.removeAll()
+            }
+            tempAlbum.append(item)
+            prev = item
+            count += 1
+        }
     }
     
     override func awakeFromNib() {
@@ -43,14 +64,11 @@ class AlbumCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        print(albums.count)
         return albums.count
     }
 
@@ -58,9 +76,23 @@ class AlbumCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         if let albumCell = cell as? AlbumCollectionViewCell{
-            albumCell.updateCell(with: albums[indexPath.row])
+            albumCell.updateCell(with: albums[indexPath.row][0])
         }
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var destinationViewController = segue.destination
+        if let navigationViewController = destinationViewController as? UINavigationController {
+            destinationViewController = navigationViewController.visibleViewController ?? destinationViewController
+        }
+        if let dest = destinationViewController as? AlbumTableViewController{
+            if let indexPath = self.collectionView?.indexPathsForSelectedItems?.first!{
+                dest.albumContents = albums[indexPath.row]
+                dest.navigationItem.title = albums[indexPath.row][0].albumTitle ?? ""
+            }
+            
+        }
     }
 
 }

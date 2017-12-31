@@ -22,25 +22,52 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var player:MPMusicPlayerApplicationController!
     var playOrPause: Bool!
     var collection:MPMediaItemCollection!
+    var appDelegate: AppDelegate!
+    var timer: Timer!
+    var beginPlaying: Bool!
     
     
-    func updateUI(with song:MPMediaItem){
+    public func updateUI(with song:MPMediaItem){
         let frame = UIScreen.main.bounds.size
         let artworkSize:CGSize = CGSize(width: frame.width, height: frame.width)
         let artwork = song.artwork
         albumArt?.image = artwork?.image(at: artworkSize)
-        songTitle.text = song.title
-        albumTitle.text = song.albumTitle
-        timeRemaining.text = String(Double(song.playbackDuration))
+        songTitle.text = song.title ?? "None"
+        albumTitle.text = song.albumTitle ?? "None"
+        //print(song.title! + " " + song.albumTitle!)
+        timeRemaining.text = timeIntervalToReg(song.playbackDuration)
+        player = MPMusicPlayerApplicationController.applicationQueuePlayer
+        playOrPause = false // not playing
+        nowPlaying = song
+        if appDelegate.currentQueue.isEmpty{
+            //collection = MPMediaItemCollection(items: MPMediaQuery.songs().items!)
+            collection = MPMediaItemCollection(items: [nowPlaying])
+        } else {
+            collection = MPMediaItemCollection(items: appDelegate.currentQueue)
+        }
+    }
+    
+    func timeIntervalToReg(_ interval:TimeInterval) -> String{
+        let minute = String(Int(interval) / 60)
+        var seconds = String(Int(interval) % 60)
+        if seconds.count == 1 {seconds = "0" + seconds}
+        return minute + ":" + seconds
+    }
+    
+    @objc func updatePlaybackTime(){
+        let currTime = player.currentPlaybackTime
+        let totalTime = (player.nowPlayingItem?.playbackDuration)!
+        currentTime.text = timeIntervalToReg(currTime)
+        timeRemaining.text = timeIntervalToReg(totalTime - currTime)
+        songProgress.progress = Float(currTime/totalTime)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
         // Do any additional setup after loading the view, typically from a nib.
-        updateUI(with: nowPlaying)
-        player = MPMusicPlayerApplicationController.applicationQueuePlayer
-        playOrPause = false // not playing
-        collection = MPMediaItemCollection(items: [nowPlaying])
+        updateUI(with: appDelegate.currentQueue.isEmpty ? MPMediaQuery.songs().items!.randomItem()! : appDelegate.currentQueue[0])
+        beginPlaying = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,11 +87,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
                 ppc.delegate = self
             }
         }
-        
-    }
-    
-    @IBAction func exitCurrPlaying(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
     }
     
     @IBAction func playPaulse(_ sender: UIButton) {
@@ -72,16 +94,22 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         player.prepareToPlay()
         playOrPause ? player.pause() : player.play()
         playOrPause = !playOrPause
+        if !beginPlaying {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
+            beginPlaying = true
+        }
     }
     
     @IBAction func nextSong(_ sender: UIButton) {
         player.skipToNextItem()
+        updateUI(with: player.nowPlayingItem!)
         playOrPause = true
         player.play()
     }
     
     @IBAction func prevSong(_ sender: UIButton) {
         player.skipToPreviousItem()
+        updateUI(with: player.nowPlayingItem!)
         playOrPause = true
         player.play()
     }
@@ -95,5 +123,17 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         return .none
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+    
+}
+
+extension Array {
+    func randomItem() -> Element? {
+        if isEmpty { return nil }
+        let index = Int(arc4random_uniform(UInt32(self.count)))
+        return self[index]
+    }
 }
 

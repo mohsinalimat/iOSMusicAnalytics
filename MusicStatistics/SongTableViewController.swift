@@ -13,15 +13,23 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     var songs:[MPMediaItem] = []
     var sortMode:String!
     var lastSong:MPMediaItem? = nil
+    var appDelegate: AppDelegate!
+    let playController = PlayerViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Songs"
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
         songs = MPMediaQuery.songs().items ?? []
         sortMode = "Title" // initialize at title sorting mode
         self.popoverPresentationController?.delegate = self
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(true, animated: animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +48,19 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         // #warning Incomplete implementation, return the number of rows
         return songs.count
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        appDelegate.currentQueue = Array(songs[indexPath.row...songs.count-1])
+        self.navigationController?.setToolbarHidden(false, animated: true)
+        //playController.updateUI(with: songs[indexPath.row])
+        
+    }
 
+    @IBAction func moveToPlayer(_ sender: UIBarButtonItem) {
+        if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
+            tabbar.selectedIndex = 2
+        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "song", for: indexPath)

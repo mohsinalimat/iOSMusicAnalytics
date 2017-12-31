@@ -14,6 +14,7 @@ import MediaPlayer
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var currentQueue: [MPMediaItem] = []
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if status == .authorized{ print("authroized") }
             }
         }
+        UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 
@@ -97,4 +99,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
 
