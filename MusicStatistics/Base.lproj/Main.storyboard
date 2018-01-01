@@ -20,11 +20,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="song" textLabel="Soc-YS-6ak" detailTextLabel="5w5-ry-tHC" style="IBUITableViewCellStyleSubtitle" id="dy0-HK-4RZ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="song" textLabel="Soc-YS-6ak" detailTextLabel="5w5-ry-tHC" style="IBUITableViewCellStyleSubtitle" id="dy0-HK-4RZ">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dy0-HK-4RZ" id="9dD-il-wWw">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Soc-YS-6ak">
@@ -114,7 +114,7 @@
                                 <rect key="frame" x="168" y="510" width="38" height="40"/>
                                 <state key="normal" image="Play Button.png"/>
                                 <connections>
-                                    <action selector="playPaulse:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ggm-8a-thv"/>
+                                    <action selector="playPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ggm-8a-thv"/>
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u0O-9c-Lqc">
@@ -213,7 +213,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Playing" image="music-7.png" id="hlC-tF-BBh"/>
+                    <tabBarItem key="tabBarItem" title="Playing" image="playingIcon.png" id="hlC-tF-BBh"/>
                     <navigationItem key="navigationItem" title="Now Playing" id="Usl-0H-KYu">
                         <barButtonItem key="rightBarButtonItem" title="Info" id="f4f-Lu-YT0">
                             <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -237,7 +237,7 @@
         <scene sceneID="kDd-jn-6az">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="oTV-3s-o3x" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Songs" image="music-7.png" id="yOX-Jy-P0x"/>
+                    <tabBarItem key="tabBarItem" title="Songs" image="songIcon.png" id="yOX-Jy-P0x"/>
                     <toolbarItems>
                         <barButtonItem title="Item" id="dVq-g1-9hl"/>
                         <barButtonItem title="Item" id="Yo9-yP-409"/>
@@ -285,7 +285,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gAR-aC-Qze" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2329" y="415"/>
+            <point key="canvasLocation" x="-2329" y="981"/>
         </scene>
         <!--Info Table View Controller-->
         <scene sceneID="ZbB-T1-z2r">
@@ -434,7 +434,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="songPerAlbum" textLabel="Ir6-Ea-MbR" style="IBUITableViewCellStyleDefault" id="Ssy-Cw-djO">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="songPerAlbum" textLabel="Ir6-Ea-MbR" style="IBUITableViewCellStyleDefault" id="Ssy-Cw-djO">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ssy-Cw-djO" id="oXI-ts-3E7">
@@ -459,13 +459,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="347.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k69-H7-xdA">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k69-H7-xdA">
                                             <rect key="frame" x="62" y="0.0" width="250" height="248"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="248" id="aCk-qJ-wXY"/>
                                             </constraints>
                                         </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="F2S-IV-3zA">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="F2S-IV-3zA">
                                             <rect key="frame" x="62" y="257" width="251" height="76.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXq-Pv-R4Y">
@@ -475,13 +475,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndh-aH-fT3">
-                                                    <rect key="frame" x="0.0" y="31.5" width="251" height="24"/>
+                                                    <rect key="frame" x="0.0" y="30.5" width="251" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Pop * 2010" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRr-yD-1Jz">
-                                                    <rect key="frame" x="0.0" y="59.5" width="251" height="17"/>
+                                                    <rect key="frame" x="0.0" y="57.5" width="251" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -522,11 +522,12 @@
         <scene sceneID="Ofj-8n-plf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ltr-cT-g9q" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Albums" image="music-7.png" id="ZIA-Ig-Xfl"/>
+                    <tabBarItem key="tabBarItem" title="Albums" image="albumIcon.png" id="ZIA-Ig-Xfl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="XPC-w5-uQW">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
@@ -696,8 +697,10 @@
     </scenes>
     <resources>
         <image name="Play Button.png" width="211" height="211"/>
-        <image name="music-7.png" width="30" height="30"/>
+        <image name="albumIcon.png" width="30" height="30"/>
         <image name="next.png" width="211" height="211"/>
+        <image name="playingIcon.png" width="32" height="32"/>
         <image name="prev.png" width="211" height="211"/>
+        <image name="songIcon.png" width="32" height="32"/>
     </resources>
 </document>

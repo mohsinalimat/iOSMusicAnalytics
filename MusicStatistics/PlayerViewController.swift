@@ -21,11 +21,47 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var nowPlaying: MPMediaItem!
     var player:MPMusicPlayerApplicationController!
     var playOrPause: Bool!
-    var collection:MPMediaItemCollection!
-    var appDelegate: AppDelegate!
+    var isPlayerLoaded = false
     var timer: Timer!
     var beginPlaying: Bool!
+    var appDelegate: AppDelegate!
     
+    var collection:MPMediaItemCollection!{
+        didSet{
+            player.setQueue(with: collection)
+            player.prepareToPlay()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        // Do any additional setup after loading the view, typically from a nib.
+        updateUI(with: appDelegate.currentQueue.isEmpty ? MPMediaQuery.songs().items!.randomItem()! : appDelegate.currentQueue[0])
+        updateQueue()
+        beginPlaying = false
+        isPlayerLoaded = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isPlayerLoaded && !appDelegate.currentQueue.isEmpty{
+            if collection.items != appDelegate.currentQueue{
+                updateUI(with: appDelegate.currentQueue[0])
+                updateQueue()
+            }
+        }
+        if beginPlaying && !timer.isValid {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if beginPlaying {
+            timer.invalidate()
+        }
+    }
     
     public func updateUI(with song:MPMediaItem){
         let frame = UIScreen.main.bounds.size
@@ -39,8 +75,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         player = MPMusicPlayerApplicationController.applicationQueuePlayer
         playOrPause = false // not playing
         nowPlaying = song
+    }
+    
+    func updateQueue(){
         if appDelegate.currentQueue.isEmpty{
-            //collection = MPMediaItemCollection(items: MPMediaQuery.songs().items!)
             collection = MPMediaItemCollection(items: [nowPlaying])
         } else {
             collection = MPMediaItemCollection(items: appDelegate.currentQueue)
@@ -56,23 +94,12 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     
     @objc func updatePlaybackTime(){
         let currTime = player.currentPlaybackTime
-        let totalTime = (player.nowPlayingItem?.playbackDuration)!
+        let totalTime = player.nowPlayingItem?.playbackDuration ?? 240.0
         currentTime.text = timeIntervalToReg(currTime)
         timeRemaining.text = timeIntervalToReg(totalTime - currTime)
         songProgress.progress = Float(currTime/totalTime)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // Do any additional setup after loading the view, typically from a nib.
-        updateUI(with: appDelegate.currentQueue.isEmpty ? MPMediaQuery.songs().items!.randomItem()! : appDelegate.currentQueue[0])
-        beginPlaying = false
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // update UI when queue automatically skips to next
+        if Int(currTime) == 0 {updateUI(with: player.nowPlayingItem!)}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,14 +116,17 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         }
     }
     
-    @IBAction func playPaulse(_ sender: UIButton) {
-        player.setQueue(with: collection)
-        player.prepareToPlay()
+    @IBAction func playPause(_ sender: UIButton) {
         playOrPause ? player.pause() : player.play()
         playOrPause = !playOrPause
         if !beginPlaying {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
             beginPlaying = true
+        }
+        if playOrPause { // play -> pause
+            playButton.setImage(UIImage(named: "Pause Button"), for: .normal)
+        } else { // pause -> play
+          playButton.setImage(UIImage(named: "Play Button"), for: .normal)
         }
     }
     
@@ -126,7 +156,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    
 }
 
 extension Array {

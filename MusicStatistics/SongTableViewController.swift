@@ -50,9 +50,13 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        appDelegate.currentQueue = Array(songs[indexPath.row...songs.count-1])
+        appDelegate.currentQueue = Array(songs[indexPath.row..<songs.count])
         self.navigationController?.setToolbarHidden(false, animated: true)
         //playController.updateUI(with: songs[indexPath.row])
+        //appDelegate.currentQueue = Array(albumContents[indexPath.row - 1..<albumContents.count])
+        if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
+            tabbar.selectedIndex = 2
+        }
         
     }
 

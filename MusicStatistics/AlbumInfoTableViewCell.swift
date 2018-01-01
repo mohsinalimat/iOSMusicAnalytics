@@ -23,11 +23,11 @@ class AlbumInfoTableViewCell: UITableViewCell {
         let genre = item.genre ?? ""
         var year: String!
         if item.releaseDate != nil{
-            year = String(Calendar.current.component(.year, from: item.releaseDate!))
+            year = " · " + String(Calendar.current.component(.year, from: item.releaseDate!))
         } else {
-            year = "NULL"
+            year = ""
         }
-        miscInfo.text = genre + " . " + year
+        miscInfo.text = genre + year
     }
 
 }

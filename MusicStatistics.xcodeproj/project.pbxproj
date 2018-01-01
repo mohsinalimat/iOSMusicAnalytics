@@ -24,6 +24,10 @@
 		048BBF6D1FF700230040817F /* Play Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF6C1FF700230040817F /* Play Button.png */; };
 		048BBF741FF71FDE0040817F /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF721FF71FDE0040817F /* next.png */; };
 		048BBF751FF71FDE0040817F /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF731FF71FDE0040817F /* prev.png */; };
+		04AD7F3C1FF99CDA00565725 /* Pause Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F3B1FF99CDA00565725 /* Pause Button.png */; };
+		04AD7F481FF9BADD00565725 /* playingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F451FF9BADD00565725 /* playingIcon@2x.png */; };
+		04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F461FF9BADD00565725 /* albumIcon@2x.png */; };
+		04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F471FF9BADD00565725 /* songIcon@2x.png */; };
 		04E779E51FF5811A004C21CE /* music-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E779E41FF5811A004C21CE /* music-7.png */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +51,10 @@
 		048BBF6C1FF700230040817F /* Play Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Play Button.png"; path = "Assets.xcassets/Play Button.png"; sourceTree = "<group>"; };
 		048BBF721FF71FDE0040817F /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = next.png; path = Assets.xcassets/next.png; sourceTree = "<group>"; };
 		048BBF731FF71FDE0040817F /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prev.png; path = Assets.xcassets/prev.png; sourceTree = "<group>"; };
+		04AD7F3B1FF99CDA00565725 /* Pause Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pause Button.png"; path = "Assets.xcassets/Pause Button.png"; sourceTree = "<group>"; };
+		04AD7F451FF9BADD00565725 /* playingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playingIcon@2x.png"; path = "Assets.xcassets/playingIcon@2x.png"; sourceTree = "<group>"; };
+		04AD7F461FF9BADD00565725 /* albumIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "albumIcon@2x.png"; path = "Assets.xcassets/albumIcon@2x.png"; sourceTree = "<group>"; };
+		04AD7F471FF9BADD00565725 /* songIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "songIcon@2x.png"; path = "Assets.xcassets/songIcon@2x.png"; sourceTree = "<group>"; };
 		04E779E41FF5811A004C21CE /* music-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "music-7.png"; path = "Assets.xcassets/music-7.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +88,10 @@
 		044159F51FF47B1F00E024DF /* MusicStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				04AD7F461FF9BADD00565725 /* albumIcon@2x.png */,
+				04AD7F451FF9BADD00565725 /* playingIcon@2x.png */,
+				04AD7F471FF9BADD00565725 /* songIcon@2x.png */,
+				04AD7F3B1FF99CDA00565725 /* Pause Button.png */,
 				048BBF721FF71FDE0040817F /* next.png */,
 				048BBF731FF71FDE0040817F /* prev.png */,
 				048BBF6C1FF700230040817F /* Play Button.png */,
@@ -136,6 +148,11 @@
 					044159F21FF47B1F00E024DF = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -167,8 +184,12 @@
 				048BBF741FF71FDE0040817F /* next.png in Resources */,
 				048BBF751FF71FDE0040817F /* prev.png in Resources */,
 				048BBF6D1FF700230040817F /* Play Button.png in Resources */,
+				04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */,
+				04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */,
+				04AD7F3C1FF99CDA00565725 /* Pause Button.png in Resources */,
 				044159FC1FF47B2000E024DF /* Main.storyboard in Resources */,
 				04E779E51FF5811A004C21CE /* music-7.png in Resources */,
+				04AD7F481FF9BADD00565725 /* playingIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
