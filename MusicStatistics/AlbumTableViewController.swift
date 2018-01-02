@@ -62,9 +62,11 @@ class AlbumTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        appDelegate.currentQueue = Array(albumContents[indexPath.row - 1..<albumContents.count])
-        if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
-            tabbar.selectedIndex = 2
+        if(indexPath.row != 0){
+            appDelegate.currentQueue = Array(albumContents[indexPath.row - 1..<albumContents.count])
+            if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
+                tabbar.selectedIndex = 2
+            }
         }
     }
 }
