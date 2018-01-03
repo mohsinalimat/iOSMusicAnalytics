@@ -21,7 +21,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         self.title = "Albums"
         //append all songs into double a double array, with each sub-array being a whole album
         let allAlbums = MPMediaQuery.albums().items ?? []
-        var prev: MPMediaItem! = allAlbums.first
+        var prev: MPMediaItem! = allAlbums[0]
         var tempAlbum: [MPMediaItem] = []
         var count = 0
         for item in allAlbums{
