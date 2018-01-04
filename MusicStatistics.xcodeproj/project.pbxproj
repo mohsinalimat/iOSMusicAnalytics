@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040871411FFBF93A00F30E94 /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040871401FFBF93A00F30E94 /* AnalyticsViewController.swift */; };
+		0402E4D31FFD42A000479CC6 /* AnalyticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */; };
+		0402E4D51FFD438900479CC6 /* AnalyticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */; };
 		04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */; };
 		04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */; };
 		044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F61FF47B2000E024DF /* AppDelegate.swift */; };
@@ -34,7 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		040871401FFBF93A00F30E94 /* AnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
+		0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTableViewController.swift; sourceTree = "<group>"; };
+		0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTableViewCell.swift; sourceTree = "<group>"; };
 		04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewController.swift; sourceTree = "<group>"; };
 		04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoTableViewCell.swift; sourceTree = "<group>"; };
 		044159F31FF47B1F00E024DF /* MusicStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,8 +117,9 @@
 				04415A131FF57CD900E024DF /* AlbumCollectionViewCell.swift */,
 				04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */,
 				04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */,
-				040871401FFBF93A00F30E94 /* AnalyticsViewController.swift */,
 				0471B84F1FFC0210006279E6 /* AnalyticsCollectionViewCell.swift */,
+				0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */,
+				0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */,
 			);
 			path = MusicStatistics;
 			sourceTree = "<group>";
@@ -212,13 +215,14 @@
 				04415A101FF530A900E024DF /* InfoImageTableViewCell.swift in Sources */,
 				04415A0E1FF52F9300E024DF /* InfoTableViewController.swift in Sources */,
 				044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */,
+				0402E4D31FFD42A000479CC6 /* AnalyticsTableViewController.swift in Sources */,
 				048BBF6B1FF68D010040817F /* SortSongsViewController.swift in Sources */,
+				0402E4D51FFD438900479CC6 /* AnalyticsTableViewCell.swift in Sources */,
 				0471B8501FFC0210006279E6 /* AnalyticsCollectionViewCell.swift in Sources */,
 				04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */,
 				04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */,
 				044159FF1FF47B2000E024DF /* MusicStatistics.xcdatamodeld in Sources */,
 				04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */,
-				040871411FFBF93A00F30E94 /* AnalyticsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

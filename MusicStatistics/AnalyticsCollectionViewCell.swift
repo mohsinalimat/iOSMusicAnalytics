@@ -14,11 +14,16 @@ class AnalyticsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var analyticsSongTitle: UILabel!
     @IBOutlet weak var playCount: UILabel!
     
-    func updateAnalyticsCellUI(with item:MPMediaItem){
+    func updateAnalyticsCellUI(with item:MPMediaItem, mode subtitleMode:String){
         let width = UIScreen.main.bounds.size.width
         AnalyticsAlbumImg.image = item.artwork?.image(at: CGSize(width: width/3, height: width/3))
         analyticsSongTitle.text = item.title ?? ""
-        playCount.text = "Playcount: " + String(item.playCount)
+        if subtitleMode == "Skipcount"{
+            playCount.text = subtitleMode + ": " + String(item.skipCount)
+        } else if subtitleMode == "Playcount"{
+            playCount.text = subtitleMode + ": " + String(item.playCount)
+        }
+        
     }
     
 }
