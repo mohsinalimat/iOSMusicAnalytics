@@ -14,9 +14,11 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var albumTitle: UILabel!
-    @IBOutlet weak var songProgress: UIProgressView!
     @IBOutlet weak var timeRemaining: UILabel!
     @IBOutlet weak var currentTime: UILabel!
+    @IBOutlet weak var shuffleIcon: UIButton!
+    @IBOutlet weak var repeatIcon: UIButton!
+    @IBOutlet weak var songProgress: UISlider!
     
     var nowPlaying: MPMediaItem!
     var player:MPMusicPlayerApplicationController!
@@ -41,6 +43,9 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         updateQueue()
         beginPlaying = false
         isPlayerLoaded = true
+        player.shuffleMode = .off
+        player.repeatMode = .none
+        songProgress.setThumbImage(UIImage(named:"playerThumb"), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,12 +97,17 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         return minute + ":" + seconds
     }
     
+    @IBAction func songProgressChanged(_ sender: UISlider) {
+        let totalTime = player.nowPlayingItem?.playbackDuration ?? 240.0
+        player.currentPlaybackTime = Double(sender.value) * totalTime
+    }
+    
     @objc func updatePlaybackTime(){
         let currTime = player.currentPlaybackTime
         let totalTime = player.nowPlayingItem?.playbackDuration ?? 240.0
         currentTime.text = timeIntervalToReg(currTime)
         timeRemaining.text = timeIntervalToReg(totalTime - currTime)
-        songProgress.progress = Float(currTime/totalTime)
+        songProgress.setValue(Float(currTime/totalTime), animated: true)
         // update UI when queue automatically skips to next
         if Int(currTime) == 0 {updateUI(with: player.nowPlayingItem!)}
     }
@@ -143,6 +153,31 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         playOrPause = true
         player.play()
     }
+    
+    @IBAction func changeShuffleMode(_ sender: UIButton) {
+        if player.shuffleMode == .off{
+            player.shuffleMode = .songs
+            shuffleIcon.tintColor = UIColor.orange
+        } else if player.shuffleMode == .songs{
+            player.shuffleMode = .off
+            shuffleIcon.tintColor = UIColor.white
+        }
+        
+    }
+    @IBAction func changeRepeatMode(_ sender: UIButton) {
+        if player.repeatMode == .none{
+            player.repeatMode = .all
+            repeatIcon.tintColor = UIColor.orange
+        } else if player.repeatMode == .all {
+            player.repeatMode = .one
+            repeatIcon.setImage(UIImage(named: "repeatIcon2"), for: .normal)
+        } else if player.repeatMode == .one{
+            player.repeatMode = .none
+            repeatIcon.setImage(UIImage(named: "repeatIcon1"), for: .normal)
+            repeatIcon.tintColor = UIColor.white
+        }
+    }
+    
     // change presentation behavior for popover in landscape and portrait mode
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         if traitCollection.verticalSizeClass == .compact{ // landscape mode, do not adapt

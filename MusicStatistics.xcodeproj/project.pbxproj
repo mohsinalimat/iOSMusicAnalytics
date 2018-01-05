@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		0402E4D31FFD42A000479CC6 /* AnalyticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */; };
 		0402E4D51FFD438900479CC6 /* AnalyticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */; };
+		0402E4DB1FFECFD300479CC6 /* analyticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4DA1FFECFD300479CC6 /* analyticsIcon@2x.png */; };
+		0402E4DD1FFED14000479CC6 /* shuffleIcon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4DC1FFED14000479CC6 /* shuffleIcon1@2x.png */; };
+		0402E4DF1FFED21500479CC6 /* repeatIcon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4DE1FFED21500479CC6 /* repeatIcon1@2x.png */; };
+		0402E4E11FFED28A00479CC6 /* playlistIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4E01FFED28900479CC6 /* playlistIcon@2x.png */; };
+		0402E4E51FFED4D000479CC6 /* repeatIcon2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4E41FFED4D000479CC6 /* repeatIcon2@2x.png */; };
+		0402E4E91FFEE0B000479CC6 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402E4E81FFEE0B000479CC6 /* QueueTableViewController.swift */; };
+		0402E4ED1FFF0FAD00479CC6 /* playerThumb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4EC1FFF0FAD00479CC6 /* playerThumb@3x.png */; };
 		04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */; };
 		04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */; };
 		044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044159F61FF47B2000E024DF /* AppDelegate.swift */; };
@@ -31,12 +38,18 @@
 		04AD7F481FF9BADD00565725 /* playingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F451FF9BADD00565725 /* playingIcon@2x.png */; };
 		04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F461FF9BADD00565725 /* albumIcon@2x.png */; };
 		04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F471FF9BADD00565725 /* songIcon@2x.png */; };
-		04E779E51FF5811A004C21CE /* music-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E779E41FF5811A004C21CE /* music-7.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTableViewController.swift; sourceTree = "<group>"; };
 		0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTableViewCell.swift; sourceTree = "<group>"; };
+		0402E4DA1FFECFD300479CC6 /* analyticsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "analyticsIcon@2x.png"; sourceTree = "<group>"; };
+		0402E4DC1FFED14000479CC6 /* shuffleIcon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shuffleIcon1@2x.png"; sourceTree = "<group>"; };
+		0402E4DE1FFED21500479CC6 /* repeatIcon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeatIcon1@2x.png"; sourceTree = "<group>"; };
+		0402E4E01FFED28900479CC6 /* playlistIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playlistIcon@2x.png"; sourceTree = "<group>"; };
+		0402E4E41FFED4D000479CC6 /* repeatIcon2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeatIcon2@2x.png"; sourceTree = "<group>"; };
+		0402E4E81FFEE0B000479CC6 /* QueueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
+		0402E4EC1FFF0FAD00479CC6 /* playerThumb@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playerThumb@3x.png"; sourceTree = "<group>"; };
 		04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewController.swift; sourceTree = "<group>"; };
 		04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoTableViewCell.swift; sourceTree = "<group>"; };
 		044159F31FF47B1F00E024DF /* MusicStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,14 +67,13 @@
 		04415A131FF57CD900E024DF /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		0471B84F1FFC0210006279E6 /* AnalyticsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsCollectionViewCell.swift; sourceTree = "<group>"; };
 		048BBF6A1FF68D010040817F /* SortSongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSongsViewController.swift; sourceTree = "<group>"; };
-		048BBF6C1FF700230040817F /* Play Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Play Button.png"; path = "Assets.xcassets/Play Button.png"; sourceTree = "<group>"; };
-		048BBF721FF71FDE0040817F /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = next.png; path = Assets.xcassets/next.png; sourceTree = "<group>"; };
-		048BBF731FF71FDE0040817F /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prev.png; path = Assets.xcassets/prev.png; sourceTree = "<group>"; };
-		04AD7F3B1FF99CDA00565725 /* Pause Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pause Button.png"; path = "Assets.xcassets/Pause Button.png"; sourceTree = "<group>"; };
-		04AD7F451FF9BADD00565725 /* playingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playingIcon@2x.png"; path = "Assets.xcassets/playingIcon@2x.png"; sourceTree = "<group>"; };
-		04AD7F461FF9BADD00565725 /* albumIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "albumIcon@2x.png"; path = "Assets.xcassets/albumIcon@2x.png"; sourceTree = "<group>"; };
-		04AD7F471FF9BADD00565725 /* songIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "songIcon@2x.png"; path = "Assets.xcassets/songIcon@2x.png"; sourceTree = "<group>"; };
-		04E779E41FF5811A004C21CE /* music-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "music-7.png"; path = "Assets.xcassets/music-7.png"; sourceTree = "<group>"; };
+		048BBF6C1FF700230040817F /* Play Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play Button.png"; sourceTree = "<group>"; };
+		048BBF721FF71FDE0040817F /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		048BBF731FF71FDE0040817F /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev.png; sourceTree = "<group>"; };
+		04AD7F3B1FF99CDA00565725 /* Pause Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause Button.png"; sourceTree = "<group>"; };
+		04AD7F451FF9BADD00565725 /* playingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playingIcon@2x.png"; sourceTree = "<group>"; };
+		04AD7F461FF9BADD00565725 /* albumIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "albumIcon@2x.png"; sourceTree = "<group>"; };
+		04AD7F471FF9BADD00565725 /* songIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "songIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +87,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0402E4E71FFEE07900479CC6 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0402E4EC1FFF0FAD00479CC6 /* playerThumb@3x.png */,
+				0402E4E41FFED4D000479CC6 /* repeatIcon2@2x.png */,
+				0402E4E01FFED28900479CC6 /* playlistIcon@2x.png */,
+				0402E4DE1FFED21500479CC6 /* repeatIcon1@2x.png */,
+				0402E4DC1FFED14000479CC6 /* shuffleIcon1@2x.png */,
+				0402E4DA1FFECFD300479CC6 /* analyticsIcon@2x.png */,
+				04AD7F461FF9BADD00565725 /* albumIcon@2x.png */,
+				04AD7F451FF9BADD00565725 /* playingIcon@2x.png */,
+				04AD7F471FF9BADD00565725 /* songIcon@2x.png */,
+				04AD7F3B1FF99CDA00565725 /* Pause Button.png */,
+				048BBF721FF71FDE0040817F /* next.png */,
+				048BBF731FF71FDE0040817F /* prev.png */,
+				048BBF6C1FF700230040817F /* Play Button.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		044159EA1FF47B1F00E024DF = {
 			isa = PBXGroup;
 			children = (
@@ -94,15 +126,8 @@
 		044159F51FF47B1F00E024DF /* MusicStatistics */ = {
 			isa = PBXGroup;
 			children = (
-				04AD7F461FF9BADD00565725 /* albumIcon@2x.png */,
-				04AD7F451FF9BADD00565725 /* playingIcon@2x.png */,
-				04AD7F471FF9BADD00565725 /* songIcon@2x.png */,
-				04AD7F3B1FF99CDA00565725 /* Pause Button.png */,
-				048BBF721FF71FDE0040817F /* next.png */,
-				048BBF731FF71FDE0040817F /* prev.png */,
-				048BBF6C1FF700230040817F /* Play Button.png */,
+				0402E4E71FFEE07900479CC6 /* Images */,
 				048BBF6A1FF68D010040817F /* SortSongsViewController.swift */,
-				04E779E41FF5811A004C21CE /* music-7.png */,
 				044159F61FF47B2000E024DF /* AppDelegate.swift */,
 				044159F81FF47B2000E024DF /* PlayerViewController.swift */,
 				044159FA1FF47B2000E024DF /* Main.storyboard */,
@@ -120,6 +145,7 @@
 				0471B84F1FFC0210006279E6 /* AnalyticsCollectionViewCell.swift */,
 				0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */,
 				0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */,
+				0402E4E81FFEE0B000479CC6 /* QueueTableViewController.swift */,
 			);
 			path = MusicStatistics;
 			sourceTree = "<group>";
@@ -189,16 +215,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				04415A041FF47B2000E024DF /* LaunchScreen.storyboard in Resources */,
+				0402E4E11FFED28A00479CC6 /* playlistIcon@2x.png in Resources */,
+				0402E4E51FFED4D000479CC6 /* repeatIcon2@2x.png in Resources */,
 				04415A011FF47B2000E024DF /* Assets.xcassets in Resources */,
 				048BBF741FF71FDE0040817F /* next.png in Resources */,
 				048BBF751FF71FDE0040817F /* prev.png in Resources */,
 				048BBF6D1FF700230040817F /* Play Button.png in Resources */,
 				04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */,
 				04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */,
+				0402E4DD1FFED14000479CC6 /* shuffleIcon1@2x.png in Resources */,
 				04AD7F3C1FF99CDA00565725 /* Pause Button.png in Resources */,
+				0402E4DB1FFECFD300479CC6 /* analyticsIcon@2x.png in Resources */,
 				044159FC1FF47B2000E024DF /* Main.storyboard in Resources */,
-				04E779E51FF5811A004C21CE /* music-7.png in Resources */,
+				0402E4ED1FFF0FAD00479CC6 /* playerThumb@3x.png in Resources */,
 				04AD7F481FF9BADD00565725 /* playingIcon@2x.png in Resources */,
+				0402E4DF1FFED21500479CC6 /* repeatIcon1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +253,7 @@
 				04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */,
 				04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */,
 				044159FF1FF47B2000E024DF /* MusicStatistics.xcdatamodeld in Sources */,
+				0402E4E91FFEE0B000479CC6 /* QueueTableViewController.swift in Sources */,
 				04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
