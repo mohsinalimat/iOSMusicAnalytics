@@ -9,22 +9,34 @@
 import UIKit
 import MediaPlayer
 
-class SongTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class SongTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate,UISearchResultsUpdating {
+
     var songs:[MPMediaItem] = []
+    var unfilteredSongs:[MPMediaItem] = []
     var sortMode:String!
     var lastSong:MPMediaItem? = nil
     var appDelegate: AppDelegate!
     let playController = PlayerViewController()
-
+    //@IBOutlet weak var songSearchBar: UISearchBar!
+    var searchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Songs"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        songs = MPMediaQuery.songs().items ?? []
+        unfilteredSongs = MPMediaQuery.songs().items ?? []
+        songs = unfilteredSongs
         sortMode = "Title" // initialize at title sorting mode
         self.popoverPresentationController?.delegate = self
         
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.barTintColor = UIColor.black
+        searchController.searchBar.placeholder = "Search for Songs"
+        searchController.searchBar.keyboardAppearance = .dark
+        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = UIColor.orange
+        tableView.tableHeaderView = searchController.searchBar
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,6 +146,15 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     // change presentation behavior for popover in landscape and portrait mode
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty, !songs.isEmpty{
+            songs = unfilteredSongs.filter({($0.title?.contains(searchText))!})
+        } else {
+            songs = unfilteredSongs
+        }
+        tableView.reloadData()
     }
 }
 

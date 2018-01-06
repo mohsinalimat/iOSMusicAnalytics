@@ -30,13 +30,11 @@ class InfoTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 12
+        return 13
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -96,10 +94,13 @@ class InfoTableViewController: UITableViewController {
             if info.releaseDate == nil { rd = "N/A"}
             else {rd = "\(info.releaseDate ?? Date())"}
             cell.detailTextLabel?.text = rd
-        case 10: // 11
+        case 10:
+            cell.textLabel?.text = "Beats Per Minute"
+            cell.detailTextLabel?.text = info.beatsPerMinute == 0 ? "Unknown" : "\(info.beatsPerMinute)"
+        case 11: // 12
             cell.textLabel?.text = "Play Count"
             cell.detailTextLabel?.text = "\(info.playCount)"
-        case 11: // 12
+        case 12: // 13
             cell.textLabel?.text = "Skip Count"
             cell.detailTextLabel?.text = "\(info.skipCount)"
         default:

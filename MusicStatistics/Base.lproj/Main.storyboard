@@ -202,7 +202,9 @@
                                         <rect key="frame" x="134" y="0.0" width="32" height="32"/>
                                         <state key="normal" image="playlistIcon.png"/>
                                         <connections>
-                                            <segue destination="YjW-7D-dk9" kind="presentation" modalPresentationStyle="formSheet" id="ay6-no-cne"/>
+                                            <segue destination="YjW-7D-dk9" kind="popoverPresentation" popoverAnchorView="Kco-UU-pcq" id="ay6-no-cne">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -237,6 +239,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NSS-5u-Rer" secondAttribute="bottom" constant="229" id="lhG-2S-OrH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cCO-EJ-rjk" secondAttribute="trailing" constant="42" id="mFb-S6-1BU"/>
                             <constraint firstItem="NSS-5u-Rer" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="4" id="r1x-Si-47w"/>
+                            <constraint firstItem="dzJ-PI-AoB" firstAttribute="top" secondItem="NSS-5u-Rer" secondAttribute="bottom" constant="5" id="s3A-YJ-hcd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cfe-pe-Kaa" secondAttribute="trailing" constant="42" id="vRg-2D-S6B"/>
                             <constraint firstItem="cfe-pe-Kaa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="wUG-qj-Wa3"/>
                             <constraint firstItem="cCO-EJ-rjk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="xuU-Lw-b7B"/>

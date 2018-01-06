@@ -27,11 +27,18 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var timer: Timer!
     var beginPlaying: Bool!
     var appDelegate: AppDelegate!
+    var isFirstSongTheSame = false
     
     var collection:MPMediaItemCollection!{
         didSet{
+            var playHead: TimeInterval!
+            if isFirstSongTheSame { playHead = player.currentPlaybackTime }
             player.setQueue(with: collection)
             player.prepareToPlay()
+            if isFirstSongTheSame {
+                player.currentPlaybackTime = playHead
+                isFirstSongTheSame = false
+            }
         }
     }
     
@@ -39,7 +46,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         super.viewDidLoad()
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         // Do any additional setup after loading the view, typically from a nib.
-        updateUI(with: appDelegate.currentQueue.isEmpty ? MPMediaQuery.songs().items!.randomItem()! : appDelegate.currentQueue[0])
+        updateUI(with: appDelegate.currentQueue.isEmpty ? MPMediaQuery.songs().items!.randomItem()! : appDelegate.currentQueue.first)
         updateQueue()
         beginPlaying = false
         isPlayerLoaded = true
@@ -51,35 +58,46 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isPlayerLoaded && !appDelegate.currentQueue.isEmpty{
+            if collection.items.first == appDelegate.currentQueue.first{
+                isFirstSongTheSame = true
+            }
             if collection.items != appDelegate.currentQueue{
-                updateUI(with: appDelegate.currentQueue[0])
+                updateUI(with: appDelegate.currentQueue.first)
                 updateQueue()
             }
         }
         if beginPlaying && !timer.isValid {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
         }
+        checkAndUpdatePlayerInfo()
+        NotificationCenter.default.addObserver(self, selector:#selector(PlayerViewController.checkAndUpdatePlayerInfo),
+                                               name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        // called when the application terminates -> stop the player
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillTerminate, object: UIApplication.shared, queue: OperationQueue.main)
+        { notification in self.player.stop() }
     }
+    
+    @objc func checkAndUpdatePlayerInfo(){ if player.nowPlayingItem != nowPlaying { updateUI(with: player.nowPlayingItem) } }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if beginPlaying {
-            timer.invalidate()
-        }
+        if beginPlaying { timer.invalidate() }
     }
     
-    public func updateUI(with song:MPMediaItem){
-        let frame = UIScreen.main.bounds.size
-        let artworkSize:CGSize = CGSize(width: frame.width, height: frame.width)
-        let artwork = song.artwork
-        albumArt?.image = artwork?.image(at: artworkSize)
-        songTitle.text = song.title ?? "None"
-        albumTitle.text = song.albumTitle ?? "None"
-        //print(song.title! + " " + song.albumTitle!)
-        timeRemaining.text = timeIntervalToReg(song.playbackDuration)
-        player = MPMusicPlayerApplicationController.applicationQueuePlayer
-        playOrPause = false // not playing
-        nowPlaying = song
+    public func updateUI(with song:MPMediaItem?){
+        if song != nil{
+            let frame = UIScreen.main.bounds.size
+            let artworkSize:CGSize = CGSize(width: frame.width, height: frame.width)
+            let artwork = song!.artwork
+            albumArt?.image = artwork?.image(at: artworkSize)
+            songTitle.text = song!.title ?? "None"
+            albumTitle.text = song!.albumTitle ?? "None"
+            //print(song.title! + " " + song.albumTitle!)
+            timeRemaining.text = timeIntervalToReg(song!.playbackDuration)
+            player = MPMusicPlayerApplicationController.applicationQueuePlayer
+            playOrPause = false // not playing
+            nowPlaying = song
+        }
     }
     
     func updateQueue(){
@@ -89,7 +107,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             collection = MPMediaItemCollection(items: appDelegate.currentQueue)
         }
     }
-    
+
     func timeIntervalToReg(_ interval:TimeInterval) -> String{
         let minute = String(Int(interval) / 60)
         var seconds = String(Int(interval) % 60)
@@ -105,11 +123,13 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @objc func updatePlaybackTime(){
         let currTime = player.currentPlaybackTime
         let totalTime = player.nowPlayingItem?.playbackDuration ?? 240.0
-        currentTime.text = timeIntervalToReg(currTime)
-        timeRemaining.text = timeIntervalToReg(totalTime - currTime)
-        songProgress.setValue(Float(currTime/totalTime), animated: true)
-        // update UI when queue automatically skips to next
-        if Int(currTime) == 0 {updateUI(with: player.nowPlayingItem!)}
+        if !currTime.isNaN {
+            currentTime.text = timeIntervalToReg(currTime)
+            timeRemaining.text = timeIntervalToReg(totalTime - currTime)
+            songProgress.setValue(Float(currTime/totalTime), animated: true)
+            // update UI when queue automatically skips to next
+            if Int(currTime) == 0 {updateUI(with: player.nowPlayingItem!)}
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

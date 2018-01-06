@@ -16,7 +16,6 @@ class InfoImageTableViewCell: UITableViewCell {
     
     func updateAlbumArt(with item:MPMediaItem){
         let windowRect:CGRect = UIScreen.main.bounds
-//        print(windowRect.size.width)
         let size = CGSize(width: windowRect.size.width, height: windowRect.size.width)
         albumCover.image =
             item.artwork?.image(at: size)
