@@ -66,22 +66,25 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
                 updateQueue()
             }
         }
-        if beginPlaying && !timer.isValid {
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
-        }
         checkAndUpdatePlayerInfo()
         NotificationCenter.default.addObserver(self, selector:#selector(PlayerViewController.checkAndUpdatePlayerInfo),
                                                name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         // called when the application terminates -> stop the player
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillTerminate, object: UIApplication.shared, queue: OperationQueue.main)
-        { notification in self.player.stop() }
+        { _ in self.player.stop() }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared, queue: OperationQueue.main)
+        { _ in if self.beginPlaying { self.timer.invalidate() } }
     }
     
-    @objc func checkAndUpdatePlayerInfo(){ if player.nowPlayingItem != nowPlaying { updateUI(with: player.nowPlayingItem) } }
+    @objc func checkAndUpdatePlayerInfo(){
+        if player.nowPlayingItem != nowPlaying { updateUI(with: player.nowPlayingItem) }
+        if beginPlaying && !timer.isValid {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if beginPlaying { timer.invalidate() }
     }
     
     public func updateUI(with song:MPMediaItem?){

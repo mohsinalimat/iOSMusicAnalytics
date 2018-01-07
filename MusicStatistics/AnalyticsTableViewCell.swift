@@ -28,9 +28,15 @@ class AnalyticsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICol
         case "Most Skipped":
             requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
             subMode = "Skipcount"
-        case "Least Skipped":
-            requestedSongs = allSongs.sorted(by: {$0.skipCount < $1.skipCount})
-            subMode = "Skipcount"
+//        case "Least Skipped":
+//            requestedSongs = allSongs.sorted(by: {$0.skipCount < $1.skipCount})
+//            subMode = "Skipcount"
+        case "Recently Played":
+            requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
+            subMode = "LPDate"
+        case "Recently Added":
+            requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
+            subMode = "LADate"
         default: break
         }
     }
@@ -43,7 +49,7 @@ class AnalyticsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return requestedSongs.count > 30 ? 30 : requestedSongs.count
+        return requestedSongs.count >= 15 ? 15 : requestedSongs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -53,6 +59,11 @@ class AnalyticsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICol
         }
         
         return cell
+    }
+    
+    // returns the reference date
+    func refDate() -> Date {
+        return Date(timeIntervalSinceReferenceDate: 0)
     }
     
     

@@ -9,17 +9,12 @@
 import UIKit
 
 class AnalyticsTableViewController: UITableViewController {
-    let analyticsMode: Dictionary<Int,String> = [0:"Most Listened", 1:"Least Listened", 2:"Most Skipped", 3: "Least Skipped"]
+    let analyticsMode: Dictionary<Int,String> =
+        [0:"Most Listened", 1:"Least Listened", 2:"Most Skipped",3 : "Recently Played", 4: "Recently Added"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,13 +25,11 @@ class AnalyticsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 4
+        return analyticsMode.count
     }
 
     
@@ -44,7 +37,6 @@ class AnalyticsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "analytics", for: indexPath)
 
         if let analyticsCell = cell as? AnalyticsTableViewCell{
-            //analyticsCell.analyticsModeLabel = analyticsMode[indexPath.row]
             analyticsCell.updateAnalyticsCell(with: analyticsMode[indexPath.row]!)
         }
         return cell
@@ -55,7 +47,36 @@ class AnalyticsTableViewController: UITableViewController {
             return UIScreen.main.bounds.size.height / 2
         }
         return UIScreen.main.bounds.size.height / 3.5
-        //return UITableViewAutomaticDimension
     }
-
+    
+    @IBAction func refreshAnalytics(_ sender: UIRefreshControl) {
+        tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var destinationViewController = segue.destination
+        if let navigationViewController = destinationViewController as? UINavigationController {
+            destinationViewController = navigationViewController.visibleViewController ?? destinationViewController
+        }
+        if let dest = destinationViewController as? AnalyticsDetailTableViewController{
+            //print(tableView.indexPathForSelectedRow?.row)
+            if let tappedIndex = tableView.indexPathForSelectedRow{
+                let containedCell = tableView.cellForRow(at: tappedIndex) as? AnalyticsTableViewCell
+                dest.analyticsDetails = containedCell?.requestedSongs
+            } else {
+                dest.analyticsDetails = []
+            }
+//            if let containedCell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!){
+//                let converted = containedCell as? AnalyticsTableViewCell
+//
+//            }
+        }
+    }
+    
 }
