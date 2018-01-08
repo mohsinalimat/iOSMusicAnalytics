@@ -43,10 +43,8 @@ class AnalyticsTableViewController: UITableViewController {
     }
  
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.traitCollection.verticalSizeClass == .compact{
-            return UIScreen.main.bounds.size.height / 2
-        }
-        return UIScreen.main.bounds.size.height / 3.5
+//        return UIScreen.main.bounds.size.height / 3.5
+        return 191.0
     }
     
     @IBAction func refreshAnalytics(_ sender: UIRefreshControl) {

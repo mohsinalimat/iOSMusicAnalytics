@@ -52,12 +52,10 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return songs.count
     }
     
@@ -155,6 +153,40 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
             songs = unfilteredSongs
         }
         tableView.reloadData()
+    }
+    
+    /*
+    private func sortIntoAlphabeteticalSongs(with allSongs:[MPMediaItem]) -> [[MPMediaItem]]{
+        var results: [[MPMediaItem]] = []
+        var tempCollection: [MPMediaItem] = []
+        var count = 0
+        var currentLetter: Character!
+        var prevLetter: Character!
+        for item in allSongs{
+            if count == 0{
+                prevLetter = item.title?.first
+                count += 1
+            }
+        }
+        return results
+    }
+    
+    private func findFirstAlpha(with text:String) -> Character{
+        let letters = CharacterSet.letters
+        if text.starts(with: "The ") && text.count > 4{
+            return text[4]
+        }
+        for char in text{
+            if letters.contains(char.unicodeScalars) {return char}
+        }
+        return " "
+    }
+     */
+}
+
+extension String {
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
     }
 }
 

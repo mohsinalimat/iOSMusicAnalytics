@@ -46,7 +46,7 @@ class AlbumCollectionViewController: UICollectionViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        let width = UIScreen.main.bounds.width
+        let width = 375.0 // UIScreen.main.bounds.width
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: width / 2.05, height: width / 1.71)// 2.05 & 1.75
         layout.minimumInteritemSpacing = 0

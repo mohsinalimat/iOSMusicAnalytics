@@ -28,6 +28,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var beginPlaying: Bool!
     var appDelegate: AppDelegate!
     var isFirstSongTheSame = false
+    var returnFromQueueEditor = false
     
     var collection:MPMediaItemCollection!{
         didSet{
@@ -35,9 +36,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             if isFirstSongTheSame { playHead = player.currentPlaybackTime }
             player.setQueue(with: collection)
             player.prepareToPlay()
-            if isFirstSongTheSame {
+            if isFirstSongTheSame && returnFromQueueEditor {
                 player.currentPlaybackTime = playHead
                 isFirstSongTheSame = false
+                returnFromQueueEditor = false
             }
         }
     }
@@ -213,6 +215,26 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
+    }
+    
+    @IBAction func alterVolume(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "\n", message: nil, preferredStyle: .actionSheet)
+        alertController.view.tintColor = UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1)
+        
+        let volBounds =  CGRect(x: 10.0, y: 13.0, width: alertController.view.bounds.size.width-50, height: 20)
+        let volumeController = MPVolumeView(frame: volBounds)
+        volumeController.tintColor = UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1)
+        alertController.view.addSubview(volumeController)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+    
+    @IBAction func updatePlayingQueue(with segue:UIStoryboardSegue){
+        if let _ = segue.source as? QueueTableViewController{
+            returnFromQueueEditor = true
+        }
     }
 }
 

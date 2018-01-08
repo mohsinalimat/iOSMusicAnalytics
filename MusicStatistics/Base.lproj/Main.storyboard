@@ -120,7 +120,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uT0-nD-qWn">
-                                <rect key="frame" x="107" y="510" width="168" height="40"/>
+                                <rect key="frame" x="103.5" y="510" width="168" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfX-Ad-yNe">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="40"/>
@@ -169,8 +169,20 @@
                                 <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="mMG-rg-ZjD">
-                                <rect key="frame" x="107" y="575" width="166" height="32"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dzJ-PI-AoB">
+                                <rect key="frame" x="42" y="394" width="293" height="31"/>
+                                <color key="minimumTrackTintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="thumbTintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="songProgressChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="dV6-FA-Wrb"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17c-SY-Yy1">
+                                <rect key="frame" x="268" y="580" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="oSW-QW-2ui">
+                                <rect key="frame" x="82.5" y="575" width="210" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPb-gj-RSt">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -181,7 +193,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7C-JM-3VT">
-                                        <rect key="frame" x="48" y="0.0" width="32" height="32"/>
+                                        <rect key="frame" x="47" y="0.0" width="32" height="32"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="shuffleIcon1.png"/>
                                         <connections>
@@ -189,7 +201,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPv-Nw-nnm">
-                                        <rect key="frame" x="96" y="0.0" width="22" height="32"/>
+                                        <rect key="frame" x="94" y="0.0" width="22" height="32"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal">
                                             <color key="titleColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -199,7 +211,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kco-UU-pcq">
-                                        <rect key="frame" x="134" y="0.0" width="32" height="32"/>
+                                        <rect key="frame" x="131" y="0.0" width="32" height="32"/>
                                         <state key="normal" image="playlistIcon.png"/>
                                         <connections>
                                             <segue destination="YjW-7D-dk9" kind="popoverPresentation" popoverAnchorView="Kco-UU-pcq" id="ay6-no-cne">
@@ -207,35 +219,32 @@
                                             </segue>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hco-XQ-pjs">
+                                        <rect key="frame" x="178" y="0.0" width="32" height="32"/>
+                                        <state key="normal" image="volumeIcon.png"/>
+                                        <connections>
+                                            <action selector="alterVolume:" destination="BYZ-38-t0r" eventType="touchUpInside" id="20A-Uq-hKb"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dzJ-PI-AoB">
-                                <rect key="frame" x="42" y="394" width="293" height="31"/>
-                                <color key="minimumTrackTintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="thumbTintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <connections>
-                                    <action selector="songProgressChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="dV6-FA-Wrb"/>
-                                </connections>
-                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="dzJ-PI-AoB" firstAttribute="leading" secondItem="SqY-dZ-3F2" secondAttribute="trailing" constant="7.5" id="1Xc-jp-Qkw"/>
                             <constraint firstItem="uT0-nD-qWn" firstAttribute="top" secondItem="cfe-pe-Kaa" secondAttribute="bottom" constant="19" id="1oW-Hf-uju"/>
                             <constraint firstItem="NSS-5u-Rer" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="1" id="2FV-mb-RVV"/>
-                            <constraint firstItem="uT0-nD-qWn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="107" id="580-E3-csw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mMG-rg-ZjD" secondAttribute="trailing" constant="102" id="5UJ-tT-1EY"/>
                             <constraint firstItem="SqY-dZ-3F2" firstAttribute="top" secondItem="NSS-5u-Rer" secondAttribute="bottom" constant="15" id="7Od-07-QXo"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uT0-nD-qWn" secondAttribute="trailing" constant="100" id="8QP-hj-A7g"/>
-                            <constraint firstItem="mMG-rg-ZjD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="107" id="9tN-H2-V4k"/>
                             <constraint firstItem="cfe-pe-Kaa" firstAttribute="top" secondItem="cCO-EJ-rjk" secondAttribute="bottom" constant="8" id="DNY-wS-DBX"/>
                             <constraint firstItem="sgB-cp-3gr" firstAttribute="top" secondItem="NSS-5u-Rer" secondAttribute="bottom" constant="16" id="EKH-L9-tpl"/>
                             <constraint firstItem="NSS-5u-Rer" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Jzq-yK-ZH5"/>
                             <constraint firstItem="sgB-cp-3gr" firstAttribute="leading" secondItem="dzJ-PI-AoB" secondAttribute="trailing" constant="7.5" id="M9X-Sd-x6O"/>
-                            <constraint firstItem="mMG-rg-ZjD" firstAttribute="top" secondItem="aQX-yh-BXV" secondAttribute="bottom" constant="25" id="UwA-Ub-a9r"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oSW-QW-2ui" secondAttribute="bottom" constant="11" id="MQb-z2-U32"/>
+                            <constraint firstItem="oSW-QW-2ui" firstAttribute="top" secondItem="aQX-yh-BXV" secondAttribute="bottom" constant="25" id="WO7-Qk-kxw"/>
                             <constraint firstItem="cCO-EJ-rjk" firstAttribute="top" secondItem="dzJ-PI-AoB" secondAttribute="bottom" constant="5" id="XMT-G1-93j"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mMG-rg-ZjD" secondAttribute="bottom" constant="11" id="ZEW-sO-GbU"/>
+                            <constraint firstItem="uT0-nD-qWn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Xmt-ua-Jde"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sgB-cp-3gr" secondAttribute="trailing" constant="12" id="aCg-sE-4HV"/>
+                            <constraint firstItem="oSW-QW-2ui" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="egb-DR-w6p"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NSS-5u-Rer" secondAttribute="bottom" constant="229" id="lhG-2S-OrH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cCO-EJ-rjk" secondAttribute="trailing" constant="42" id="mFb-S6-1BU"/>
                             <constraint firstItem="NSS-5u-Rer" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="4" id="r1x-Si-47w"/>
@@ -505,13 +514,13 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="F2S-IV-3zA">
                                             <rect key="frame" x="62" y="257" width="251" height="76.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXq-Pv-R4Y">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXq-Pv-R4Y">
                                                     <rect key="frame" x="0.0" y="0.0" width="251" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndh-aH-fT3">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndh-aH-fT3">
                                                     <rect key="frame" x="0.0" y="30.5" width="251" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -862,6 +871,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="WQN-fH-j4w"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="K9a-WL-kof">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="refreshAnalytics:" destination="uFb-uD-wID" eventType="valueChanged" id="XxR-XX-e4a"/>
@@ -962,11 +972,13 @@
                             <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="leaveQueue:" destination="8IS-a9-foc" id="RuA-VR-eXA"/>
+                                <segue destination="WRt-Qa-eXZ" kind="unwind" unwindAction="updatePlayingQueueWith:" id="7mJ-lB-CKx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q57-ai-RvN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="WRt-Qa-eXZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="482" y="2318"/>
         </scene>
@@ -1000,5 +1012,6 @@
         <image name="repeatIcon1.png" width="32" height="32"/>
         <image name="shuffleIcon1.png" width="32" height="32"/>
         <image name="songIcon.png" width="32" height="32"/>
+        <image name="volumeIcon.png" width="32" height="32"/>
     </resources>
 </document>
