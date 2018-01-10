@@ -15,10 +15,11 @@
         <scene sceneID="wfn-qz-g0f">
             <objects>
                 <tableViewController id="pIS-VP-ayh" customClass="SongTableViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TEk-tk-ThL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TEk-tk-ThL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="sectionIndexColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="song" textLabel="Soc-YS-6ak" detailTextLabel="5w5-ry-tHC" style="IBUITableViewCellStyleSubtitle" id="dy0-HK-4RZ">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -51,32 +52,7 @@
                             <outlet property="delegate" destination="pIS-VP-ayh" id="dZw-hY-JCy"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem title="Now Playing" width="155" id="7OU-IW-UaT">
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <connections>
-                                <action selector="moveToPlayer:" destination="pIS-VP-ayh" id="T2m-81-3X2"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="23" style="plain" systemItem="fixedSpace" id="AkW-YW-gXh"/>
-                        <barButtonItem systemItem="play" id="ldn-R5-q5W">
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </barButtonItem>
-                        <barButtonItem width="36" style="plain" systemItem="fixedSpace" id="dX4-4E-yd1"/>
-                        <barButtonItem systemItem="pause" id="2uo-5t-bmP">
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </barButtonItem>
-                        <barButtonItem width="34" style="plain" systemItem="fixedSpace" id="qwC-fQ-D26"/>
-                        <barButtonItem systemItem="rewind" id="aQG-xc-A8X">
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </barButtonItem>
-                        <barButtonItem width="68" style="plain" systemItem="fixedSpace" id="Va3-Rp-oxt">
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </barButtonItem>
-                        <barButtonItem systemItem="fastForward" id="vya-Ss-3VN">
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="H3e-RN-nnA">
                         <barButtonItem key="rightBarButtonItem" title="Sort" id="cGt-q4-QSd">
                             <connections>
@@ -281,7 +257,7 @@
         <!--Songs-->
         <scene sceneID="kDd-jn-6az">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="oTV-3s-o3x" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oTV-3s-o3x" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Songs" image="songIcon.png" id="yOX-Jy-P0x"/>
                     <toolbarItems>
                         <barButtonItem title="Item" id="dVq-g1-9hl"/>
@@ -300,10 +276,6 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="y1X-QA-Sb3">
-                        <rect key="frame" x="0.0" y="574" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="pIS-VP-ayh" kind="relationship" relationship="rootViewController" id="Dhc-O8-gcC"/>
                     </connections>

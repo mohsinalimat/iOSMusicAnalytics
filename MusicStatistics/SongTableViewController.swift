@@ -13,12 +13,15 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
 
     var songs:[MPMediaItem] = []
     var unfilteredSongs:[MPMediaItem] = []
+    var songSections: [[MPMediaItem]] = []
+    let collation = UILocalizedIndexedCollation.current()
     var sortMode:String!
     var lastSong:MPMediaItem? = nil
     var appDelegate: AppDelegate!
     let playController = PlayerViewController()
     //@IBOutlet weak var songSearchBar: UISearchBar!
     var searchController: UISearchController!
+    var sectionTitles:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +29,7 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         self.title = "Songs"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         unfilteredSongs = MPMediaQuery.songs().items ?? []
-        songs = unfilteredSongs
+        (songSections, sectionTitles) = sortIntoSongSections(with: unfilteredSongs, and: "Title")
         sortMode = "Title" // initialize at title sorting mode
         self.popoverPresentationController?.delegate = self
         
@@ -37,11 +40,16 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         searchController.searchBar.keyboardAppearance = .dark
         UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = UIColor.orange
         tableView.tableHeaderView = searchController.searchBar
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(true, animated: animated)
+//        if self.view.alpha == 0.0{
+//            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut],
+//                           animations: {self.view.alpha = 1.0})
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,60 +60,59 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sectionTitles.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return songs.count
+        return songSections[section].count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        appDelegate.currentQueue = Array(songs[indexPath.row..<songs.count])
-        self.navigationController?.setToolbarHidden(false, animated: true)
-        //playController.updateUI(with: songs[indexPath.row])
-        //appDelegate.currentQueue = Array(albumContents[indexPath.row - 1..<albumContents.count])
+        let totalNumberSongsInSection = songSections[indexPath.section].count - 1
+        appDelegate.currentQueue = Array(songSections[indexPath.section][indexPath.row...totalNumberSongsInSection])
+        
+//        if self.view.alpha == 1.0{
+//            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut],
+//                           animations: {self.view.alpha = 0.0})
+//        }
         if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
             tabbar.selectedIndex = 2
         }
         
-    }
-
-    @IBAction func moveToPlayer(_ sender: UIBarButtonItem) {
-        if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
-            tabbar.selectedIndex = 2
-        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "song", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = songs[indexPath.row].title
-        let artistInfo = (songs[indexPath.row].artist ?? "")
-        let albumInfo =  " · " + (songs[indexPath.row].albumTitle ?? "")
-        let genreInfo = " · " + (songs[indexPath.row].genre ?? "")
+        let currSong = songSections[indexPath.section][indexPath.row]
+        cell.textLabel?.text = currSong.title
+        let artistInfo = (currSong.artist ?? "")
+        let albumInfo =  " · " + (currSong.albumTitle ?? "")
+        let genreInfo = " · " + (currSong.genre ?? "")
         cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
-        cell.imageView?.image = songs[indexPath.row].artwork?.image(at: CGSize(width:30,height:30))
+        cell.imageView?.image = currSong.artwork?.image(at: CGSize(width:30,height:30))
 
         return cell
     }
     
     @IBAction func updateSortingMode(from segue:UIStoryboardSegue){
+        var tempQuery: [MPMediaItem]!
         if let result = segue.source as? SortSongsViewController{
             if sortMode != result.currentSortingMode{ // only reload data when different
                 sortMode = result.currentSortingMode
                 switch sortMode{
-                case "Title":
-                    songs = MPMediaQuery.songs().items ?? []
-                case "Artist":
-                    songs = MPMediaQuery.artists().items ?? []
-                case "Album":
-                    songs = MPMediaQuery.albums().items ?? []
-                case "Genre":
-                    songs = MPMediaQuery.genres().items ?? []
-                default:
-                    break
+                    case "Title": tempQuery = MPMediaQuery.songs().items ?? []
+                    case "Artist": tempQuery = MPMediaQuery.artists().items ?? []
+                    case "Album": tempQuery = MPMediaQuery.albums().items ?? []
+                    case "Genre": tempQuery = MPMediaQuery.genres().items ?? []
+                    default: break
                 }
+                (songSections, sectionTitles) = sortIntoSongSections(with: tempQuery, and: sortMode)
                 tableView.reloadData()
             }
         }
@@ -154,39 +161,8 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         }
         tableView.reloadData()
     }
-    
-    /*
-    private func sortIntoAlphabeteticalSongs(with allSongs:[MPMediaItem]) -> [[MPMediaItem]]{
-        var results: [[MPMediaItem]] = []
-        var tempCollection: [MPMediaItem] = []
-        var count = 0
-        var currentLetter: Character!
-        var prevLetter: Character!
-        for item in allSongs{
-            if count == 0{
-                prevLetter = item.title?.first
-                count += 1
-            }
-        }
-        return results
-    }
-    
-    private func findFirstAlpha(with text:String) -> Character{
-        let letters = CharacterSet.letters
-        if text.starts(with: "The ") && text.count > 4{
-            return text[4]
-        }
-        for char in text{
-            if letters.contains(char.unicodeScalars) {return char}
-        }
-        return " "
-    }
-     */
-}
-
-extension String {
-    subscript (i: Int) -> Character {
-        return self[index(startIndex, offsetBy: i)]
+ 
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return sectionTitles
     }
 }
-
