@@ -12,35 +12,14 @@ import MediaPlayer
 private let reuseIdentifier = "album"
 
 class AlbumCollectionViewController: UICollectionViewController {
-    var albums:[[MPMediaItem]] = []
+    //var albums:[[MPMediaItem]] = []
+    var albums:[[[MPMediaItem]]] = []
+    var sectionTitles: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.title = "Albums"
-        //append all songs into double a double array, with each sub-array being a whole album
-        let allAlbums = MPMediaQuery.albums().items ?? []
-        var prev: MPMediaItem! = allAlbums[0]
-        var tempAlbum: [MPMediaItem] = []
-        var count = 0
-        for item in allAlbums{
-            let currAlbumTitle = item.albumTitle ?? "NoAlbum"
-            let prevAlbumTitle = prev.albumTitle ?? "No-Album"
-            if count == 0 {
-                tempAlbum.append(item)
-                prev = item
-                count += 1
-                continue
-            }
-            if (prevAlbumTitle != currAlbumTitle){ // new album
-                albums.append(tempAlbum)
-                tempAlbum.removeAll()
-            }
-            tempAlbum.append(item)
-            prev = item
-            count += 1
-        }
+        (albums,sectionTitles) = sortAlbumsIntoSections(with: sortSongsIntoAlbums())
     }
     
     override func awakeFromNib() {
@@ -51,6 +30,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         layout.itemSize = CGSize(width: width / 2.05, height: width / 1.71)// 2.05 & 1.75
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
+        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 27)
         collectionView!.collectionViewLayout = layout
     }
 
@@ -64,19 +44,18 @@ class AlbumCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return albums.count
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albums.count
+        return albums[section].count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         if let albumCell = cell as? AlbumCollectionViewCell{
-            albumCell.updateCell(with: albums[indexPath.row][0])
+            albumCell.updateCell(with: albums[indexPath.section][indexPath.row].first!)
         }
         return cell
     }
@@ -88,11 +67,33 @@ class AlbumCollectionViewController: UICollectionViewController {
         }
         if let dest = destinationViewController as? AlbumTableViewController{
             if let indexPath = self.collectionView?.indexPathsForSelectedItems?.first!{
-                dest.albumContents = albums[indexPath.row]
-                dest.navigationItem.title = albums[indexPath.row][0].albumTitle ?? ""
+                dest.albumContents = albums[indexPath.section][indexPath.row]
+                dest.navigationItem.title = albums[indexPath.section][indexPath.row][0].albumTitle ?? ""
             }
             
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        switch kind{
+//        case UICollectionElementKindSectionHeader:
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "albumHeaderView", for: indexPath) as? AlbumHeaderCollectionReusableView
+        headerView?.albumHeaderLabel.text = sectionTitles[indexPath.section]
+        return headerView!
+//        default: break
+//        }
+    }
+    
+    override func indexTitles(for collectionView: UICollectionView) -> [String]? {
+        super.indexTitles(for: collectionView)
+        print("called indextitles")
+        return sectionTitles
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
+        super.collectionView(collectionView, indexPathForIndexTitle: title, at: index)
+        print("called indexPathForIndexTitle")
+        return IndexPath(row: 0, section: index)
     }
 
 }

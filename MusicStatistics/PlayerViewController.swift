@@ -104,7 +104,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             nowPlaying = song
             
             background.image = nil
-            background.image = (artwork?.image(at: artworkSize))!
+            background.image = artwork?.image(at: artworkSize)
             background.addBlurEffect()
             
         }

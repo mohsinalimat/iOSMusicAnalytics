@@ -395,19 +395,19 @@
         <scene sceneID="jkE-Ss-gxM">
             <objects>
                 <collectionViewController id="OV7-vK-Oqw" customClass="AlbumCollectionViewController" customModule="MusicStatistics" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" id="Q1C-Sm-DvE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" indicatorStyle="white" dataMode="prototypes" id="Q1C-Sm-DvE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136986301364" colorSpace="custom" customColorSpace="displayP3"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="R3j-HD-Dom">
                             <size key="itemSize" width="177" height="236"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="28"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="album" id="eIE-j8-h1B" customClass="AlbumCollectionViewCell" customModule="MusicStatistics" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="177" height="236"/>
+                                <rect key="frame" x="0.0" y="28" width="177" height="236"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="177" height="236"/>
@@ -441,6 +441,28 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="albumHeaderView" id="cXP-Mo-IOx" customClass="AlbumHeaderCollectionReusableView" customModule="MusicStatistics" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="28"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFz-0L-4cN">
+                                    <rect key="frame" x="13" y="2" width="42" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.16862541437149048" green="0.1686260998249054" blue="0.16862750053405762" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RFz-0L-4cN" secondAttribute="trailing" id="Oe8-h2-rxs"/>
+                                <constraint firstAttribute="bottom" secondItem="RFz-0L-4cN" secondAttribute="bottom" constant="2" id="YTZ-pJ-7tb"/>
+                                <constraint firstItem="RFz-0L-4cN" firstAttribute="leading" secondItem="cXP-Mo-IOx" secondAttribute="leading" constant="13" id="akw-mz-MnR"/>
+                                <constraint firstItem="RFz-0L-4cN" firstAttribute="top" secondItem="cXP-Mo-IOx" secondAttribute="top" constant="2" id="gZB-hV-6zx"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="albumHeaderLabel" destination="RFz-0L-4cN" id="fjl-qm-94d"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="OV7-vK-Oqw" id="C16-DY-mss"/>
                             <outlet property="delegate" destination="OV7-vK-Oqw" id="wrn-Ac-a2p"/>
@@ -496,13 +518,13 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="F2S-IV-3zA">
                                             <rect key="frame" x="62" y="257" width="251" height="76.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXq-Pv-R4Y">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXq-Pv-R4Y">
                                                     <rect key="frame" x="0.0" y="0.0" width="251" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndh-aH-fT3">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndh-aH-fT3">
                                                     <rect key="frame" x="0.0" y="30.5" width="251" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

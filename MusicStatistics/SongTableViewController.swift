@@ -14,7 +14,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     var songs:[MPMediaItem] = []
     var unfilteredSongs:[MPMediaItem] = []
     var songSections: [[MPMediaItem]] = []
-    let collation = UILocalizedIndexedCollation.current()
     var sortMode:String!
     var lastSong:MPMediaItem? = nil
     var appDelegate: AppDelegate!

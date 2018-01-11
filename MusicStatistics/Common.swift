@@ -65,6 +65,68 @@ func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MP
     return (results,secTitles)
 }
 
+//sort all albums into alphabetical sections
+func sortAlbumsIntoSections(with allAlbums:[[MPMediaItem]]) -> ([[[MPMediaItem]]], [String]){
+    var count = 0
+    var secTitles:[String] = []
+    var temp: [[MPMediaItem]] = []
+    var results: [[[MPMediaItem]]] = []
+    var currentLetter: String!
+    var prevLetter: String! = findFirstLetter(with: allAlbums.first?.first?.albumTitle ?? " ")
+    for item in allAlbums{
+        if count == 0{
+            temp.append(item)
+            count += 1
+            continue
+        }
+        currentLetter = findFirstLetter(with: item.first?.albumTitle ?? " ")
+        if String(item.first?.albumTitle?.first ?? Character(" ")).isNumber { currentLetter = "#" }
+        if prevLetter != currentLetter && prevLetter != "#"{
+            results.append(temp)
+            temp.removeAll()
+            secTitles.append(prevLetter)
+        }
+        temp.append(item)
+        prevLetter = currentLetter
+        count += 1
+        if item == allAlbums.last! {
+            results.append(temp)
+            secTitles.append("#")
+        }
+    }
+    return (results,secTitles)
+}
+
+//append all songs into double a double array, with each sub-array being a whole album
+func sortSongsIntoAlbums() -> [[MPMediaItem]]{
+    var albums:[[MPMediaItem]] = []
+    let allAlbums = MPMediaQuery.albums().items ?? []
+    var prev: MPMediaItem! = allAlbums[0]
+    var tempAlbum: [MPMediaItem] = []
+    var count = 0
+    for item in allAlbums{
+        let currAlbumTitle = item.albumTitle ?? "NoAlbum"
+        let prevAlbumTitle = prev.albumTitle ?? "No-Album"
+        if count == 0 {
+            tempAlbum.append(item)
+            prev = item
+            count += 1
+            continue
+        }
+        if (prevAlbumTitle != currAlbumTitle){ // new album
+            albums.append(tempAlbum)
+            tempAlbum.removeAll()
+        }
+        tempAlbum.append(item)
+        prev = item
+        count += 1
+        if item == allAlbums.last!{
+            albums.append(tempAlbum)
+        }
+    }
+    return albums
+}
+
 private func findFirstLetter(with text:String) -> String{
     if text.starts(with: "The ") && text.count > 4 { return String(text[4])}
     if text.starts(with: "A ") && text.count > 2 {return String(text[2])}
