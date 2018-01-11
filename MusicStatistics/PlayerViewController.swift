@@ -19,6 +19,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBOutlet weak var shuffleIcon: UIButton!
     @IBOutlet weak var repeatIcon: UIButton!
     @IBOutlet weak var songProgress: UISlider!
+    @IBOutlet weak var background: UIImageView!
     
     var nowPlaying: MPMediaItem!
     var player:MPMusicPlayerApplicationController!
@@ -97,11 +98,15 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             albumArt?.image = artwork?.image(at: artworkSize)
             songTitle.text = song!.title ?? "None"
             albumTitle.text = song!.albumTitle ?? "None"
-            //print(song.title! + " " + song.albumTitle!)
             timeRemaining.text = timeIntervalToReg(song!.playbackDuration)
             player = MPMusicPlayerApplicationController.applicationQueuePlayer
             playOrPause = false // not playing
             nowPlaying = song
+            
+            background.image = nil
+            background.image = (artwork?.image(at: artworkSize))!
+            background.addBlurEffect()
+            
         }
     }
     

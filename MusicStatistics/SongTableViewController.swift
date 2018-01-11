@@ -165,4 +165,11 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return sectionTitles
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UITableViewHeaderFooterView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: tableView.sectionHeaderHeight))
+        headerView.contentView.backgroundColor = UIColor.lightText
+        headerView.textLabel?.textColor = UIColor.orange
+        return headerView
+    }
 }

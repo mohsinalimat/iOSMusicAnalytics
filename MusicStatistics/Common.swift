@@ -65,37 +65,6 @@ func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MP
     return (results,secTitles)
 }
 
-func sortIntoArtistSections(with allSongs:[MPMediaItem]) -> ([[MPMediaItem]], [String]){
-    var results: [[MPMediaItem]] = []
-    var tempCollection: [MPMediaItem] = []
-    var count = 0
-    var secTitles:[String] = []
-    var currentLetter: String!
-    var prevLetter: String!  = findFirstLetter(with: allSongs.first?.artist ?? " ")
-    for item in allSongs{
-        if count == 0{
-            tempCollection.append(item)
-            count += 1
-            continue
-        }
-        currentLetter = findFirstLetter(with: item.artist ?? " ")
-        if String(item.artist?.first ?? Character(" ")).isNumber { currentLetter = "#" }
-        if prevLetter != currentLetter && prevLetter != "#"{
-            results.append(tempCollection)
-            tempCollection.removeAll()
-            secTitles.append(prevLetter)
-        }
-        tempCollection.append(item)
-        prevLetter = currentLetter
-        count += 1
-        if item == allSongs.last! {
-            results.append(tempCollection)
-            secTitles.append("#")
-        }
-    }
-    return (results,secTitles)
-}
-
 private func findFirstLetter(with text:String) -> String{
     if text.starts(with: "The ") && text.count > 4 { return String(text[4])}
     if text.starts(with: "A ") && text.count > 2 {return String(text[2])}
@@ -110,6 +79,17 @@ extension String {
     }
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+}
+
+extension UIImageView{
+    func addBlurEffect(){
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.addSubview(blurEffectView)
     }
 }
 
