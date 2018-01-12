@@ -40,7 +40,7 @@ class AlbumTableViewController: UITableViewController {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "albumInfo", for: indexPath)
             if let infoCell = cell as? AlbumInfoTableViewCell{
-                infoCell.updateAlbumInfo(with: albumContents[0])
+                infoCell.updateAlbumInfo(with: albumContents.last!)
             }
             return cell
         }

@@ -178,7 +178,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     }
     
     @IBAction func prevSong(_ sender: UIButton) {
-        player.skipToPreviousItem()
+        player.currentPlaybackTime > 10.0 ? player.skipToBeginning() : player.skipToPreviousItem()
         updateUI(with: player.nowPlayingItem!)
         playOrPause = true
         player.play()

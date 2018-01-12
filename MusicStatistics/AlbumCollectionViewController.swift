@@ -8,18 +8,31 @@
 
 import UIKit
 import MediaPlayer
+import BDKCollectionIndexView
 
 private let reuseIdentifier = "album"
 
 class AlbumCollectionViewController: UICollectionViewController {
-    //var albums:[[MPMediaItem]] = []
     var albums:[[[MPMediaItem]]] = []
     var sectionTitles: [String] = []
+    var haptic = UISelectionFeedbackGenerator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
         (albums,sectionTitles) = sortAlbumsIntoSections(with: sortSongsIntoAlbums())
+        
+        let indexWidth:CGFloat = 14.0
+        let frameWidth = collectionView?.frame.width
+        let frameHeight = collectionView?.frame.height
+        let frame = CGRect(x: frameWidth! - 14, y: 0, width: indexWidth, height: frameHeight!)
+        let indexView = BDKCollectionIndexView(frame: frame, indexTitles: nil)
+        indexView!.indexTitles = sectionTitles
+        indexView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        indexView!.tintColor = UIColor.orange
+        indexView!.addTarget(self, action: #selector(self.indexViewValueChanged(sender:)), for: .valueChanged)
+        self.view.addSubview(indexView!)
+        self.view.bringSubview(toFront: indexView!)
     }
     
     override func awakeFromNib() {
@@ -39,6 +52,12 @@ class AlbumCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func indexViewValueChanged(sender: BDKCollectionIndexView){
+        haptic.selectionChanged()
+        let indexPath = IndexPath(item: 0, section: Int(sender.currentIndex))
+        collectionView?.scrollToItem(at: indexPath, at: .top, animated: false)
+    }
+    
     
 
     // MARK: UICollectionViewDataSource
@@ -55,7 +74,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         if let albumCell = cell as? AlbumCollectionViewCell{
-            albumCell.updateCell(with: albums[indexPath.section][indexPath.row].first!)
+            albumCell.updateCell(with: albums[indexPath.section][indexPath.row].last!)
         }
         return cell
     }
@@ -83,7 +102,8 @@ class AlbumCollectionViewController: UICollectionViewController {
 //        default: break
 //        }
     }
-    
+   
+    /*
     override func indexTitles(for collectionView: UICollectionView) -> [String]? {
         super.indexTitles(for: collectionView)
         print("called indextitles")
@@ -95,5 +115,6 @@ class AlbumCollectionViewController: UICollectionViewController {
         print("called indexPathForIndexTitle")
         return IndexPath(row: 0, section: index)
     }
+     */
 
 }

@@ -395,7 +395,7 @@
         <scene sceneID="jkE-Ss-gxM">
             <objects>
                 <collectionViewController id="OV7-vK-Oqw" customClass="AlbumCollectionViewController" customModule="MusicStatistics" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" indicatorStyle="white" dataMode="prototypes" id="Q1C-Sm-DvE">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="Q1C-Sm-DvE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136986301364" colorSpace="custom" customColorSpace="displayP3"/>
