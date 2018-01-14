@@ -42,6 +42,11 @@
 		04AD7F481FF9BADD00565725 /* playingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F451FF9BADD00565725 /* playingIcon@2x.png */; };
 		04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F461FF9BADD00565725 /* albumIcon@2x.png */; };
 		04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F471FF9BADD00565725 /* songIcon@2x.png */; };
+		04BB44B7200B037200CA1B87 /* mostPlayedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B2200B037200CA1B87 /* mostPlayedIcon@2x.png */; };
+		04BB44B8200B037200CA1B87 /* worried@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B3200B037200CA1B87 /* worried@2x.png */; };
+		04BB44B9200B037200CA1B87 /* addIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B4200B037200CA1B87 /* addIcon@2x.png */; };
+		04BB44BA200B037200CA1B87 /* fearfulIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B5200B037200CA1B87 /* fearfulIcon@2x.png */; };
+		04BB44BB200B037200CA1B87 /* recentsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B6200B037200CA1B87 /* recentsIcon@2x.png */; };
 		CC22CDD1EC21957B16393DF3 /* Pods_MusicStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F39879F098C541FF157506 /* Pods_MusicStatistics.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +88,11 @@
 		04AD7F451FF9BADD00565725 /* playingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playingIcon@2x.png"; sourceTree = "<group>"; };
 		04AD7F461FF9BADD00565725 /* albumIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "albumIcon@2x.png"; sourceTree = "<group>"; };
 		04AD7F471FF9BADD00565725 /* songIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "songIcon@2x.png"; sourceTree = "<group>"; };
+		04BB44B2200B037200CA1B87 /* mostPlayedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mostPlayedIcon@2x.png"; sourceTree = "<group>"; };
+		04BB44B3200B037200CA1B87 /* worried@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "worried@2x.png"; sourceTree = "<group>"; };
+		04BB44B4200B037200CA1B87 /* addIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addIcon@2x.png"; sourceTree = "<group>"; };
+		04BB44B5200B037200CA1B87 /* fearfulIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fearfulIcon@2x.png"; sourceTree = "<group>"; };
+		04BB44B6200B037200CA1B87 /* recentsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recentsIcon@2x.png"; sourceTree = "<group>"; };
 		04CD9BC6703B0D9D67CE7F94 /* Pods-MusicStatistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicStatistics.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics.release.xcconfig"; sourceTree = "<group>"; };
 		3333EB3C7A910040B4C73165 /* Pods-MusicStatistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicStatistics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics.debug.xcconfig"; sourceTree = "<group>"; };
 		49F39879F098C541FF157506 /* Pods_MusicStatistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicStatistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +113,11 @@
 		0402E4E71FFEE07900479CC6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04BB44B4200B037200CA1B87 /* addIcon@2x.png */,
+				04BB44B5200B037200CA1B87 /* fearfulIcon@2x.png */,
+				04BB44B2200B037200CA1B87 /* mostPlayedIcon@2x.png */,
+				04BB44B6200B037200CA1B87 /* recentsIcon@2x.png */,
+				04BB44B3200B037200CA1B87 /* worried@2x.png */,
 				049FCDCF2002CCF400CB3A0B /* volumeIcon@2x.png */,
 				0402E4EC1FFF0FAD00479CC6 /* playerThumb@3x.png */,
 				0402E4E41FFED4D000479CC6 /* repeatIcon2@2x.png */,
@@ -254,13 +269,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				04415A041FF47B2000E024DF /* LaunchScreen.storyboard in Resources */,
+				04BB44B7200B037200CA1B87 /* mostPlayedIcon@2x.png in Resources */,
 				0402E4E11FFED28A00479CC6 /* playlistIcon@2x.png in Resources */,
 				0402E4E51FFED4D000479CC6 /* repeatIcon2@2x.png in Resources */,
 				04415A011FF47B2000E024DF /* Assets.xcassets in Resources */,
+				04BB44B9200B037200CA1B87 /* addIcon@2x.png in Resources */,
+				04BB44B8200B037200CA1B87 /* worried@2x.png in Resources */,
 				048BBF741FF71FDE0040817F /* next.png in Resources */,
+				04BB44BB200B037200CA1B87 /* recentsIcon@2x.png in Resources */,
 				048BBF751FF71FDE0040817F /* prev.png in Resources */,
 				048BBF6D1FF700230040817F /* Play Button.png in Resources */,
 				04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */,
+				04BB44BA200B037200CA1B87 /* fearfulIcon@2x.png in Resources */,
 				04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */,
 				0402E4DD1FFED14000479CC6 /* shuffleIcon1@2x.png in Resources */,
 				04AD7F3C1FF99CDA00565725 /* Pause Button.png in Resources */,

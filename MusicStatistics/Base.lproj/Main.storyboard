@@ -840,9 +840,6 @@
                                             <state key="normal" title="See All &gt;">
                                                 <color key="titleColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </state>
-                                            <connections>
-                                                <segue destination="qE1-WF-M8r" kind="show" id="fFv-nm-cdl"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -865,6 +862,30 @@
                                 <connections>
                                     <outlet property="analyticsCL" destination="sQY-Q0-al8" id="yDB-qF-0wP"/>
                                     <outlet property="mode" destination="fDj-97-Pcq" id="eZd-r6-m5V"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="simpleAnalyticsCell" textLabel="SL0-C7-KzD" imageView="iQp-gV-kMB" style="IBUITableViewCellStyleDefault" id="Bji-Qc-tle">
+                                <rect key="frame" x="0.0" y="218" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bji-Qc-tle" id="tbH-dc-6kw">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SL0-C7-KzD">
+                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iQp-gV-kMB">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="qE1-WF-M8r" kind="show" id="xkq-18-Jo0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

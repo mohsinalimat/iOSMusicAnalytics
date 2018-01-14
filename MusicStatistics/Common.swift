@@ -135,6 +135,11 @@ private func findFirstLetter(with text:String) -> String{
     return " "
 }
 
+// returns the reference date
+func refDate() -> Date {
+    return Date(timeIntervalSinceReferenceDate: 0)
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]

@@ -61,10 +61,4 @@ class AnalyticsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICol
         return cell
     }
     
-    // returns the reference date
-    func refDate() -> Date {
-        return Date(timeIntervalSinceReferenceDate: 0)
-    }
-    
-    
 }
