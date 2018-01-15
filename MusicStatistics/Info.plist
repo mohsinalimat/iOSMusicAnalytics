@@ -21,7 +21,55 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
-	<string> We&apos;ll use your media library</string>
+	<string> We'll use your media library</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>songIcon</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string></string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Songs</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenSongs</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>version</key>
+				<string>${APP_VERSION}</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>albumIcon</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string></string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Albums</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenAlbums</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>version</key>
+				<string>${APP_VERSION}</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>playingIcon</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string></string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Now Playing</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenPlaying</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>version</key>
+				<string>${APP_VERSION}</string>
+			</dict>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -39,8 +87,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -51,53 +98,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<string>NO</string>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>songIcon</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Songs</string>
-			<key>UIApplicationShortcutItemSubtitle</key>
-			<string></string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenSongs</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict>
-				<key>version</key>
-				<string>${APP_VERSION}</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>albumIcon</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Albums</string>
-			<key>UIApplicationShortcutItemSubtitle</key>
-			<string></string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenAlbums</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict>
-				<key>version</key>
-				<string>${APP_VERSION}</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>playingIcon</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Now Playing</string>
-			<key>UIApplicationShortcutItemSubtitle</key>
-			<string></string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenPlaying</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict>
-				<key>version</key>
-				<string>${APP_VERSION}</string>
-			</dict>
-		</dict>
-	</array>
 </dict>
 </plist>

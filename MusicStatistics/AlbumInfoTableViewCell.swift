@@ -17,7 +17,6 @@ class AlbumInfoTableViewCell: UITableViewCell {
     
     func updateAlbumInfo(with item:MPMediaItem){
         let windowSize = UIScreen.main.bounds.size
-        albumImg.image = item.artwork?.image(at: CGSize(width: windowSize.width/1.2, height: windowSize.width/1.2))
         infoAlbumTitle.text = item.albumTitle ?? ""
         infoAlbumArtist.text = item.artist ?? ""
         let genre = item.genre ?? ""
@@ -28,6 +27,12 @@ class AlbumInfoTableViewCell: UITableViewCell {
             year = ""
         }
         miscInfo.text = genre + year
+        
+        if item.artwork?.image != nil {
+            albumImg.image = item.artwork?.image(at: CGSize(width: windowSize.width/1.2, height: windowSize.width/1.2))
+        } else {
+            albumImg.image = UIImage(named:"guitar")
+        }
     }
 
 }

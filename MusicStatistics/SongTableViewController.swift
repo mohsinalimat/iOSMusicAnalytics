@@ -94,7 +94,11 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         let albumInfo =  " · " + (currSong.albumTitle ?? "")
         let genreInfo = " · " + (currSong.genre ?? "")
         cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
-        cell.imageView?.image = currSong.artwork?.image(at: CGSize(width:30,height:30))
+        if currSong.artwork != nil {
+            cell.imageView?.image = currSong.artwork?.image(at: CGSize(width:30,height:30))
+        } else {
+            cell.imageView?.image = UIImage(named: "guitarIcon")
+        }
 
         return cell
     }

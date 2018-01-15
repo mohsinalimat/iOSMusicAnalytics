@@ -17,8 +17,11 @@ class InfoImageTableViewCell: UITableViewCell {
     func updateAlbumArt(with item:MPMediaItem){
         let windowRect:CGRect = UIScreen.main.bounds
         let size = CGSize(width: windowRect.size.width, height: windowRect.size.width)
-        albumCover.image =
-            item.artwork?.image(at: size)
+        if item.artwork?.image != nil {
+            albumCover.image = item.artwork?.image(at: size)
+        } else {
+            albumCover.image = UIImage(named: "guitar")
+        }
     }
     
     override func awakeFromNib() {

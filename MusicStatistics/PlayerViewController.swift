@@ -95,13 +95,20 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             let frame = UIScreen.main.bounds.size
             let artworkSize:CGSize = CGSize(width: frame.width, height: frame.width)
             let artwork = song!.artwork
-            albumArt?.image = artwork?.image(at: artworkSize)
-            songTitle.text = song!.title ?? "None"
-            albumTitle.text = song!.albumTitle ?? "None"
+            songTitle.text = song!.title ?? "Unknown"
+            albumTitle.text = song!.albumTitle ?? "Unknown"
+            if song!.title == "" {songTitle.text = "Unknown"}
+            if song!.albumTitle == "" {albumTitle.text = "Unknown"}
             timeRemaining.text = timeIntervalToReg(song!.playbackDuration)
             player = MPMusicPlayerApplicationController.applicationQueuePlayer
             playOrPause = false // not playing
             nowPlaying = song
+            
+            if song?.artwork?.image != nil {
+                albumArt?.image = artwork?.image(at: artworkSize)
+            } else{
+                albumArt?.image = UIImage(named: "guitar")
+            }
             
             background.image = nil
             background.image = artwork?.image(at: artworkSize)
