@@ -140,6 +140,39 @@ func refDate() -> Date {
     return Date(timeIntervalSinceReferenceDate: 0)
 }
 
+func analyticsCompareDate(with date1: Date, date2: Date) -> Bool{
+    return Calendar.current.component(.month, from: date1) == Calendar.current.component(.month, from: date2)
+    && Calendar.current.component(.day, from: date1) == Calendar.current.component(.day, from: date2)
+}
+
+func obtainAnalyticsData() -> ([String],[Int]){
+    let descriptors = ["Songs Listened", "Minutes Listened"]
+    var descriptorResults:[Int] = []
+    var songsCount = 0
+    var minutesCount:TimeInterval = 0.0
+    let allSongs = MPMediaQuery.songs().items ?? []
+    let requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
+    var count = 0
+    var lastDate:Date!
+    for item in requestedSongs{
+        if count == 0 {
+            lastDate = item.lastPlayedDate ?? refDate()
+            songsCount += 1
+            minutesCount += item.playbackDuration
+            count += 1
+            continue
+        }
+        //if (item.lastPlayedDate ?? refDate()) != lastDate { break }
+        if (!analyticsCompareDate(with: item.lastPlayedDate ?? refDate(), date2: lastDate)) { break }
+        lastDate = item.lastPlayedDate ?? refDate()
+        songsCount += 1
+        minutesCount += item.playbackDuration
+    }
+    
+    descriptorResults = [songsCount,Int(minutesCount/60)]
+    return (descriptors,descriptorResults)
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]

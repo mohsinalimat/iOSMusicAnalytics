@@ -14,10 +14,14 @@ class AnalyticsTableViewController: UITableViewController {
     let modeIcons: Dictionary<Int, UIImage> =
         [0: UIImage(named: "mostPlayedIcon")!,1: UIImage(named: "worried")!,2: UIImage(named: "fearfulIcon")!,
          3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!]
+    let sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
+    var dataDescriptors:[String] = Array()
+    var dataDescriptorValues:[Int] = Array()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
+        (dataDescriptors,dataDescriptorValues) = obtainAnalyticsData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,15 +32,16 @@ class AnalyticsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 { return 2 }
         return analyticsMode.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Interesting Stuff"
+        return sectionsTitles[section]
     }
 
     
@@ -45,16 +50,25 @@ class AnalyticsTableViewController: UITableViewController {
 //        if let analyticsCell = cell as? AnalyticsTableViewCell{
 //            analyticsCell.updateAnalyticsCell(with: analyticsMode[indexPath.row]!)
 //        }
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "analyticsData", for: indexPath)
+            cell.layer.cornerRadius = 10.0
+            cell.layer.masksToBounds = true
+            if let dataCell = cell as? AnalyticsDataTableViewCell{
+                dataCell.updateData(with: dataDescriptors[indexPath.row], and: String(dataDescriptorValues[indexPath.row]))
+            }
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "simpleAnalyticsCell", for: indexPath)
         cell.textLabel?.text = analyticsMode[indexPath.row]! + " Songs"
         cell.imageView?.image = modeIcons[indexPath.row]
-        if indexPath.row == 3 {cell.imageView?.tintColor = UIColor.orange}
         return cell
     }
  
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return UIScreen.main.bounds.size.height / 3.5
-        return 50.0 //191.0
+        if indexPath.section == 0 { return 100.0 }
+        return 50.0
     }
     
     @IBAction func refreshAnalytics(_ sender: UIRefreshControl) {
@@ -78,6 +92,12 @@ class AnalyticsTableViewController: UITableViewController {
 //                dest.analyticsDetails = []
 //            }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UITableViewHeaderFooterView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: tableView.sectionHeaderHeight))
+        headerView.contentView.backgroundColor = UIColor.lightText
+        return headerView
     }
     
 }

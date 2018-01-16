@@ -933,6 +933,43 @@
                                     <segue destination="qE1-WF-M8r" kind="show" id="xkq-18-Jo0"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="analyticsData" rowHeight="70" id="Qos-AQ-ASI" customClass="AnalyticsDataTableViewCell" customModule="MusicStatistics" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="262" width="375" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qos-AQ-ASI" id="4sw-z7-gdq">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QE6-p7-ftu">
+                                            <rect key="frame" x="16" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6q-Vny">
+                                            <rect key="frame" x="248" y="11" width="107.5" height="40"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="QE6-p7-ftu" firstAttribute="leading" secondItem="4sw-z7-gdq" secondAttribute="leading" constant="16" id="1H1-ct-0SY"/>
+                                        <constraint firstItem="QE6-p7-ftu" firstAttribute="top" secondItem="4sw-z7-gdq" secondAttribute="top" constant="11" id="92a-P7-SSk"/>
+                                        <constraint firstAttribute="bottom" secondItem="QE6-p7-ftu" secondAttribute="bottom" constant="38" id="KDq-ZP-MsP"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QE6-p7-ftu" secondAttribute="trailing" id="T3n-xH-ybY"/>
+                                        <constraint firstAttribute="trailing" secondItem="HwL-6q-Vny" secondAttribute="trailing" constant="19.5" id="afW-Yf-rkY"/>
+                                        <constraint firstItem="HwL-6q-Vny" firstAttribute="top" secondItem="QE6-p7-ftu" secondAttribute="top" id="itI-pW-zFy"/>
+                                        <constraint firstItem="HwL-6q-Vny" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4sw-z7-gdq" secondAttribute="leading" id="oXF-Lg-8eJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="HwL-6q-Vny" secondAttribute="bottom" constant="18.5" id="wXR-Cb-lpU"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <outlet property="descriptor" destination="QE6-p7-ftu" id="zIZ-yM-bzT"/>
+                                    <outlet property="descriptorInfo" destination="HwL-6q-Vny" id="TIE-hV-qbZ"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="uFb-uD-wID" id="CHt-fK-lcC"/>
