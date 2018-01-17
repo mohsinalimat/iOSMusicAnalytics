@@ -14,14 +14,16 @@ class AnalyticsTableViewController: UITableViewController {
     let modeIcons: Dictionary<Int, UIImage> =
         [0: UIImage(named: "mostPlayedIcon")!,1: UIImage(named: "worried")!,2: UIImage(named: "fearfulIcon")!,
          3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!]
-    let sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
+    var sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
     var dataDescriptors:[String] = Array()
     var dataDescriptorValues:[Int] = Array()
+    var mostRecentSectionTitle = "N/A"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
-        (dataDescriptors,dataDescriptorValues) = obtainAnalyticsData()
+        (dataDescriptors,dataDescriptorValues,mostRecentSectionTitle) = obtainAnalyticsData()
+        sectionsTitles[0] = mostRecentSectionTitle
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +38,7 @@ class AnalyticsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 { return 2 }
+        if section == 0 { return 3 }
         return analyticsMode.count
     }
     
@@ -52,8 +54,8 @@ class AnalyticsTableViewController: UITableViewController {
 //        }
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "analyticsData", for: indexPath)
-            cell.layer.cornerRadius = 10.0
-            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20.0
+            cell.layer.borderWidth = 8.0
             if let dataCell = cell as? AnalyticsDataTableViewCell{
                 dataCell.updateData(with: dataDescriptors[indexPath.row], and: String(dataDescriptorValues[indexPath.row]))
             }
@@ -67,11 +69,13 @@ class AnalyticsTableViewController: UITableViewController {
  
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return UIScreen.main.bounds.size.height / 3.5
-        if indexPath.section == 0 { return 100.0 }
+        if indexPath.section == 0 { return 90.0 }
         return 50.0
     }
     
     @IBAction func refreshAnalytics(_ sender: UIRefreshControl) {
+        (dataDescriptors,dataDescriptorValues,mostRecentSectionTitle) = obtainAnalyticsData()
+        sectionsTitles[0] = mostRecentSectionTitle
         tableView.reloadData()
         self.refreshControl?.endRefreshing()
     }

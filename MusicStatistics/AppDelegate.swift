@@ -112,6 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case OpenSongs
         case OpenAlbums
         case OpenPlaying
+        case OpenAnalytics
         
         init?(identifier: String) {
             guard let shortIdentifier = identifier.components(separatedBy: ".").last else {
@@ -134,6 +135,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         case .OpenPlaying:
             myTabBar.selectedIndex = 2
+            return true
+        case.OpenAnalytics:
+            myTabBar.selectedIndex = 3
             return true
         }
     }

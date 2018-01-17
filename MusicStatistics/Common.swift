@@ -10,6 +10,7 @@ import Foundation
 import MediaPlayer
 
 private let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+private let dateFormatter = DateFormatter()
 
 func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MPMediaItem]], [String]){
     var results: [[MPMediaItem]] = []
@@ -17,6 +18,7 @@ func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MP
     var count = 0
     var secTitles:[String] = []
     var currentLetter: String!
+    dateFormatter.dateFormat = "MMM dd"
     
     var prevLetter: String!
     switch mode{
@@ -145,32 +147,36 @@ func analyticsCompareDate(with date1: Date, date2: Date) -> Bool{
     && Calendar.current.component(.day, from: date1) == Calendar.current.component(.day, from: date2)
 }
 
-func obtainAnalyticsData() -> ([String],[Int]){
-    let descriptors = ["Songs Listened", "Minutes Listened"]
+func obtainAnalyticsData() -> ([String],[Int], String){
+    let descriptors = ["Songs Listened", "Minutes Listened", "Different Albums Listened"]
+    var mostRecentSectionTitle = "N/A"
     var descriptorResults:[Int] = []
     var songsCount = 0
+    var albumsCount = 0
     var minutesCount:TimeInterval = 0.0
-    let allSongs = MPMediaQuery.songs().items ?? []
-    let requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
-    var count = 0
+    let requestedSongs =
+        (MPMediaQuery.songs().items ?? []).sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
     var lastDate:Date!
+    var prevAlbum:String!
     for item in requestedSongs{
-        if count == 0 {
+        if item == requestedSongs.first! {
             lastDate = item.lastPlayedDate ?? refDate()
+            mostRecentSectionTitle = dateFormatter.string(from: lastDate)
             songsCount += 1
             minutesCount += item.playbackDuration
-            count += 1
+            albumsCount += 1
+            prevAlbum = item.albumArtist ?? "Unknown"
             continue
         }
-        //if (item.lastPlayedDate ?? refDate()) != lastDate { break }
         if (!analyticsCompareDate(with: item.lastPlayedDate ?? refDate(), date2: lastDate)) { break }
         lastDate = item.lastPlayedDate ?? refDate()
         songsCount += 1
         minutesCount += item.playbackDuration
+        if( (item.albumArtist ?? "Unknown") != prevAlbum) {albumsCount += 1}
+        prevAlbum = item.albumArtist ?? "Unknown"
     }
-    
-    descriptorResults = [songsCount,Int(minutesCount/60)]
-    return (descriptors,descriptorResults)
+    descriptorResults = [songsCount,Int(minutesCount/60),albumsCount]
+    return (descriptors,descriptorResults, mostRecentSectionTitle)
 }
 
 extension String {
