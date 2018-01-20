@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class SongTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate,UISearchResultsUpdating {
+class SongTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate{
 
     var songs:[MPMediaItem] = []
     var unfilteredSongs:[MPMediaItem] = []
@@ -31,15 +31,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         (songSections, sectionTitles) = sortIntoSongSections(with: unfilteredSongs, and: "Title")
         sortMode = "Title" // initialize at title sorting mode
         self.popoverPresentationController?.delegate = self
-        
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.barTintColor = UIColor.black
-        searchController.searchBar.placeholder = "Search for Songs"
-        searchController.searchBar.keyboardAppearance = .dark
-        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = UIColor.orange
-        tableView.tableHeaderView = searchController.searchBar
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,9 +81,9 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         // Configure the cell...
         let currSong = songSections[indexPath.section][indexPath.row]
         cell.textLabel?.text = currSong.title
-        let artistInfo = (currSong.artist ?? "")
-        let albumInfo =  " · " + (currSong.albumTitle ?? "")
-        let genreInfo = " · " + (currSong.genre ?? "")
+        let artistInfo = (currSong.artist ?? "Unknown")
+        let albumInfo =  " · " + (currSong.albumTitle ?? "Unknown")
+        let genreInfo = " · " + (currSong.genre ?? "Unknown")
         cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
         if currSong.artwork != nil {
             cell.imageView?.image = currSong.artwork?.image(at: CGSize(width:30,height:30))
@@ -154,15 +145,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     // change presentation behavior for popover in landscape and portrait mode
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text, !searchText.isEmpty, !songs.isEmpty{
-            songs = unfilteredSongs.filter({($0.title?.contains(searchText))!})
-        } else {
-            songs = unfilteredSongs
-        }
-        tableView.reloadData()
     }
  
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {

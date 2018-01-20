@@ -14,12 +14,6 @@ class InfoTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +28,7 @@ class InfoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 13
+        return 14
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -97,10 +91,13 @@ class InfoTableViewController: UITableViewController {
         case 10:
             cell.textLabel?.text = "Beats Per Minute"
             cell.detailTextLabel?.text = info.beatsPerMinute == 0 ? "Unknown" : "\(info.beatsPerMinute)"
-        case 11: // 12
+        case 11:
+            cell.textLabel?.text = "Explicit?"
+            cell.detailTextLabel?.text = info.isExplicitItem ? "✅" : "❌"
+        case 12: // 13
             cell.textLabel?.text = "Play Count"
             cell.detailTextLabel?.text = "\(info.playCount)"
-        case 12: // 13
+        case 13: // 14
             cell.textLabel?.text = "Skip Count"
             cell.detailTextLabel?.text = "\(info.skipCount)"
         default:

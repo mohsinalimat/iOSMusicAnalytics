@@ -16,6 +16,8 @@
 		0402E4E51FFED4D000479CC6 /* repeatIcon2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4E41FFED4D000479CC6 /* repeatIcon2@2x.png */; };
 		0402E4E91FFEE0B000479CC6 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402E4E81FFEE0B000479CC6 /* QueueTableViewController.swift */; };
 		0402E4ED1FFF0FAD00479CC6 /* playerThumb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402E4EC1FFF0FAD00479CC6 /* playerThumb@3x.png */; };
+		0405C8E42012E8A0004FCE49 /* SearchSongsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0405C8E32012E8A0004FCE49 /* SearchSongsTableViewController.swift */; };
+		0405C8E62012FCC6004FCE49 /* SearchAlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0405C8E52012FCC6004FCE49 /* SearchAlbumTableViewController.swift */; };
 		04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */; };
 		04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */; };
 		04192C5720016E10001F10F3 /* AnalyticsDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04192C5620016E10001F10F3 /* AnalyticsDetailTableViewController.swift */; };
@@ -62,6 +64,8 @@
 		0402E4E41FFED4D000479CC6 /* repeatIcon2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeatIcon2@2x.png"; sourceTree = "<group>"; };
 		0402E4E81FFEE0B000479CC6 /* QueueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
 		0402E4EC1FFF0FAD00479CC6 /* playerThumb@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playerThumb@3x.png"; sourceTree = "<group>"; };
+		0405C8E32012E8A0004FCE49 /* SearchSongsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongsTableViewController.swift; sourceTree = "<group>"; };
+		0405C8E52012FCC6004FCE49 /* SearchAlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAlbumTableViewController.swift; sourceTree = "<group>"; };
 		04184EF91FF873BB0049E75A /* AlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewController.swift; sourceTree = "<group>"; };
 		04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoTableViewCell.swift; sourceTree = "<group>"; };
 		04192C5620016E10001F10F3 /* AnalyticsDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				044159F61FF47B2000E024DF /* AppDelegate.swift */,
 				044159F81FF47B2000E024DF /* PlayerViewController.swift */,
 				044159FA1FF47B2000E024DF /* Main.storyboard */,
+				0405C8E32012E8A0004FCE49 /* SearchSongsTableViewController.swift */,
+				0405C8E52012FCC6004FCE49 /* SearchAlbumTableViewController.swift */,
 				04415A001FF47B2000E024DF /* Assets.xcassets */,
 				04415A021FF47B2000E024DF /* LaunchScreen.storyboard */,
 				04415A051FF47B2000E024DF /* Info.plist */,
@@ -373,7 +379,9 @@
 				044159F71FF47B2000E024DF /* AppDelegate.swift in Sources */,
 				0402E4D31FFD42A000479CC6 /* AnalyticsTableViewController.swift in Sources */,
 				048BBF6B1FF68D010040817F /* SortSongsViewController.swift in Sources */,
+				0405C8E62012FCC6004FCE49 /* SearchAlbumTableViewController.swift in Sources */,
 				0402E4D51FFD438900479CC6 /* AnalyticsTableViewCell.swift in Sources */,
+				0405C8E42012E8A0004FCE49 /* SearchSongsTableViewController.swift in Sources */,
 				0471B8501FFC0210006279E6 /* AnalyticsCollectionViewCell.swift in Sources */,
 				04184EFA1FF873BB0049E75A /* AlbumTableViewController.swift in Sources */,
 				04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */,

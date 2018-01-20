@@ -15,7 +15,7 @@ private let reuseIdentifier = "album"
 class AlbumCollectionViewController: UICollectionViewController {
     var albums:[[[MPMediaItem]]] = []
     var sectionTitles: [String] = []
-    var haptic = UISelectionFeedbackGenerator()
+    var haptic = UIImpactFeedbackGenerator(style: .light)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class AlbumCollectionViewController: UICollectionViewController {
     }
     
     @objc func indexViewValueChanged(sender: BDKCollectionIndexView){
-        haptic.selectionChanged()
+        haptic.impactOccurred()
         let indexPath = IndexPath(item: 0, section: Int(sender.currentIndex))
         collectionView?.scrollToItem(at: indexPath, at: .top, animated: false)
     }
@@ -89,7 +89,10 @@ class AlbumCollectionViewController: UICollectionViewController {
                 dest.albumContents = albums[indexPath.section][indexPath.row]
                 dest.navigationItem.title = albums[indexPath.section][indexPath.row][0].albumTitle ?? ""
             }
-            
+        }
+        if let dest = destinationViewController as? SearchAlbumTableViewController{
+            dest.unfilteredAlbums = sortSongsIntoAlbums()
+            dest.navigationItem.title = "Search My Albums"
         }
     }
     
