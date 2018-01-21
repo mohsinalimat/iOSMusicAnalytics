@@ -49,8 +49,10 @@ class AlbumTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "songPerAlbum", for: indexPath)
         let trackNumber = String(albumContents[indexPath.row - 1].albumTrackNumber) 
         let trackTitle = albumContents[indexPath.row - 1].title ?? ""
-        let spacing = trackNumber.count == 1 ? "           " : "          "
+        let duration = timeIntervalToReg(albumContents[indexPath.row - 1].playbackDuration)
+        let spacing = trackNumber.count == 1 ? "        " : "       "
         cell.textLabel?.text = trackNumber + spacing + trackTitle
+        cell.detailTextLabel?.text = String(duration)
         return cell
     }
     

@@ -179,6 +179,13 @@ func obtainAnalyticsData() -> ([String],[Int], String){
     return (descriptors,descriptorResults, mostRecentSectionTitle)
 }
 
+func timeIntervalToReg(_ interval:TimeInterval) -> String{
+    let minute = String(Int(interval) / 60)
+    var seconds = String(Int(interval) % 60)
+    if seconds.count == 1 {seconds = "0" + seconds}
+    return minute + ":" + seconds
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]

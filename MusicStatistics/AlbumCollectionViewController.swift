@@ -92,7 +92,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         }
         if let dest = destinationViewController as? SearchAlbumTableViewController{
             dest.unfilteredAlbums = sortSongsIntoAlbums()
-            dest.navigationItem.title = "Search My Albums"
+            dest.navigationItem.title = "Search Albums"
         }
     }
     

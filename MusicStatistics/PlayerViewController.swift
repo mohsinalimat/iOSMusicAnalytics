@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import AVFoundation
 
 class PlayerViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     @IBOutlet weak var albumArt: UIImageView?
@@ -22,7 +23,8 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBOutlet weak var background: UIImageView!
     
     var nowPlaying: MPMediaItem!
-    var player:MPMusicPlayerApplicationController!
+    //var player:MPMusicPlayerApplicationController!
+    let player = MPMusicPlayerController.systemMusicPlayer
     var playOrPause: Bool!
     var isPlayerLoaded = false
     var timer: Timer!
@@ -30,6 +32,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var appDelegate: AppDelegate!
     var isFirstSongTheSame = false
     var returnFromQueueEditor = false
+    fileprivate let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     
     var collection:MPMediaItemCollection!{
         didSet{
@@ -56,6 +59,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         player.shuffleMode = .off
         player.repeatMode = .none
         songProgress.setThumbImage(UIImage(named:"playerThumb"), for: .normal)
+        
+        //setUpMultimediaControls()
+        //updateMultimediaControlInfo()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,7 +107,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             if song!.title == "" {songTitle.text = "Unknown"}
             if song!.albumTitle == "" {albumTitle.text = "Unknown"}
             timeRemaining.text = timeIntervalToReg(song!.playbackDuration)
-            player = MPMusicPlayerApplicationController.applicationQueuePlayer
+            //player = MPMusicPlayerApplicationController.applicationQueuePlayer
             playOrPause = false // not playing
             nowPlaying = song
             
@@ -124,13 +131,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         } else {
             collection = MPMediaItemCollection(items: appDelegate.currentQueue)
         }
-    }
-
-    func timeIntervalToReg(_ interval:TimeInterval) -> String{
-        let minute = String(Int(interval) / 60)
-        var seconds = String(Int(interval) % 60)
-        if seconds.count == 1 {seconds = "0" + seconds}
-        return minute + ":" + seconds
     }
     
     @IBAction func songProgressChanged(_ sender: UISlider) {
@@ -235,9 +235,16 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         alertController.view.tintColor = UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1)
         
         let volBounds =  CGRect(x: 10.0, y: 13.0, width: alertController.view.bounds.size.width-50, height: 20)
+        //let volBounds =  CGRect(x: 10.0, y: 13.0, width: 280, height: 20)
         let volumeController = MPVolumeView(frame: volBounds)
         volumeController.tintColor = UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1)
         alertController.view.addSubview(volumeController)
+        
+        if let presenter = alertController.popoverPresentationController{
+            // ensure proper functionality on iPad
+            presenter.sourceView = sender
+            presenter.sourceRect = sender.bounds
+        }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)

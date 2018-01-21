@@ -19,7 +19,7 @@ class SearchSongsTableViewController: UITableViewController, UISearchResultsUpda
         super.viewDidLoad()
         allSongs = MPMediaQuery.songs().items ?? []
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.title = "Search My Songs"
+        self.title = "Search Songs"
         
         searchController.searchResultsUpdater = self
         searchController.searchBar.barTintColor = UIColor.black
