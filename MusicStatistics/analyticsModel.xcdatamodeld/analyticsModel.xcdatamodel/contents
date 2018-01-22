@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Lyrics" representedClassName=".Lyrics" syncable="YES" codeGenerationType="category">
+        <attribute name="lyrics" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="lyricsToSongs" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Song" inverseName="songToLyrics" inverseEntity="Song" syncable="YES"/>
+    </entity>
+    <entity name="Song" representedClassName=".Song" syncable="YES" codeGenerationType="category">
+        <attribute name="song" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="songToLyrics" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lyrics" inverseName="lyricsToSongs" inverseEntity="Lyrics" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Song" positionX="-227" positionY="21" width="128" height="73"/>
+        <element name="Lyrics" positionX="-54" positionY="0" width="128" height="73"/>
+    </elements>
+</model>

@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 import AVFoundation
+import CoreData
 
 class PlayerViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     @IBOutlet weak var albumArt: UIImageView?
@@ -32,7 +33,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var appDelegate: AppDelegate!
     var isFirstSongTheSame = false
     var returnFromQueueEditor = false
-    fileprivate let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    var isViewingLyrics: Bool!
+    var songNameInDB:String!
+    
     
     var collection:MPMediaItemCollection!{
         didSet{
@@ -162,6 +166,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
                 ppc.delegate = self
             }
         }
+        if let dest = destinationViewController as? LyricsViewController{
+            dest.isViewing = isViewingLyrics
+            dest.searchItem = songNameInDB
+        }
     }
     
     @IBAction func playPause(_ sender: UIButton) {
@@ -230,9 +238,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         return .lightContent
     }
     
-    @IBAction func alterVolume(_ sender: UIButton) {
+    // alter volume or add/view lyrics
+    @IBAction func additionalSongActions(_ sender: UIButton) {
         let alertController = UIAlertController(title: "\n", message: nil, preferredStyle: .actionSheet)
-        alertController.view.tintColor = UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1)
+        alertController.view.tintColor = myOrange()
         
         let volBounds =  CGRect(x: 10.0, y: 13.0, width: alertController.view.bounds.size.width-50, height: 20)
         //let volBounds =  CGRect(x: 10.0, y: 13.0, width: 280, height: 20)
@@ -246,8 +255,35 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             presenter.sourceRect = sender.bounds
         }
         
+        //find lyric - view lyrics - not found - create lyrics
+        songNameInDB = (nowPlaying.title ?? "") + (nowPlaying.albumTitle ?? "")
+        //Song.addLyricsToSong(to: songNameInDB, using: "You Suck", in: container!.viewContext)
+        let obtainedLyrics = Song.getLyrics(using: songNameInDB, in: container!.viewContext)
+        var lyricsAction:UIAlertAction!
+        if obtainedLyrics == "No Matches"{ // create lyrics
+            lyricsAction = UIAlertAction(title: "Add Lyrics", style: .default){ _ in
+                DispatchQueue.main.async { [weak self] in
+                    self?.isViewingLyrics = false
+                    self?.performSegue(withIdentifier: "lyricsAction", sender: self)
+                }
+            }
+        } else { // view Lyrics
+            lyricsAction = UIAlertAction(title: "View Lyrics", style: .default){ _ in
+                DispatchQueue.main.async { [weak self] in
+                    self?.isViewingLyrics = true
+                    self?.performSegue(withIdentifier: "lyricsAction", sender: self)
+                }
+            }
+        }
+        
+        let deleteLyricsAction = UIAlertAction(title: "Delete Lyrics", style: .destructive) { _ in
+            Song.deleteLyrics(using: self.songNameInDB, in: self.container!.viewContext)
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
+        alertController.addAction(lyricsAction)
+        alertController.addAction(deleteLyricsAction)
         present(alertController, animated: true)
     }
     

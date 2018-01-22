@@ -11,9 +11,12 @@ import MediaPlayer
 
 class InfoTableViewController: UITableViewController {
     var info:MPMediaItem!
+    let dateFormatter = DateFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormatter.dateFormat = "MMM-dd-yyyy hh:mm"
+        dateFormatter.timeZone = TimeZone.current
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,18 +78,18 @@ class InfoTableViewController: UITableViewController {
             cell.detailTextLabel?.text = info.genre
         case 7: //8
             cell.textLabel?.text = "Date Added"
-            cell.detailTextLabel?.text = "\(info.dateAdded)"
+            cell.detailTextLabel?.text = dateFormatter.string(from: info.dateAdded)
         case 8: // 9
             cell.textLabel?.text = "Last Played"
             var lpdate: String!
             if info.lastPlayedDate == nil { lpdate = "N/A" }
-            else { lpdate = "\(info.lastPlayedDate ?? Date())"}
+            else { lpdate = dateFormatter.string(from: info.lastPlayedDate ?? Date())}
             cell.detailTextLabel?.text = lpdate
         case 9: // 10
             cell.textLabel?.text = "Released"
             var rd:String!
             if info.releaseDate == nil { rd = "N/A"}
-            else {rd = "\(info.releaseDate ?? Date())"}
+            else {rd = dateFormatter.string(from: info.releaseDate ?? Date())}
             cell.detailTextLabel?.text = rd
         case 10:
             cell.textLabel?.text = "Beats Per Minute"

@@ -12,6 +12,8 @@ import MediaPlayer
 private let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 private let dateFormatter = DateFormatter()
 
+func myOrange() -> UIColor { return UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1) }
+
 func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MPMediaItem]], [String]){
     var results: [[MPMediaItem]] = []
     var tempCollection: [MPMediaItem] = []
@@ -152,30 +154,27 @@ func obtainAnalyticsData() -> ([String],[Int], String){
     var mostRecentSectionTitle = "N/A"
     var descriptorResults:[Int] = []
     var songsCount = 0
-    var albumsCount = 0
+    var albumsSet: Set<String> = []
     var minutesCount:TimeInterval = 0.0
     let requestedSongs =
         (MPMediaQuery.songs().items ?? []).sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
     var lastDate:Date!
-    var prevAlbum:String!
     for item in requestedSongs{
         if item == requestedSongs.first! {
             lastDate = item.lastPlayedDate ?? refDate()
             mostRecentSectionTitle = dateFormatter.string(from: lastDate)
             songsCount += 1
             minutesCount += item.playbackDuration
-            albumsCount += 1
-            prevAlbum = item.albumArtist ?? "Unknown"
+            albumsSet.insert(item.albumTitle ?? "Unknown")
             continue
         }
         if (!analyticsCompareDate(with: item.lastPlayedDate ?? refDate(), date2: lastDate)) { break }
         lastDate = item.lastPlayedDate ?? refDate()
         songsCount += 1
         minutesCount += item.playbackDuration
-        if( (item.albumArtist ?? "Unknown") != prevAlbum) {albumsCount += 1}
-        prevAlbum = item.albumArtist ?? "Unknown"
+        albumsSet.insert(item.albumTitle ?? "Unknown")
     }
-    descriptorResults = [songsCount,Int(minutesCount/60),albumsCount]
+    descriptorResults = [songsCount,Int(minutesCount/60),albumsSet.count]
     return (descriptors,descriptorResults, mostRecentSectionTitle)
 }
 

@@ -71,4 +71,25 @@ class AlbumTableViewController: UITableViewController {
             }
         }
     }
+    @IBAction func presentAlbumActions(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.view.tintColor = myOrange()
+        
+        let playAlbumAction = UIAlertAction(title: "Play", style: .default){ _ in
+            self.appDelegate.currentQueue = self.albumContents
+            if let tabbar = self.appDelegate.window!.rootViewController as? UITabBarController{
+                tabbar.selectedIndex = 2
+            }
+        }
+        
+        let addQueueAction = UIAlertAction(title: "Add to Queue", style: .default){ _ in
+            self.appDelegate.currentQueue.append(contentsOf: self.albumContents)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(addQueueAction)
+        alertController.addAction(playAlbumAction)
+        present(alertController,animated: true)
+    }
 }
