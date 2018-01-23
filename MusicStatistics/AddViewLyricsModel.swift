@@ -19,6 +19,7 @@ class Song: NSManagedObject {
         let createdSong = Song(context: context)
         createdSong.song = songName
         createdSong.songToLyrics = createdLyrics
+        // the reverse relationship is set up automatically
         //createdLyrics.lyricsToSongs = createdSong
     }
     
@@ -29,7 +30,6 @@ class Song: NSManagedObject {
         do{
             let matches = try context.fetch(request)
             if matches.count > 0 {
-                print("matched count \(matches.count)")
                 return matches[0].songToLyrics?.lyrics
             }
         } catch {
@@ -50,28 +50,4 @@ class Song: NSManagedObject {
     
 }
 
-class Lyrics: NSManagedObject{
-    //does nothing if lyrics already exists, else add the lyrics
-    class func addSongToLyrics(to lyrics: String, using songName:String, in context:NSManagedObjectContext){
-        if getSong(using: songName, in: context) == "No Matches"{
-            //create lyrics in DB
-            let createdLyrics = Lyrics(context: context)
-            createdLyrics.lyrics = lyrics
-        }
-    }
-    
-    class func getSong(using songName: String, in context: NSManagedObjectContext) -> String? {
-        //generate a request to fetch songs
-        let request: NSFetchRequest<Song> = Song.fetchRequest()
-        request.predicate = NSPredicate(format: "song = %@", songName)
-        do{
-            let matches = try context.fetch(request)
-            if matches.count > 0 {
-                return matches[0].song
-            }
-        } catch {
-            print(error)
-        }
-        return "No Matches"
-    }
-}
+class Lyrics: NSManagedObject{}

@@ -43,6 +43,7 @@
 		048BBF741FF71FDE0040817F /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF721FF71FDE0040817F /* next.png */; };
 		048BBF751FF71FDE0040817F /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF731FF71FDE0040817F /* prev.png */; };
 		049FCDD02002CCF400CB3A0B /* volumeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049FCDCF2002CCF400CB3A0B /* volumeIcon@2x.png */; };
+		04A1F0702016BE47008E73E8 /* volumeIconLow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A1F06F2016BE46008E73E8 /* volumeIconLow@2x.png */; };
 		04AD7F3C1FF99CDA00565725 /* Pause Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F3B1FF99CDA00565725 /* Pause Button.png */; };
 		04AD7F481FF9BADD00565725 /* playingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F451FF9BADD00565725 /* playingIcon@2x.png */; };
 		04AD7F491FF9BADD00565725 /* albumIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AD7F461FF9BADD00565725 /* albumIcon@2x.png */; };
@@ -95,6 +96,7 @@
 		048BBF721FF71FDE0040817F /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
 		048BBF731FF71FDE0040817F /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev.png; sourceTree = "<group>"; };
 		049FCDCF2002CCF400CB3A0B /* volumeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volumeIcon@2x.png"; sourceTree = "<group>"; };
+		04A1F06F2016BE46008E73E8 /* volumeIconLow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volumeIconLow@2x.png"; sourceTree = "<group>"; };
 		04AD7F3B1FF99CDA00565725 /* Pause Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause Button.png"; sourceTree = "<group>"; };
 		04AD7F451FF9BADD00565725 /* playingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playingIcon@2x.png"; sourceTree = "<group>"; };
 		04AD7F461FF9BADD00565725 /* albumIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "albumIcon@2x.png"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		0402E4E71FFEE07900479CC6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04A1F06F2016BE46008E73E8 /* volumeIconLow@2x.png */,
 				04BB44B4200B037200CA1B87 /* addIcon@2x.png */,
 				04BB44B5200B037200CA1B87 /* fearfulIcon@2x.png */,
 				04BB44B2200B037200CA1B87 /* mostPlayedIcon@2x.png */,
@@ -296,6 +299,7 @@
 				048BBF741FF71FDE0040817F /* next.png in Resources */,
 				04BB44BB200B037200CA1B87 /* recentsIcon@2x.png in Resources */,
 				048BBF751FF71FDE0040817F /* prev.png in Resources */,
+				04A1F0702016BE47008E73E8 /* volumeIconLow@2x.png in Resources */,
 				048BBF6D1FF700230040817F /* Play Button.png in Resources */,
 				04AD7F4A1FF9BADD00565725 /* songIcon@2x.png in Resources */,
 				04BB44BA200B037200CA1B87 /* fearfulIcon@2x.png in Resources */,

@@ -29,7 +29,6 @@ class LyricsViewController: UIViewController, UITextViewDelegate {
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
         //save data
         if !isViewing{
-            print("\n\n\nLyricsTextField\(lyricsTextField.text)\n\n\n")
             Song.addLyricsToSong(to: searchItem, using: lyricsTextField.text!, in: container!.viewContext)
         }
         if !lyricsTextField.text.isEmpty { try? container?.viewContext.save() }

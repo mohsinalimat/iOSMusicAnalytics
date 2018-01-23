@@ -246,7 +246,12 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         let volBounds =  CGRect(x: 10.0, y: 13.0, width: alertController.view.bounds.size.width-50, height: 20)
         //let volBounds =  CGRect(x: 10.0, y: 13.0, width: 280, height: 20)
         let volumeController = MPVolumeView(frame: volBounds)
+        volumeController.showsRouteButton = false
         volumeController.tintColor = UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1)
+        if let volumeSliderView =  volumeController.subviews.first as? UISlider {
+            volumeSliderView.minimumValueImage = UIImage(named: "volumeIconLow")
+            volumeSliderView.maximumValueImage = UIImage(named: "volumeIcon")
+        }
         alertController.view.addSubview(volumeController)
         
         if let presenter = alertController.popoverPresentationController{
@@ -257,7 +262,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         
         //find lyric - view lyrics - not found - create lyrics
         songNameInDB = (nowPlaying.title ?? "") + (nowPlaying.albumTitle ?? "")
-        //Song.addLyricsToSong(to: songNameInDB, using: "You Suck", in: container!.viewContext)
         let obtainedLyrics = Song.getLyrics(using: songNameInDB, in: container!.viewContext)
         var lyricsAction:UIAlertAction!
         if obtainedLyrics == "No Matches"{ // create lyrics
@@ -284,6 +288,14 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         alertController.addAction(cancelAction)
         alertController.addAction(lyricsAction)
         alertController.addAction(deleteLyricsAction)
+        
+//        let subview = alertController.view.subviews.first!
+//        let alertContentView = subview.subviews.last!
+//        for bg in alertContentView.subviews{
+//            bg.backgroundColor = UIColor.darkGray
+//            bg.layer.cornerRadius = 15.0
+//        }
+        
         present(alertController, animated: true)
     }
     
