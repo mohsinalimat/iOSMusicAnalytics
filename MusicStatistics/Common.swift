@@ -150,11 +150,12 @@ func analyticsCompareDate(with date1: Date, date2: Date) -> Bool{
 }
 
 func obtainAnalyticsData() -> ([String],[Int], String){
-    let descriptors = ["Songs Listened", "Minutes Listened", "Different Albums Listened"]
+    let descriptors = ["Songs Listened", "Minutes Listened", "Different Albums Listened", "Different Artists Listened"]
     var mostRecentSectionTitle = "N/A"
     var descriptorResults:[Int] = []
     var songsCount = 0
     var albumsSet: Set<String> = []
+    var artistSet: Set<String> = []
     var minutesCount:TimeInterval = 0.0
     let requestedSongs =
         (MPMediaQuery.songs().items ?? []).sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
@@ -166,6 +167,7 @@ func obtainAnalyticsData() -> ([String],[Int], String){
             songsCount += 1
             minutesCount += item.playbackDuration
             albumsSet.insert(item.albumTitle ?? "Unknown")
+            artistSet.insert(item.artist ?? "Unknown")
             continue
         }
         if (!analyticsCompareDate(with: item.lastPlayedDate ?? refDate(), date2: lastDate)) { break }
@@ -173,8 +175,9 @@ func obtainAnalyticsData() -> ([String],[Int], String){
         songsCount += 1
         minutesCount += item.playbackDuration
         albumsSet.insert(item.albumTitle ?? "Unknown")
+        artistSet.insert(item.artist ?? "Unknown")
     }
-    descriptorResults = [songsCount,Int(minutesCount/60),albumsSet.count]
+    descriptorResults = [songsCount,Int(minutesCount/60),albumsSet.count, artistSet.count]
     return (descriptors,descriptorResults, mostRecentSectionTitle)
 }
 

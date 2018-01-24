@@ -10,10 +10,10 @@ import UIKit
 
 class AnalyticsTableViewController: UITableViewController {
     let analyticsMode: Dictionary<Int,String> =
-        [0:"Most Listened", 1:"Least Listened", 2:"Most Skipped",3 : "Recently Played", 4: "Recently Added"]
+        [0:"Most Listened", 1:"Least Listened", 2:"Most Skipped",3 : "Recently Played", 4: "Recently Added",5:"Longest"]
     let modeIcons: Dictionary<Int, UIImage> =
         [0: UIImage(named: "mostPlayedIcon")!,1: UIImage(named: "worried")!,2: UIImage(named: "fearfulIcon")!,
-         3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!]
+         3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!,5:UIImage(named: "guitarIcon")!]
     var sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
     var dataDescriptors:[String] = Array()
     var dataDescriptorValues:[Int] = Array()
@@ -24,6 +24,7 @@ class AnalyticsTableViewController: UITableViewController {
         self.title = "Analytics"
         (dataDescriptors,dataDescriptorValues,mostRecentSectionTitle) = obtainAnalyticsData()
         sectionsTitles[0] = mostRecentSectionTitle
+        //self.navigationController?.hidesBarsOnSwipe = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +39,7 @@ class AnalyticsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 { return 3 }
+        if section == 0 { return 4 }
         return analyticsMode.count
     }
     

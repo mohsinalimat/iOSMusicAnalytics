@@ -31,6 +31,8 @@ class AnalyticsDetailTableViewController: UITableViewController {
                 requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
             case "Recently Added":
                 requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
+            case "Longest":
+                requestedSongs = allSongs.sorted(by: {$0.playbackDuration > $1.playbackDuration})
             default: break
         }
     }
@@ -84,6 +86,8 @@ class AnalyticsDetailTableViewController: UITableViewController {
             cell.detailTextLabel?.text = dateFormatter.string(from: requestedSongs[indexPath.row].lastPlayedDate ?? refDate())
         case "Recently Added":
             cell.detailTextLabel?.text = dateFormatter.string(from: requestedSongs[indexPath.row].dateAdded)
+        case "Longest":
+            cell.detailTextLabel?.text = timeIntervalToReg(requestedSongs[indexPath.row].playbackDuration)
         default: break
         }
 
