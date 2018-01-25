@@ -21,17 +21,17 @@ class AnalyticsDetailTableViewController: UITableViewController {
         dateFormatter.dateFormat = "MMM dd"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         switch mode{
-            case "Most Listened":
+            case "Most Listened Songs":
                 requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
-            case "Least Listened":
+            case "Least Listened Songs":
                 requestedSongs = allSongs.sorted(by: {$0.playCount < $1.playCount})
-            case "Most Skipped":
+            case "Most Skipped Songs":
                 requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
-            case "Recently Played":
+            case "Recently Played Songs":
                 requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
-            case "Recently Added":
+            case "Recently Added Songs":
                 requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
-            case "Longest":
+            case "Longest Songs":
                 requestedSongs = allSongs.sorted(by: {$0.playbackDuration > $1.playbackDuration})
             default: break
         }
@@ -78,15 +78,15 @@ class AnalyticsDetailTableViewController: UITableViewController {
         cell.textLabel?.text = requestedSongs[indexPath.row].title ?? ""
         //cell.detailTextLabel?.text = String(requestedSongs[indexPath.row].playCount) + " Plays"
         switch mode{
-        case "Most Listened", "Least Listened":
+        case "Most Listened Songs", "Least Listened Songs":
             cell.detailTextLabel?.text = String(requestedSongs[indexPath.row].playCount) + " Plays"
-        case "Most Skipped":
+        case "Most Skipped Songs":
             cell.detailTextLabel?.text = String(requestedSongs[indexPath.row].skipCount) + " Skips"
-        case "Recently Played":
+        case "Recently Played Songs":
             cell.detailTextLabel?.text = dateFormatter.string(from: requestedSongs[indexPath.row].lastPlayedDate ?? refDate())
-        case "Recently Added":
+        case "Recently Added Songs":
             cell.detailTextLabel?.text = dateFormatter.string(from: requestedSongs[indexPath.row].dateAdded)
-        case "Longest":
+        case "Longest Songs":
             cell.detailTextLabel?.text = timeIntervalToReg(requestedSongs[indexPath.row].playbackDuration)
         default: break
         }

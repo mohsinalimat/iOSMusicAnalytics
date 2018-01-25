@@ -10,21 +10,27 @@ import UIKit
 
 class AnalyticsTableViewController: UITableViewController {
     let analyticsMode: Dictionary<Int,String> =
-        [0:"Most Listened", 1:"Least Listened", 2:"Most Skipped",3 : "Recently Played", 4: "Recently Added",5:"Longest"]
+        [0:"Most Listened Songs", 1:"Least Listened Songs", 2:"Most Skipped Songs",3 : "Recently Played Songs", 4: "Recently Added Songs",5:"Longest Songs"]
     let modeIcons: Dictionary<Int, UIImage> =
         [0: UIImage(named: "mostPlayedIcon")!,1: UIImage(named: "worried")!,2: UIImage(named: "fearfulIcon")!,
          3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!,5:UIImage(named: "guitarIcon")!]
     var sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
     var dataDescriptors:[String] = Array()
     var dataDescriptorValues:[Int] = Array()
+    let dataSpecificsDescriptors = ["Most Listened Artist", "Most Listened Genre"]
+    var dataSpecifics:[String] = []
     var mostRecentSectionTitle = "N/A"
+
+    func loadAnalyticsData(){
+        (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentSectionTitle) = obtainAnalyticsData()
+        sectionsTitles[0] = mostRecentSectionTitle
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
-        (dataDescriptors,dataDescriptorValues,mostRecentSectionTitle) = obtainAnalyticsData()
-        sectionsTitles[0] = mostRecentSectionTitle
         //self.navigationController?.hidesBarsOnSwipe = true
+        loadAnalyticsData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,7 +45,7 @@ class AnalyticsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 { return 4 }
+        if section == 0 { return 6 }
         return analyticsMode.count
     }
     
@@ -53,7 +59,7 @@ class AnalyticsTableViewController: UITableViewController {
 //        if let analyticsCell = cell as? AnalyticsTableViewCell{
 //            analyticsCell.updateAnalyticsCell(with: analyticsMode[indexPath.row]!)
 //        }
-        if indexPath.section == 0 {
+        if indexPath.section == 0 && indexPath.row < 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "analyticsData", for: indexPath)
             cell.layer.cornerRadius = 20.0
             cell.layer.borderWidth = 8.0
@@ -61,9 +67,18 @@ class AnalyticsTableViewController: UITableViewController {
                 dataCell.updateData(with: dataDescriptors[indexPath.row], and: String(dataDescriptorValues[indexPath.row]))
             }
             return cell
+        } else if indexPath.section == 0 && indexPath.row >= 4{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "analyticsDataSpecific", for: indexPath)
+            cell.layer.cornerRadius = 20.0
+            cell.layer.borderWidth = 8.0
+            if let dataCell = cell as? AnalyticsDataTableViewCell{
+                dataCell.updateData(with: dataSpecificsDescriptors[indexPath.row-4], and:
+                    String(dataSpecifics[indexPath.row - 4]))
+            }
+            return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "simpleAnalyticsCell", for: indexPath)
-        cell.textLabel?.text = analyticsMode[indexPath.row]! + " Songs"
+        cell.textLabel?.text = analyticsMode[indexPath.row]!
         cell.imageView?.image = modeIcons[indexPath.row]
         return cell
     }
@@ -75,10 +90,11 @@ class AnalyticsTableViewController: UITableViewController {
     }
     
     @IBAction func refreshAnalytics(_ sender: UIRefreshControl) {
-        (dataDescriptors,dataDescriptorValues,mostRecentSectionTitle) = obtainAnalyticsData()
-        sectionsTitles[0] = mostRecentSectionTitle
-        tableView.reloadData()
-        self.refreshControl?.endRefreshing()
+        DispatchQueue.main.async { [weak self] in
+            self?.loadAnalyticsData()
+            self?.tableView.reloadData()
+            self?.refreshControl?.endRefreshing()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -11,8 +11,28 @@ import MediaPlayer
 
 private let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 private let dateFormatter = DateFormatter()
+private var mostListenedArtist:Dictionary<String, Int> = [:]
+private var mostListenedGenre: Dictionary<String, Int> = [:]
 
 func myOrange() -> UIColor { return UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1) }
+
+func addArtistForRecent(with item:MPMediaItem){
+    let artistName = item.artist ?? "Unknown"
+    if mostListenedArtist[artistName] == nil {
+        mostListenedArtist[artistName] = 0
+    } else {
+        mostListenedArtist[artistName] = mostListenedArtist[artistName ]! + 1
+    }
+}
+
+func addGenreForRecent(with item:MPMediaItem){
+    let genreName = item.genre ?? "Unknown"
+    if mostListenedGenre[genreName] == nil {
+        mostListenedGenre[genreName] = 0
+    } else {
+        mostListenedGenre[genreName] = mostListenedGenre[genreName]! + 1
+    }
+}
 
 func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MPMediaItem]], [String]){
     var results: [[MPMediaItem]] = []
@@ -149,9 +169,13 @@ func analyticsCompareDate(with date1: Date, date2: Date) -> Bool{
     && Calendar.current.component(.day, from: date1) == Calendar.current.component(.day, from: date2)
 }
 
-func obtainAnalyticsData() -> ([String],[Int], String){
+
+//returns -> descriptors,numeric data, specific text data,  mostRecentSectionTitle
+func obtainAnalyticsData() -> ([String],[Int], [String] , String){
     let descriptors = ["Songs Listened", "Minutes Listened", "Different Albums Listened", "Different Artists Listened"]
     var mostRecentSectionTitle = "N/A"
+    mostListenedArtist.removeAll()
+    mostListenedGenre.removeAll()
     var descriptorResults:[Int] = []
     var songsCount = 0
     var albumsSet: Set<String> = []
@@ -168,6 +192,8 @@ func obtainAnalyticsData() -> ([String],[Int], String){
             minutesCount += item.playbackDuration
             albumsSet.insert(item.albumTitle ?? "Unknown")
             artistSet.insert(item.artist ?? "Unknown")
+            addArtistForRecent(with: item)
+            addGenreForRecent(with: item)
             continue
         }
         if (!analyticsCompareDate(with: item.lastPlayedDate ?? refDate(), date2: lastDate)) { break }
@@ -176,10 +202,26 @@ func obtainAnalyticsData() -> ([String],[Int], String){
         minutesCount += item.playbackDuration
         albumsSet.insert(item.albumTitle ?? "Unknown")
         artistSet.insert(item.artist ?? "Unknown")
+        addArtistForRecent(with: item)
+        addGenreForRecent(with: item)
     }
+    var specificData: [String] = []
+    
+    let artistSorted = mostListenedArtist.sorted(by: {$0.value > $1.value})
+    if artistSorted.isEmpty {specificData.append("N/A")}
+    else if artistSorted.first!.value == 1  {specificData.append("N/A")}
+    else {specificData.append(artistSorted.first!.key)}
+    
+    let genreSorted = mostListenedGenre.sorted(by: {$0.value > $1.value})
+    if genreSorted.isEmpty {specificData.append("N/A")}
+    else if genreSorted.first!.value == 1  {specificData.append("N/A")}
+    else {specificData.append(genreSorted.first!.key)}
+
     descriptorResults = [songsCount,Int(minutesCount/60),albumsSet.count, artistSet.count]
-    return (descriptors,descriptorResults, mostRecentSectionTitle)
+    return (descriptors,descriptorResults,specificData, mostRecentSectionTitle)
 }
+
+
 
 func timeIntervalToReg(_ interval:TimeInterval) -> String{
     let minute = String(Int(interval) / 60)
