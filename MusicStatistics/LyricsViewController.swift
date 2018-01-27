@@ -28,12 +28,15 @@ class LyricsViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
         //save data
-        if !isViewing{
+        if !isViewing{ // adding lyrics to DB
             Song.addLyricsToSong(to: searchItem, using: lyricsTextField.text!, in: container!.viewContext)
+        } else { // save lyric edits
+            Song.editLyrics(using: searchItem, and: lyricsTextField.text!, in: container!.viewContext)
         }
         if !lyricsTextField.text.isEmpty { try? container?.viewContext.save() }
         dismiss(animated: true, completion: nil)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

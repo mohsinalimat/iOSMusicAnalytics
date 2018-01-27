@@ -48,6 +48,16 @@ class Song: NSManagedObject {
         }
     }
     
+    class func editLyrics(using songName: String, and newLyrics: String, in context: NSManagedObjectContext){
+        let request: NSFetchRequest<Song> = Song.fetchRequest()
+        request.predicate = NSPredicate(format: "song = %@", songName)
+        if let toEdit = try? context.fetch(request){
+            if toEdit.count > 0{
+                toEdit[0].songToLyrics?.lyrics = newLyrics
+            }
+        }
+    }
+    
 }
 
 class Lyrics: NSManagedObject{}

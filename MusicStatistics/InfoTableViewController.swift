@@ -96,7 +96,7 @@ class InfoTableViewController: UITableViewController {
             cell.detailTextLabel?.text = info.beatsPerMinute == 0 ? "Unknown" : "\(info.beatsPerMinute)"
         case 11:
             cell.textLabel?.text = "Explicit?"
-            cell.detailTextLabel?.text = info.isExplicitItem ? "✅" : "❌"
+            cell.detailTextLabel?.text = info.isExplicitItem ? "✅" : "❎"
         case 12: // 13
             cell.textLabel?.text = "Play Count"
             cell.detailTextLabel?.text = "\(info.playCount)"

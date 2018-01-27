@@ -26,7 +26,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var nowPlaying: MPMediaItem!
     //var player:MPMusicPlayerApplicationController!
     let player = MPMusicPlayerController.systemMusicPlayer
-    var playOrPause: Bool!
     var isPlayerLoaded = false
     var timer: Timer!
     var beginPlaying: Bool!
@@ -36,6 +35,16 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     var isViewingLyrics: Bool!
     var songNameInDB:String!
+    
+    var playOrPause: Bool!{
+        didSet{
+            if playOrPause { // play -> pause
+                playButton.setImage(UIImage(named: "Pause Button"), for: .normal)
+            } else { // pause -> play
+                playButton.setImage(UIImage(named: "Play Button"), for: .normal)
+            }
+        }
+    }
     
     
     var collection:MPMediaItemCollection!{
@@ -63,10 +72,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         player.shuffleMode = .off
         player.repeatMode = .none
         songProgress.setThumbImage(UIImage(named:"playerThumb"), for: .normal)
-        
-        //setUpMultimediaControls()
-        //updateMultimediaControlInfo()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,8 +86,11 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             }
         }
         checkAndUpdatePlayerInfo()
-        NotificationCenter.default.addObserver(self, selector:#selector(PlayerViewController.checkAndUpdatePlayerInfo),
-                                               name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        updatePlaybackStatus()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: UIApplication.shared, queue: OperationQueue.main){ _ in
+            self.checkAndUpdatePlayerInfo()
+            self.updatePlaybackStatus()
+        }
         // called when the application terminates -> stop the player
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillTerminate, object: UIApplication.shared, queue: OperationQueue.main)
         { _ in self.player.stop() }
@@ -121,7 +129,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
                 albumArt?.image = UIImage(named: "guitar")
             }
             
-            background.image = nil
+            background.removeBlurEffect()
             background.image = artwork?.image(at: artworkSize)
             background.addBlurEffect()
             
@@ -178,11 +186,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         if !beginPlaying {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
             beginPlaying = true
-        }
-        if playOrPause { // play -> pause
-            playButton.setImage(UIImage(named: "Pause Button"), for: .normal)
-        } else { // pause -> play
-          playButton.setImage(UIImage(named: "Play Button"), for: .normal)
         }
     }
     
@@ -282,6 +285,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         
         let deleteLyricsAction = UIAlertAction(title: "Delete Lyrics", style: .destructive) { _ in
             Song.deleteLyrics(using: self.songNameInDB, in: self.container!.viewContext)
+            overlayTextWithVisualEffect(using: "Success", on: self.view)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -303,6 +307,17 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         if let _ = segue.source as? QueueTableViewController{
             returnFromQueueEditor = true
         }
+    }
+    
+    func updatePlaybackStatus(){
+        switch player.playbackState{
+        case .paused, .stopped:
+            playOrPause = false
+        case .playing:
+            playOrPause = true
+        default: break;
+        }
+        
     }
 }
 

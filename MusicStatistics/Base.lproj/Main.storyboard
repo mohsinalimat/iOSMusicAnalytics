@@ -1105,8 +1105,8 @@
                                             <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SM7-DA-WQk">
-                                            <rect key="frame" x="285" y="17" width="71" height="40"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SM7-DA-WQk">
+                                            <rect key="frame" x="285" y="30" width="71" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <color key="textColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
@@ -1116,7 +1116,7 @@
                                         <constraint firstAttribute="bottom" secondItem="SM7-DA-WQk" secondAttribute="bottom" constant="3.5" id="0zr-KQ-NSU"/>
                                         <constraint firstAttribute="trailing" secondItem="SM7-DA-WQk" secondAttribute="trailing" constant="19" id="9Hc-K4-ALm"/>
                                         <constraint firstItem="SM7-DA-WQk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="som-FA-xmw" secondAttribute="leading" id="BCQ-ge-hDK"/>
-                                        <constraint firstItem="SM7-DA-WQk" firstAttribute="top" secondItem="som-FA-xmw" secondAttribute="top" constant="17" id="IqW-Qd-k5R"/>
+                                        <constraint firstItem="SM7-DA-WQk" firstAttribute="top" secondItem="som-FA-xmw" secondAttribute="top" constant="30" id="IqW-Qd-k5R"/>
                                         <constraint firstItem="VgS-MU-83O" firstAttribute="leading" secondItem="som-FA-xmw" secondAttribute="leading" constant="16" id="TNb-ch-J5D"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VgS-MU-83O" secondAttribute="trailing" id="WYd-cH-vVG"/>
                                         <constraint firstItem="VgS-MU-83O" firstAttribute="top" secondItem="som-FA-xmw" secondAttribute="top" constant="5" id="ipE-ro-wj8"/>
@@ -1157,7 +1157,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="analyticsDetail" textLabel="9V3-gX-8X3" detailTextLabel="pfb-8P-1nG" style="IBUITableViewCellStyleValue1" id="2ag-zP-MaK">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="analyticsDetail" textLabel="9V3-gX-8X3" detailTextLabel="pfb-8P-1nG" imageView="Tii-oN-1Mn" style="IBUITableViewCellStyleValue1" id="2ag-zP-MaK">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2ag-zP-MaK" id="cDR-vY-qdp">
@@ -1178,6 +1178,10 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tii-oN-1Mn">
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

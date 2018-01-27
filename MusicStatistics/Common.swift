@@ -230,6 +230,35 @@ func timeIntervalToReg(_ interval:TimeInterval) -> String{
     return minute + ":" + seconds
 }
 
+
+func overlayTextWithVisualEffect(using text:String, on view: UIView){
+    let blurEffect = UIBlurEffect(style: .extraLight)
+    let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+    let effectBounds = CGRect(origin: CGPoint(x: UIScreen.main.bounds.width/2 - 100, y: UIScreen.main.bounds.height/2 - 66),size: CGSize(width: 200, height: 133))
+    blurredEffectView.frame = effectBounds
+    blurredEffectView.layer.cornerRadius = 30.0
+    blurredEffectView.clipsToBounds = true
+    let label = UILabel(frame: effectBounds)
+    label.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
+    label.textAlignment = .center
+    label.text = text
+    label.font = label.font.withSize(40.0)
+    label.textColor = UIColor.black
+    
+    view.addSubview(blurredEffectView)
+    view.addSubview(label)
+    Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false){ _ in
+        UIView.transition(with: blurredEffectView, duration: 0.5, options: [.transitionCrossDissolve],
+                          animations: {blurredEffectView.alpha = 0}){ _ in
+                            blurredEffectView.removeFromSuperview()
+        }
+        UIView.transition(with: label, duration: 0.5, options: [.transitionCrossDissolve],
+                          animations: {label.alpha = 0}){ _ in
+                            label.removeFromSuperview()
+        }
+    }
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]
@@ -247,6 +276,12 @@ extension UIImageView{
         
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         self.addSubview(blurEffectView)
+    }
+    
+    func removeBlurEffect(){
+        if let blurView = self.subviews.first as? UIVisualEffectView{
+            blurView.removeFromSuperview()
+        }
     }
 }
 
