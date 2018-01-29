@@ -84,6 +84,7 @@ class AlbumTableViewController: UITableViewController {
         
         let addQueueAction = UIAlertAction(title: "Add to Queue", style: .default){ _ in
             self.appDelegate.currentQueue.append(contentsOf: self.albumContents)
+            overlayTextWithVisualEffect(using: "Done", on: self.view)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         

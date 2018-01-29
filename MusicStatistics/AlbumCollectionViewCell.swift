@@ -23,5 +23,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         } else {
             cellAlbumCover.image = UIImage(named: "guitar")
         }
+        cellAlbumCover.layer.borderColor = UIColor.darkGray.cgColor
+        cellAlbumCover.layer.borderWidth = 0.5
     }
 }

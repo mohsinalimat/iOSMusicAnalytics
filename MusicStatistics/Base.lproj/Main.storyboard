@@ -11,6 +11,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Avenir.ttc">
+            <string>Avenir-Medium</string>
+        </array>
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Song Table View Controller-->
         <scene sceneID="wfn-qz-g0f">
@@ -82,7 +90,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FK9-ii-SCs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FK9-ii-SCs">
                                 <rect key="frame" x="0.0" y="395" width="375" height="223"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NSS-5u-Rer">
@@ -358,6 +366,7 @@
                         <segue destination="oTV-3s-o3x" kind="relationship" relationship="viewControllers" id="Ppu-O7-r2w"/>
                         <segue destination="Ltr-cT-g9q" kind="relationship" relationship="viewControllers" id="G5o-Ou-EKC"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Gmr-Tr-uI3"/>
+                        <segue destination="RvA-pA-b9C" kind="relationship" relationship="viewControllers" id="iqm-1j-x0j"/>
                         <segue destination="4aN-o3-WbN" kind="relationship" relationship="viewControllers" id="Vzs-s5-Jlu"/>
                     </connections>
                 </tabBarController>
@@ -519,7 +528,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Exd-mz-aPG">
-                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="3QO-tb-pt8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="3QO-tb-pt8">
                             <connections>
                                 <segue destination="cSQ-Gg-9HA" kind="show" id="5vU-m9-nHm"/>
                             </connections>
@@ -931,7 +940,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltS-De-4tK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1060" y="3137"/>
+            <point key="canvasLocation" x="-1092" y="3931"/>
         </scene>
         <!--Analytics Table View Controller-->
         <scene sceneID="WFp-Xj-qcB">
@@ -1146,7 +1155,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JzT-mH-MBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-298.39999999999998" y="3135.3823088455774"/>
+            <point key="canvasLocation" x="-330" y="3930"/>
         </scene>
         <!--Analytics Detail Table View Controller-->
         <scene sceneID="Uc7-GZ-7oO">
@@ -1195,7 +1204,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-ni-psk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="3135"/>
+            <point key="canvasLocation" x="412" y="3931"/>
         </scene>
         <!--Queue Table View Controller-->
         <scene sceneID="pEe-rO-MgE">
@@ -1331,11 +1340,96 @@
             </objects>
             <point key="canvasLocation" x="-1602" y="2337"/>
         </scene>
+        <!--Others Table View Controller-->
+        <scene sceneID="hLo-7n-FYH">
+            <objects>
+                <tableViewController id="sGe-cM-Slj" customClass="OthersTableViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fBA-vw-xNE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.086273245509999999" green="0.086273662749999994" blue="0.086274556820000001" alpha="0.82999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="sectionIndexColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playlistCell" textLabel="doV-Ch-cKh" detailTextLabel="dKB-2B-00p" rowHeight="72" style="IBUITableViewCellStyleSubtitle" id="9em-be-Aow">
+                                <rect key="frame" x="0.0" y="28" width="375" height="72"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9em-be-Aow" id="Uzj-RH-nYA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="doV-Ch-cKh">
+                                            <rect key="frame" x="16" y="9.5" width="40" height="27.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dKB-2B-00p">
+                                            <rect key="frame" x="16" y="40.5" width="49" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="OV7-vK-Oqw" kind="show" id="V00-vT-euH"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="sGe-cM-Slj" id="DOI-ex-CKh"/>
+                            <outlet property="delegate" destination="sGe-cM-Slj" id="RAu-r7-1hq"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="8hS-XX-uwG">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="L69-7q-9CQ">
+                            <rect key="frame" x="123" y="7" width="129" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Artists"/>
+                                <segment title="Playlists"/>
+                            </segments>
+                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="segmentIndexChanged:" destination="sGe-cM-Slj" eventType="valueChanged" id="bAH-3q-tit"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Ie-yv-I46" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-791.20000000000005" y="3125.4872563718145"/>
+        </scene>
+        <!--Artists-->
+        <scene sceneID="VaR-6z-gMt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RvA-pA-b9C" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Artists" image="artistIcon" id="SPO-Ib-ukM"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="8fr-fl-w9z">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sGe-cM-Slj" kind="relationship" relationship="rootViewController" id="1WQ-sj-joV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8mo-M2-f3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1602" y="3125"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Play Button.png" width="211" height="211"/>
         <image name="albumIcon.png" width="30" height="30"/>
         <image name="analyticsIcon.png" width="32" height="32"/>
+        <image name="artistIcon" width="32" height="32"/>
         <image name="moreIcon" width="32" height="32"/>
         <image name="next.png" width="211" height="211"/>
         <image name="playingIcon.png" width="32" height="32"/>
@@ -1346,6 +1440,7 @@
         <image name="songIcon.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gKi-Y9-sUb"/>
+        <segue reference="pyi-QO-YHc"/>
+        <segue reference="V00-vT-euH"/>
     </inferredMetricsTieBreakers>
 </document>

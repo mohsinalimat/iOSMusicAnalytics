@@ -8,6 +8,7 @@
 
 import Foundation
 import MediaPlayer
+import BDKCollectionIndexView
 
 private let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 private let dateFormatter = DateFormatter()
@@ -90,21 +91,35 @@ func sortIntoSongSections(with allSongs:[MPMediaItem], and mode:String) -> ([[MP
 }
 
 //sort all albums into alphabetical sections
-func sortAlbumsIntoSections(with allAlbums:[[MPMediaItem]]) -> ([[[MPMediaItem]]], [String]){
+func sortAlbumsOrArtistsIntoSections(with allItems:[[MPMediaItem]], andMode mode:String) -> ([[[MPMediaItem]]], [String]){
     var count = 0
     var secTitles:[String] = []
     var temp: [[MPMediaItem]] = []
     var results: [[[MPMediaItem]]] = []
     var currentLetter: String!
-    var prevLetter: String! = findFirstLetter(with: allAlbums.first?.first?.albumTitle ?? " ")
-    for item in allAlbums{
+    var prevLetter: String!
+    switch mode {
+    case "Artists":
+        prevLetter = findFirstLetter(with: allItems.first?.first?.albumArtist ?? " ")
+    case "Albums":
+        prevLetter = findFirstLetter(with: allItems.first?.first?.albumTitle ?? " ")
+    default: break
+    }
+    for item in allItems{
         if count == 0{
             temp.append(item)
             count += 1
             continue
         }
-        currentLetter = findFirstLetter(with: item.first?.albumTitle ?? " ")
-        if String(item.first?.albumTitle?.first ?? Character(" ")).isNumber { currentLetter = "#" }
+        switch mode{
+        case "Artists":
+            currentLetter = findFirstLetter(with: item.first?.albumArtist ?? " ")
+            if String(item.first?.albumArtist?.first ?? Character(" ")).isNumber { currentLetter = "#" }
+        case "Albums":
+            currentLetter = findFirstLetter(with: item.first?.albumTitle ?? " ")
+            if String(item.first?.albumTitle?.first ?? Character(" ")).isNumber { currentLetter = "#" }
+        default: break
+        }
         if prevLetter != currentLetter && prevLetter != "#"{
             results.append(temp)
             temp.removeAll()
@@ -113,7 +128,7 @@ func sortAlbumsIntoSections(with allAlbums:[[MPMediaItem]]) -> ([[[MPMediaItem]]
         temp.append(item)
         prevLetter = currentLetter
         count += 1
-        if item == allAlbums.last! {
+        if item == allItems.last! {
             results.append(temp)
             secTitles.append("#")
         }
@@ -122,29 +137,42 @@ func sortAlbumsIntoSections(with allAlbums:[[MPMediaItem]]) -> ([[[MPMediaItem]]
 }
 
 //append all songs into double a double array, with each sub-array being a whole album
-func sortSongsIntoAlbums() -> [[MPMediaItem]]{
+func sortSongsIntoAlbumsSimpleApproach() -> [[MPMediaItem]]{
     var albums:[[MPMediaItem]] = []
-    let allAlbums = MPMediaQuery.albums().items ?? []
-    var prev: MPMediaItem! = allAlbums[0]
+    let allAlbums = MPMediaQuery.albums().collections
+    if allAlbums != nil{
+        for album in allAlbums!{
+            albums.append(album.items)
+        }
+    }
+    return albums
+}
+
+func sortSongIntoAlbums(with songs:[MPMediaItem])  -> [[MPMediaItem]]{
+    var albums:[[MPMediaItem]] = []
+    let allSongs = songs
+    var prev: MPMediaItem! = allSongs[0]
     var tempAlbum: [MPMediaItem] = []
     var count = 0
-    for item in allAlbums{
-        let currAlbumTitle = item.albumTitle ?? "NoAlbum"
+    for song in allSongs{
+        let currAlbumTitle = song.albumTitle ?? "NoAlbum"
         let prevAlbumTitle = prev.albumTitle ?? "No-Album"
         if count == 0 {
-            tempAlbum.append(item)
-            prev = item
+            tempAlbum.append(song)
+            prev = song
             count += 1
+            if song == allSongs.last!{
+                albums.append(tempAlbum)
+            }
             continue
         }
         if (prevAlbumTitle != currAlbumTitle){ // new album
             albums.append(tempAlbum)
             tempAlbum.removeAll()
         }
-        tempAlbum.append(item)
-        prev = item
-        count += 1
-        if item == allAlbums.last!{
+        tempAlbum.append(song)
+        prev = song
+        if song == allSongs.last!{
             albums.append(tempAlbum)
         }
     }
@@ -221,6 +249,16 @@ func obtainAnalyticsData() -> ([String],[Int], [String] , String){
     return (descriptors,descriptorResults,specificData, mostRecentSectionTitle)
 }
 
+func setupAlbumCollectionViewLayout(with collectionView: UICollectionView?){
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let width = 375.0 // UIScreen.main.bounds.width
+    layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+    layout.itemSize = CGSize(width: width / 2.05, height: width / 1.71)// 2.05 & 1.75
+    layout.minimumInteritemSpacing = 0
+    layout.minimumLineSpacing = 0
+    layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 27)
+    collectionView!.collectionViewLayout = layout
+}
 
 
 func timeIntervalToReg(_ interval:TimeInterval) -> String{
@@ -232,7 +270,7 @@ func timeIntervalToReg(_ interval:TimeInterval) -> String{
 
 
 func overlayTextWithVisualEffect(using text:String, on view: UIView){
-    let blurEffect = UIBlurEffect(style: .extraLight)
+    let blurEffect = UIBlurEffect(style: .prominent)
     let blurredEffectView = UIVisualEffectView(effect: blurEffect)
     let effectBounds = CGRect(origin: CGPoint(x: UIScreen.main.bounds.width/2 - 100, y: UIScreen.main.bounds.height/2 - 66),size: CGSize(width: 200, height: 133))
     blurredEffectView.frame = effectBounds

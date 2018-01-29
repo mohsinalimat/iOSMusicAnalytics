@@ -16,17 +16,23 @@ class AlbumCollectionViewController: UICollectionViewController {
     var albums:[[[MPMediaItem]]] = []
     var sectionTitles: [String] = []
     var haptic = UIImpactFeedbackGenerator(style: .light)
-
+    var isNativeAlbumController = true
+    var contents:[MPMediaItem]! = []
+    var indexView: BDKCollectionIndexView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
-        (albums,sectionTitles) = sortAlbumsIntoSections(with: sortSongsIntoAlbums())
-        
+        (albums,sectionTitles) = ([],["N"])
+    }
+    
+    func loadIndexView(with sectionTitles: [String]){
+        if indexView != nil {indexView.removeFromSuperview()}
         let indexWidth:CGFloat = 14.0
         let frameWidth = collectionView?.frame.width
         let frameHeight = collectionView?.frame.height
         let frame = CGRect(x: frameWidth! - 14, y: 0, width: indexWidth, height: frameHeight!)
-        let indexView = BDKCollectionIndexView(frame: frame, indexTitles: nil)
+        indexView = BDKCollectionIndexView(frame: frame, indexTitles: nil)
         indexView!.indexTitles = sectionTitles
         indexView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         indexView!.tintColor = UIColor.orange
@@ -37,14 +43,19 @@ class AlbumCollectionViewController: UICollectionViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        let width = 375.0 // UIScreen.main.bounds.width
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: width / 2.05, height: width / 1.71)// 2.05 & 1.75
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 27)
-        collectionView!.collectionViewLayout = layout
+        setupAlbumCollectionViewLayout(with: collectionView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if (isNativeAlbumController){
+            (albums,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
+            loadIndexView(with: sectionTitles)
+        } else {
+            albums = [sortSongIntoAlbums(with: contents)]
+            sectionTitles = ["All"]
+        }
+        collectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,7 +102,7 @@ class AlbumCollectionViewController: UICollectionViewController {
             }
         }
         if let dest = destinationViewController as? SearchAlbumTableViewController{
-            dest.unfilteredAlbums = sortSongsIntoAlbums()
+            dest.unfilteredAlbums = sortSongsIntoAlbumsSimpleApproach()
             dest.navigationItem.title = "Search Albums"
         }
     }
@@ -105,19 +116,4 @@ class AlbumCollectionViewController: UICollectionViewController {
 //        default: break
 //        }
     }
-   
-    /*
-    override func indexTitles(for collectionView: UICollectionView) -> [String]? {
-        super.indexTitles(for: collectionView)
-        print("called indextitles")
-        return sectionTitles
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
-        super.collectionView(collectionView, indexPathForIndexTitle: title, at: index)
-        print("called indexPathForIndexTitle")
-        return IndexPath(row: 0, section: index)
-    }
-     */
-
 }

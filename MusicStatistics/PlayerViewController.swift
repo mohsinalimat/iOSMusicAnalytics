@@ -72,6 +72,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         player.shuffleMode = .off
         player.repeatMode = .none
         songProgress.setThumbImage(UIImage(named:"playerThumb"), for: .normal)
+        background.clipsToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

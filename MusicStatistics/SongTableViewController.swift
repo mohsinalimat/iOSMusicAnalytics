@@ -36,10 +36,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(true, animated: animated)
-//        if self.view.alpha == 0.0{
-//            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut],
-//                           animations: {self.view.alpha = 1.0})
-//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,11 +60,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let totalNumberSongsInSection = songSections[indexPath.section].count - 1
         appDelegate.currentQueue = Array(songSections[indexPath.section][indexPath.row...totalNumberSongsInSection])
-        
-//        if self.view.alpha == 1.0{
-//            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut],
-//                           animations: {self.view.alpha = 0.0})
-//        }
         if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
             tabbar.selectedIndex = 2
         }
