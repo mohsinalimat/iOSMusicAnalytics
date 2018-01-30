@@ -69,7 +69,7 @@ class OthersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell", for: indexPath)
 
-        cell.imageView?.image = allItems[indexPath.section][indexPath.row].first?.artwork?.image(at: CGSize(width: 60, height:60))
+        cell.imageView?.image = getArtworkIconWithDefaults(using: allItems[indexPath.section][indexPath.row].first!)
         cell.imageView?.layer.cornerRadius = 30.0
         cell.imageView?.clipsToBounds = true
         cell.textLabel?.text = allItems[indexPath.section][indexPath.row].first?.albumArtist
@@ -93,7 +93,6 @@ class OthersTableViewController: UITableViewController {
             dest.isNativeAlbumController = false
             dest.contents = allItems[tableView.indexPathForSelectedRow!.section][tableView.indexPathForSelectedRow!.row].sorted(by: {$0.albumTitle ?? "Unknown" < $1.albumTitle ?? "Unknown"})
             dest.navigationItem.title = allItems[tableView.indexPathForSelectedRow!.section][tableView.indexPathForSelectedRow!.row].first?.albumArtist
-            print(dest.contents.isEmpty)
         }
     }
 }

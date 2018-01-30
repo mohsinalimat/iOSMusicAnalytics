@@ -18,7 +18,7 @@ class AlbumInfoTableViewCell: UITableViewCell {
     func updateAlbumInfo(with item:MPMediaItem){
         let windowSize = UIScreen.main.bounds.size
         infoAlbumTitle.text = item.albumTitle ?? ""
-        infoAlbumArtist.text = item.artist ?? ""
+        infoAlbumArtist.text = item.albumArtist ?? ""
         let genre = item.genre ?? ""
         var year: String!
         if item.releaseDate != nil{
@@ -33,6 +33,8 @@ class AlbumInfoTableViewCell: UITableViewCell {
         } else {
             albumImg.image = UIImage(named:"guitar")
         }
+        albumImg.layer.borderColor = UIColor.lightGray.cgColor
+        albumImg.layer.borderWidth = 0.5
     }
 
 }

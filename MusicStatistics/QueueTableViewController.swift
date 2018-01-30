@@ -48,33 +48,12 @@ class QueueTableViewController: UITableViewController {
         let albumInfo =  " · " + (appDelegate.currentQueue[indexPath.row].albumTitle ?? "")
         let genreInfo = " · " + (appDelegate.currentQueue[indexPath.row].genre ?? "")
         cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
-        cell.imageView?.image = appDelegate.currentQueue[indexPath.row].artwork?.image(at: CGSize(width:30,height:30))
+       cell.imageView?.image = getArtworkIconWithDefaults(using: appDelegate.currentQueue[indexPath.row])
         cell.showsReorderControl = true
 
 
         return cell
     }
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none

@@ -57,11 +57,7 @@ class SearchSongsTableViewController: UITableViewController, UISearchResultsUpda
         let albumInfo =  " · " + (currSong.albumTitle ?? "Unknown")
         let genreInfo = " · " + (currSong.genre ?? "Unknown")
         cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
-        if currSong.artwork != nil {
-            cell.imageView?.image = currSong.artwork?.image(at: CGSize(width:30,height:30))
-        } else {
-            cell.imageView?.image = UIImage(named: "guitarIcon")
-        }
+        cell.imageView?.image = getArtworkIconWithDefaults(using: currSong)
 
         return cell
     }

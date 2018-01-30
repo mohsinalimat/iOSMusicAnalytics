@@ -297,6 +297,13 @@ func overlayTextWithVisualEffect(using text:String, on view: UIView){
     }
 }
 
+func getArtworkIconWithDefaults(using item:MPMediaItem) -> UIImage{
+    if item.artwork != nil {
+        return item.artwork!.image(at: CGSize(width:30,height:30))!
+    }
+    return UIImage(named: "guitarIcon")!
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]

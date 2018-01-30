@@ -74,7 +74,7 @@ class AnalyticsDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "analyticsDetail", for: indexPath)
 
         // Configure the cell...
-        cell.imageView?.image = requestedSongs[indexPath.row].artwork?.image(at: CGSize(width:30,height:30))
+        cell.imageView?.image = getArtworkIconWithDefaults(using: requestedSongs[indexPath.row])
         cell.textLabel?.text = requestedSongs[indexPath.row].title ?? ""
         //cell.detailTextLabel?.text = String(requestedSongs[indexPath.row].playCount) + " Plays"
         switch mode{
