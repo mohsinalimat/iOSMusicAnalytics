@@ -1,5 +1,13 @@
+<p align = "center">
+    <img width = "900" height = "400" src = "appArtworks.jpg">
+</p>
+
+
+
 # iOS Music Analytics
 A music client for iOS written in swift, aimed to provide user analytics information about their music library
+
+### This app will be published to the app store soon! :+1::+1::+1::+1:
 
 ## Contents
 

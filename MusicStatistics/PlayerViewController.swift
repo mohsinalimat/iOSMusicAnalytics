@@ -35,6 +35,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     var isViewingLyrics: Bool!
     var songNameInDB:String!
+    var doesLyricsExist = false
     
     var playOrPause: Bool!{
         didSet{
@@ -178,6 +179,8 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         if let dest = destinationViewController as? LyricsViewController{
             dest.isViewing = isViewingLyrics
             dest.searchItem = songNameInDB
+            if doesLyricsExist { dest.existingLyrics = nowPlaying.lyrics! }
+            dest.navigationItem.title = nowPlaying.title ?? "Unknown"
         }
     }
     
@@ -265,34 +268,44 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         }
         
         //find lyric - view lyrics - not found - create lyrics
-        songNameInDB = (nowPlaying.title ?? "") + (nowPlaying.albumTitle ?? "")
-        let obtainedLyrics = Song.getLyrics(using: songNameInDB, in: container!.viewContext)
         var lyricsAction:UIAlertAction!
-        if obtainedLyrics == "No Matches"{ // create lyrics
-            lyricsAction = UIAlertAction(title: "Add Lyrics", style: .default){ _ in
-                DispatchQueue.main.async { [weak self] in
-                    self?.isViewingLyrics = false
-                    self?.performSegue(withIdentifier: "lyricsAction", sender: self)
+        // lyrics not found in m4a, create and store in core data
+        if nowPlaying.lyrics == nil || nowPlaying.lyrics!.isEmpty {
+            doesLyricsExist = false
+            songNameInDB = (nowPlaying.title ?? "") + (nowPlaying.albumTitle ?? "")
+            let obtainedLyrics = Song.getLyrics(using: songNameInDB, in: container!.viewContext)
+            if obtainedLyrics == "No Matches"{ // create lyrics w/o option to delete
+                lyricsAction = UIAlertAction(title: "Add Lyrics", style: .default){ _ in
+                    DispatchQueue.main.async { [weak self] in
+                        self?.isViewingLyrics = false
+                        self?.performSegue(withIdentifier: "lyricsAction", sender: self)
+                    }
                 }
+            } else { // view Lyrics with delete functionality
+                lyricsAction = UIAlertAction(title: "View Lyrics", style: .default){ _ in
+                    DispatchQueue.main.async { [weak self] in
+                        self?.isViewingLyrics = true
+                        self?.performSegue(withIdentifier: "lyricsAction", sender: self)
+                    }
+                }
+                let deleteLyricsAction = UIAlertAction(title: "Delete Lyrics", style: .destructive) { _ in
+                    Song.deleteLyrics(using: self.songNameInDB, in: self.container!.viewContext)
+                    overlayTextWithVisualEffect(using: "Success", on: self.view)
+                }
+                alertController.addAction(deleteLyricsAction)
             }
-        } else { // view Lyrics
+        } else{ // view present lyrics
             lyricsAction = UIAlertAction(title: "View Lyrics", style: .default){ _ in
                 DispatchQueue.main.async { [weak self] in
-                    self?.isViewingLyrics = true
+                    self?.doesLyricsExist = true
                     self?.performSegue(withIdentifier: "lyricsAction", sender: self)
                 }
             }
-        }
-        
-        let deleteLyricsAction = UIAlertAction(title: "Delete Lyrics", style: .destructive) { _ in
-            Song.deleteLyrics(using: self.songNameInDB, in: self.container!.viewContext)
-            overlayTextWithVisualEffect(using: "Success", on: self.view)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         alertController.addAction(lyricsAction)
-        alertController.addAction(deleteLyricsAction)
         
 //        let subview = alertController.view.subviews.first!
 //        let alertContentView = subview.subviews.last!

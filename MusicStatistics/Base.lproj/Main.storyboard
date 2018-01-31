@@ -13,6 +13,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="Avenir.ttc">
+            <string>Avenir-Book</string>
             <string>Avenir-Medium</string>
         </array>
         <array key="AvenirNext.ttc">
@@ -1261,7 +1262,7 @@
             </objects>
             <point key="canvasLocation" x="820" y="2317.6911544227887"/>
         </scene>
-        <!--Lyrics-->
+        <!--Lyrics View Controller-->
         <scene sceneID="FlE-ps-yj2">
             <objects>
                 <viewController id="L6h-hy-qBE" customClass="LyricsViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
@@ -1270,10 +1271,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rKz-ir-pd9">
-                                <rect key="frame" x="16" y="64" width="343" height="583"/>
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -1281,12 +1282,12 @@
                         <constraints>
                             <constraint firstItem="rKz-ir-pd9" firstAttribute="leading" secondItem="gIJ-e3-2W8" secondAttribute="leadingMargin" id="BVK-6M-ATe"/>
                             <constraint firstItem="rKz-ir-pd9" firstAttribute="trailing" secondItem="gIJ-e3-2W8" secondAttribute="trailingMargin" id="Pyr-ZD-ebG"/>
-                            <constraint firstAttribute="bottom" secondItem="rKz-ir-pd9" secondAttribute="bottom" constant="20" symbolic="YES" id="Tc1-0O-5g7"/>
+                            <constraint firstAttribute="bottom" secondItem="rKz-ir-pd9" secondAttribute="bottom" id="Tc1-0O-5g7"/>
                             <constraint firstItem="rKz-ir-pd9" firstAttribute="top" secondItem="hMC-XK-jUF" secondAttribute="top" id="Uva-QI-Blh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hMC-XK-jUF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Lyrics" id="YNb-6m-e9E">
+                    <navigationItem key="navigationItem" id="YNb-6m-e9E">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="6IZ-L8-uX2">
                             <connections>
                                 <action selector="doneEditing:" destination="L6h-hy-qBE" id="ffO-aG-24s"/>

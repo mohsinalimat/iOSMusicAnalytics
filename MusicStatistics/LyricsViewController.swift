@@ -13,27 +13,37 @@ class LyricsViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var lyricsTextField: UITextView!
     var isViewing: Bool!
+    var existingLyrics: String = "None"
     var searchItem: String!
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lyricsTextField.keyboardAppearance = .dark
-
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: UIColor.white]
+        
         // Do any additional setup after loading the view.
-        if isViewing{
+        if (existingLyrics != "None"){
+            lyricsTextField.text = existingLyrics
+            lyricsTextField.isEditable = false
+        } else if isViewing{
             lyricsTextField.text = Song.getLyrics(using: searchItem, in: container!.viewContext)
         }
     }
 
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
-        //save data
-        if !isViewing{ // adding lyrics to DB
-            Song.addLyricsToSong(to: searchItem, using: lyricsTextField.text!, in: container!.viewContext)
-        } else { // save lyric edits
-            Song.editLyrics(using: searchItem, and: lyricsTextField.text!, in: container!.viewContext)
+        //save data when no lyrics are already present in mediaItem
+        if existingLyrics == "None"{
+            if !isViewing{ // adding lyrics to DB
+                Song.addLyricsToSong(to: searchItem, using: lyricsTextField.text!, in: container!.viewContext)
+            } else { // save lyric edits
+                Song.editLyrics(using: searchItem, and: lyricsTextField.text!, in: container!.viewContext)
+            }
+            if !lyricsTextField.text.isEmpty { try? container?.viewContext.save() }
         }
-        if !lyricsTextField.text.isEmpty { try? container?.viewContext.save() }
         dismiss(animated: true, completion: nil)
     }
     
