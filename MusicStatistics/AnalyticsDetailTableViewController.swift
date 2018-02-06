@@ -10,7 +10,7 @@ import UIKit
 import MediaPlayer
 
 class AnalyticsDetailTableViewController: UITableViewController {
-    var requestedSongs: [MPMediaItem]!
+    var requestedSongs: [MPMediaItem]! = []
     var mode: String!
     let dateFormatter = DateFormatter()
     var appDelegate: AppDelegate!
@@ -22,7 +22,11 @@ class AnalyticsDetailTableViewController: UITableViewController {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         switch mode{
             case "Most Listened Songs":
-                requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
+                if !requestedSongs.isEmpty{
+                    requestedSongs.sort(by: {$0.playCount > $1.playCount})
+                } else {
+                    requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
+                }
             case "Least Listened Songs":
                 requestedSongs = allSongs.sorted(by: {$0.playCount < $1.playCount})
             case "Most Skipped Songs":

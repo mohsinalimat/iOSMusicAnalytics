@@ -19,11 +19,13 @@ class AlbumCollectionViewController: UICollectionViewController {
     var isNativeAlbumController = true
     var contents:[MPMediaItem]! = []
     var indexView: BDKCollectionIndexView!
+    @IBOutlet weak var albumAnalyticsButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
         (albums,sectionTitles) = ([],["N"])
+//        if isNativeAlbumController {self.navigationItem.rightBarButtonItems?.last?.isEnabled = false}
     }
     
     func loadIndexView(with sectionTitles: [String]){
@@ -51,6 +53,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         if (isNativeAlbumController){
             (albums,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
             loadIndexView(with: sectionTitles)
+            self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
         } else {
             albums = [sortSongIntoAlbums(with: contents)]
             sectionTitles = ["All"]
@@ -104,6 +107,11 @@ class AlbumCollectionViewController: UICollectionViewController {
         if let dest = destinationViewController as? SearchAlbumTableViewController{
             dest.unfilteredAlbums = sortSongsIntoAlbumsSimpleApproach()
             dest.navigationItem.title = "Search Albums"
+        }
+        if let dest = destinationViewController as? AnalyticsDetailTableViewController{
+            dest.requestedSongs = contents
+            dest.mode = "Most Listened Songs"
+            dest.navigationItem.title = self.navigationItem.title ?? "Artist"
         }
     }
     

@@ -12,22 +12,49 @@ import UIKit
 class SortSongsViewController: UITableViewController {
     var currentSortingMode: String!
     var memSortingMode: String! // memory
-    let modeToIndex:Dictionary<String,Int> = ["Title": 0 , "Artist": 1, "Album": 2, "Genre": 3]
     let indexToMode:Dictionary<Int, String> = [0 : "Title", 1: "Artist", 2: "Album", 3: "Genre"]
-    var feedbackGenerator:UISelectionFeedbackGenerator? = nil
+    var feedbackGenerator:UISelectionFeedbackGenerator?
+    var alreadySelectedIndex = 0
+    var deselectedFirst = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         memSortingMode = currentSortingMode
-        
-        // programmatically add checkmark upon entering the modal mvc
-        let indexPath = IndexPath(row: modeToIndex[currentSortingMode]!, section: 0)
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         feedbackGenerator = UISelectionFeedbackGenerator()
+        tableView.separatorEffect = UIVibrancyEffect(blurEffect: UIBlurEffect(style: .dark))
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.cellForRow(at: IndexPath(row: alreadySelectedIndex, section: 0))?.accessoryView?.tintColor = myOrange()
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "sortSongsCell", for: indexPath)
+        cell.textLabel?.text = indexToMode[indexPath.row]
+        if indexToMode[indexPath.row] == currentSortingMode{
+            cell.accessoryType = .checkmark
+            cell.accessoryView?.tintColor = myOrange()
+            alreadySelectedIndex = indexPath.row
+        }
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if deselectedFirst && indexPath.row != alreadySelectedIndex{
+            tableView.cellForRow(at: IndexPath(row: alreadySelectedIndex, section: 0))?.accessoryType = .none
+            deselectedFirst = false
+        }
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        tableView.cellForRow(at: indexPath)?.tintColor = myOrange()
         feedbackGenerator?.selectionChanged()
         currentSortingMode = indexToMode[indexPath.row]
     }

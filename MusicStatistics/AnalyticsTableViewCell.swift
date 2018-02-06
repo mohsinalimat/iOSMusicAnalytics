@@ -28,9 +28,6 @@ class AnalyticsTableViewCell: UITableViewCell, UICollectionViewDataSource, UICol
         case "Most Skipped":
             requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
             subMode = "Skipcount"
-//        case "Least Skipped":
-//            requestedSongs = allSongs.sorted(by: {$0.skipCount < $1.skipCount})
-//            subMode = "Skipcount"
         case "Recently Played":
             requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
             subMode = "LPDate"
