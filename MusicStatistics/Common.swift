@@ -9,6 +9,7 @@
 import Foundation
 import MediaPlayer
 import BDKCollectionIndexView
+import Charts
 
 private let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 private let dateFormatter = DateFormatter()
@@ -302,6 +303,22 @@ func getArtworkIconWithDefaults(using item:MPMediaItem) -> UIImage{
         return item.artwork!.image(at: CGSize(width:30,height:30))!
     }
     return UIImage(named: "guitarIcon")!
+}
+
+func generateBarChartData(with data: Dictionary<Int,Int>, andTitle label:String) -> BarChartData{
+    var dataSet: BarChartDataSet!
+    var dataArr = [BarChartDataEntry]()
+    for (key,val) in data{
+        dataArr.append(BarChartDataEntry(x: Double(key), y: Double(val)))
+    }
+    dataSet = BarChartDataSet(values: dataArr, label: label)
+    return BarChartData(dataSet: dataSet)
+}
+
+func getStringFromDate(with date:Date) -> String{
+    return  String(Calendar.current.component(.year, from: date)) +
+            String(Calendar.current.component(.month, from: date)) +
+            String(Calendar.current.component(.day, from: date))
 }
 
 extension String {

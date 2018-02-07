@@ -55,6 +55,8 @@
 		04BB44B9200B037200CA1B87 /* addIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B4200B037200CA1B87 /* addIcon@2x.png */; };
 		04BB44BA200B037200CA1B87 /* fearfulIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B5200B037200CA1B87 /* fearfulIcon@2x.png */; };
 		04BB44BB200B037200CA1B87 /* recentsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB44B6200B037200CA1B87 /* recentsIcon@2x.png */; };
+		04BBAE05202A880B0090A8FC /* AnalyticsGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BBAE04202A880B0090A8FC /* AnalyticsGraphViewController.swift */; };
+		04BBAE08202A9B6B0090A8FC /* AnalyticsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BBAE07202A9B6B0090A8FC /* AnalyticsDataModel.swift */; };
 		04FEE1B920157A5D00EDB737 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FEE1B820157A5D00EDB737 /* Assets.xcassets */; };
 		CC22CDD1EC21957B16393DF3 /* Pods_MusicStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F39879F098C541FF157506 /* Pods_MusicStatistics.framework */; };
 /* End PBXBuildFile section */
@@ -110,6 +112,8 @@
 		04BB44B4200B037200CA1B87 /* addIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addIcon@2x.png"; sourceTree = "<group>"; };
 		04BB44B5200B037200CA1B87 /* fearfulIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fearfulIcon@2x.png"; sourceTree = "<group>"; };
 		04BB44B6200B037200CA1B87 /* recentsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recentsIcon@2x.png"; sourceTree = "<group>"; };
+		04BBAE04202A880B0090A8FC /* AnalyticsGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsGraphViewController.swift; sourceTree = "<group>"; };
+		04BBAE07202A9B6B0090A8FC /* AnalyticsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDataModel.swift; sourceTree = "<group>"; };
 		04CD9BC6703B0D9D67CE7F94 /* Pods-MusicStatistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicStatistics.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics.release.xcconfig"; sourceTree = "<group>"; };
 		04FEE1B820157A5D00EDB737 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3333EB3C7A910040B4C73165 /* Pods-MusicStatistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicStatistics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics.debug.xcconfig"; sourceTree = "<group>"; };
@@ -198,11 +202,13 @@
 				04184EFB1FF877B60049E75A /* AlbumInfoTableViewCell.swift */,
 				047FBFFF20059CBA00F46B1A /* Common.swift */,
 				048320A820158609007B91F1 /* AddViewLyricsModel.swift */,
+				04BBAE07202A9B6B0090A8FC /* AnalyticsDataModel.swift */,
 				048320AA20159724007B91F1 /* LyricsViewController.swift */,
 				0471B84F1FFC0210006279E6 /* AnalyticsCollectionViewCell.swift */,
 				0453CC32200DCACC00810BB2 /* AnalyticsDataTableViewCell.swift */,
 				0402E4D21FFD42A000479CC6 /* AnalyticsTableViewController.swift */,
 				0402E4D41FFD438900479CC6 /* AnalyticsTableViewCell.swift */,
+				04BBAE04202A880B0090A8FC /* AnalyticsGraphViewController.swift */,
 				04192C5620016E10001F10F3 /* AnalyticsDetailTableViewController.swift */,
 				04045073201DA2F700A3E5FD /* OthersTableViewController.swift */,
 				04045075201DB5C300A3E5FD /* OthersAlbumTableViewController.swift */,
@@ -347,10 +353,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BDKCollectionIndexView/BDKCollectionIndexView.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDKCollectionIndexView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -392,6 +400,7 @@
 				04415A121FF563EB00E024DF /* AlbumCollectionViewController.swift in Sources */,
 				048320A720157FD6007B91F1 /* analyticsModel.xcdatamodeld in Sources */,
 				04415A101FF530A900E024DF /* InfoImageTableViewCell.swift in Sources */,
+				04BBAE08202A9B6B0090A8FC /* AnalyticsDataModel.swift in Sources */,
 				04415A0E1FF52F9300E024DF /* InfoTableViewController.swift in Sources */,
 				048320A920158609007B91F1 /* AddViewLyricsModel.swift in Sources */,
 				0453CC31200D2AEA00810BB2 /* AuthorizationViewController.swift in Sources */,
@@ -408,6 +417,7 @@
 				04415A0C1FF485E100E024DF /* SongTableViewController.swift in Sources */,
 				0402E4E91FFEE0B000479CC6 /* QueueTableViewController.swift in Sources */,
 				04184EFC1FF877B60049E75A /* AlbumInfoTableViewCell.swift in Sources */,
+				04BBAE05202A880B0090A8FC /* AnalyticsGraphViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

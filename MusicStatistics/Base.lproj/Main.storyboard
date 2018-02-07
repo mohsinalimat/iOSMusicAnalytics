@@ -536,7 +536,7 @@
                                     <segue destination="cSQ-Gg-9HA" kind="show" id="5vU-m9-nHm"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="analyticsIcon.png" id="jor-HI-Cre">
+                            <barButtonItem image="analyticsIcon.png" id="jor-HI-Cre">
                                 <connections>
                                     <segue destination="qE1-WF-M8r" kind="show" id="inS-29-bGM"/>
                                 </connections>
@@ -1054,6 +1054,7 @@
                                 <connections>
                                     <outlet property="descriptor" destination="QE6-p7-ftu" id="zIZ-yM-bzT"/>
                                     <outlet property="descriptorInfo" destination="HwL-6q-Vny" id="TIE-hV-qbZ"/>
+                                    <segue destination="KND-Xi-qjq" kind="show" id="sk3-dF-xMl"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="analyticsDataSpecific" rowHeight="61" id="aFV-k8-IBH" customClass="AnalyticsDataTableViewCell" customModule="MusicStatistics" customModuleProvider="target">
@@ -1112,6 +1113,36 @@
             </objects>
             <point key="canvasLocation" x="-330" y="3930"/>
         </scene>
+        <!--Analytics Graph View Controller-->
+        <scene sceneID="85Q-dp-GAb">
+            <objects>
+                <viewController id="KND-Xi-qjq" customClass="AnalyticsGraphViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v4T-l4-W0V">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKf-ZA-DSD" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="84" width="343" height="517"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zKf-ZA-DSD" firstAttribute="top" secondItem="GPi-i4-Eil" secondAttribute="top" constant="20" id="549-Hb-cyN"/>
+                            <constraint firstItem="zKf-ZA-DSD" firstAttribute="trailing" secondItem="v4T-l4-W0V" secondAttribute="trailingMargin" id="Dz1-dv-XbA"/>
+                            <constraint firstItem="GPi-i4-Eil" firstAttribute="bottom" secondItem="zKf-ZA-DSD" secondAttribute="bottom" constant="17" id="eKr-dh-nVm"/>
+                            <constraint firstItem="zKf-ZA-DSD" firstAttribute="leading" secondItem="v4T-l4-W0V" secondAttribute="leadingMargin" id="kK4-Vr-Xdo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GPi-i4-Eil"/>
+                    </view>
+                    <connections>
+                        <outlet property="chartView" destination="zKf-ZA-DSD" id="7pi-mb-Yjf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="46G-dW-lbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="492" y="4448.7256371814101"/>
+        </scene>
         <!--Analytics Detail Table View Controller-->
         <scene sceneID="Uc7-GZ-7oO">
             <objects>
@@ -1159,7 +1190,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-ni-psk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="412" y="3931"/>
+            <point key="canvasLocation" x="482" y="3650"/>
         </scene>
         <!--Queue Table View Controller-->
         <scene sceneID="pEe-rO-MgE">
@@ -1395,7 +1426,7 @@
         <image name="songIcon.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="inS-29-bGM"/>
+        <segue reference="xkq-18-Jo0"/>
         <segue reference="pyi-QO-YHc"/>
         <segue reference="V00-vT-euH"/>
     </inferredMetricsTieBreakers>
