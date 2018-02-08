@@ -305,13 +305,13 @@ func getArtworkIconWithDefaults(using item:MPMediaItem) -> UIImage{
     return UIImage(named: "guitarIcon")!
 }
 
-func generateBarChartData(with data: Dictionary<Int,Int>, andTitle label:String) -> BarChartData{
+func generateBarChartData(with data: Dictionary<Int,Int>, andTitle title:String) -> BarChartData{
     var dataSet: BarChartDataSet!
     var dataArr = [BarChartDataEntry]()
     for (key,val) in data{
         dataArr.append(BarChartDataEntry(x: Double(key), y: Double(val)))
     }
-    dataSet = BarChartDataSet(values: dataArr, label: label)
+    dataSet = BarChartDataSet(values: dataArr, label: title)
     return BarChartData(dataSet: dataSet)
 }
 

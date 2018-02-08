@@ -38,7 +38,7 @@ class AnalyticsDate: NSManagedObject{
 //
 //        }
         let newDate = AnalyticsDate(context: context)
-        newDate.date = Date()
+        newDate.date = getStringFromDate(with: Date())
         let newDataEntry = AnalyticsDataEntry(context: context)
         newDataEntry.songsListened = Int32(values[0])
         newDataEntry.minutesListened = Int32(values[1])
@@ -47,15 +47,35 @@ class AnalyticsDate: NSManagedObject{
         newDate.dataEntry = newDataEntry
     }
     
-    class func retrieveAnalyticsData() -> Dictionary<String,[Int]>{
+    class func retrieveAnalyticsData(in context: NSManagedObjectContext) -> Dictionary<String,[Int]>{
         let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
-        request.predicate = NSPredicate(format: "date < %@")
-        if isLastLaunchDateNil(){
+        var dataDict: Dictionary<String, [Int]> = [:]
+        request.predicate = NSPredicate(value: true) // return freaking everything!
+        do {
+            let matches = try context.fetch(request)
+            for item in matches{
+                let var1 = Int(item.dataEntry?.songsListened ?? 0)
+                let var2 = Int(item.dataEntry?.minutesListened ?? 0)
+                let var3 = Int(item.dataEntry?.diffAlbumListened ?? 0)
+                let var4 = Int(item.dataEntry?.diffArtistListened ?? 0)
+                dataDict[item.date ?? ""] = [var1,var2,var3,var4]
+            }
+        } catch {
+            print(error)
         }
+        return dataDict
     }
     
-    class func editAnalyticsData(){
-        
+    class func editAnalyticsData(using dateData: (String,[Int]), in context: NSManagedObjectContext){
+        let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
+        request.predicate = NSPredicate(format: "date = %@", dateData.0)
+        if let toEdit = try? context.fetch(request){
+            guard toEdit.count > 0 else { return }
+            toEdit.first!.dataEntry?.songsListened = Int32(dateData.1[0])
+            toEdit.first!.dataEntry?.minutesListened = Int32(dateData.1[1])
+            toEdit.first!.dataEntry?.diffAlbumListened = Int32(dateData.1[2])
+            toEdit.first!.dataEntry?.diffArtistListened = Int32(dateData.1[3])
+        }
     }
 }
 

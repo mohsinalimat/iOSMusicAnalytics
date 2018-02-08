@@ -100,7 +100,12 @@ class AlbumCollectionViewController: UICollectionViewController {
         }
         if let dest = destinationViewController as? AlbumTableViewController{
             if let indexPath = self.collectionView?.indexPathsForSelectedItems?.first!{
-                dest.albumContents = albums[indexPath.section][indexPath.row]
+                if isNativeAlbumController{
+                    dest.albumContents = albums[indexPath.section][indexPath.row]
+                } else {
+                    dest.albumContents = albums[indexPath.section][indexPath.row]
+                        .sorted(by: {$0.albumTrackNumber < $1.albumTrackNumber})
+                }
                 dest.navigationItem.title = albums[indexPath.section][indexPath.row][0].albumTitle ?? ""
             }
         }

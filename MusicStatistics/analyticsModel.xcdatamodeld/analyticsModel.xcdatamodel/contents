@@ -8,7 +8,7 @@
         <relationship name="parentDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnalyticsDate" inverseName="dataEntry" inverseEntity="AnalyticsDate" syncable="YES"/>
     </entity>
     <entity name="AnalyticsDate" representedClassName=".AnalyticsDate" syncable="YES" codeGenerationType="category">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="dataEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnalyticsDataEntry" inverseName="parentDate" inverseEntity="AnalyticsDataEntry" syncable="YES"/>
     </entity>
     <entity name="Lyrics" representedClassName=".Lyrics" syncable="YES" codeGenerationType="category">
