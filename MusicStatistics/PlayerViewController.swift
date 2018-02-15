@@ -73,6 +73,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         player.shuffleMode = .off
         player.repeatMode = .none
         songProgress.setThumbImage(UIImage(named:"playerThumb"), for: .normal)
+        songProgress.isContinuous = false
         background.clipsToBounds = true
     }
     
@@ -109,6 +110,9 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
     
     public func updateUI(with song:MPMediaItem?){

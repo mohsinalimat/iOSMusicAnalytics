@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             myTabBar.selectedIndex = 2
             return true
         case.OpenAnalytics:
-            myTabBar.selectedIndex = 3
+            myTabBar.selectedIndex = 4
             return true
         }
     }

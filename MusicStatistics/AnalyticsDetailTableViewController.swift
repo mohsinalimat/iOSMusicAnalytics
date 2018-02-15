@@ -21,23 +21,23 @@ class AnalyticsDetailTableViewController: UITableViewController {
         dateFormatter.dateFormat = "MMM dd"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         switch mode{
-            case "Most Listened Songs":
-                if !requestedSongs.isEmpty{
-                    requestedSongs.sort(by: {$0.playCount > $1.playCount})
-                } else {
-                    requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
-                }
-            case "Least Listened Songs":
-                requestedSongs = allSongs.sorted(by: {$0.playCount < $1.playCount})
-            case "Most Skipped Songs":
-                requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
-            case "Recently Played Songs":
-                requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
-            case "Recently Added Songs":
-                requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
-            case "Longest Songs":
-                requestedSongs = allSongs.sorted(by: {$0.playbackDuration > $1.playbackDuration})
-            default: break
+        case "Most Listened Songs":
+            if !requestedSongs.isEmpty{
+                requestedSongs.sort(by: {$0.playCount > $1.playCount})
+            } else {
+                requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
+            }
+        case "Least Listened Songs":
+            requestedSongs = allSongs.sorted(by: {$0.playCount < $1.playCount})
+        case "Most Skipped Songs":
+            requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
+        case "Recently Played Songs":
+            requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
+        case "Recently Added Songs":
+            requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
+        case "Longest Songs":
+            requestedSongs = allSongs.sorted(by: {$0.playbackDuration > $1.playbackDuration})
+        default: break
         }
     }
 

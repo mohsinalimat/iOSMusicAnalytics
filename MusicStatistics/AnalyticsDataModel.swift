@@ -10,11 +10,11 @@ import Foundation
 import CoreData
 
 func storeLastLaunchDate(){
-    UserDefaults.standard.set(Date(), forKey: "lastLaunchDate")
+    UserDefaults.standard.set(getStringFromDate(with: Date()), forKey: "lastLaunchDate")
 }
 
-func getLastLaunchDate() -> Date {
-    return UserDefaults.standard.object(forKey: "lastLaunchDate") as! Date
+func getLastLaunchDate() -> String {
+    return UserDefaults.standard.object(forKey: "lastLaunchDate") as! String
 }
 
 func isLastLaunchDateNil() -> Bool {
@@ -70,7 +70,7 @@ class AnalyticsDate: NSManagedObject{
         let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
         request.predicate = NSPredicate(format: "date = %@", dateData.0)
         if let toEdit = try? context.fetch(request){
-            guard toEdit.count > 0 else { return }
+            guard toEdit.count == 1 else { return }
             toEdit.first!.dataEntry?.songsListened = Int32(dateData.1[0])
             toEdit.first!.dataEntry?.minutesListened = Int32(dateData.1[1])
             toEdit.first!.dataEntry?.diffAlbumListened = Int32(dateData.1[2])

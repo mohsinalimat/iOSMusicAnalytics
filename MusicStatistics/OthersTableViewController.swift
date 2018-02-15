@@ -73,7 +73,18 @@ class OthersTableViewController: UITableViewController {
         cell.imageView?.layer.cornerRadius = 30.0
         cell.imageView?.clipsToBounds = true
         cell.textLabel?.text = allItems[indexPath.section][indexPath.row].first?.albumArtist
-        cell.detailTextLabel?.text = "\(allItems[indexPath.section][indexPath.row].count) song(s)"
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let count = self?.allItems[indexPath.section][indexPath.row].count ?? 0
+            var countStr = "\(count) song"
+            if count != 1 { countStr += "s"}
+            var playcount = 0
+            for song in (self?.allItems[indexPath.section][indexPath.row] ?? []) {
+                playcount += song.playCount
+            }
+            DispatchQueue.main.async {
+                cell.detailTextLabel?.text = countStr + " · " + String(playcount) + " plays"
+            }
+        }
 
         return cell
     }
