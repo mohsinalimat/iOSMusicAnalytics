@@ -32,7 +32,7 @@ class AlbumTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return albumContents.count + 1
+        return albumContents.count + 2
     }
 
     
@@ -41,6 +41,23 @@ class AlbumTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "albumInfo", for: indexPath)
             if let infoCell = cell as? AlbumInfoTableViewCell{
                 infoCell.updateAlbumInfo(with: albumContents.last!)
+            }
+            return cell
+        }
+        if indexPath.row == albumContents.count + 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "songPerAlbum", for: indexPath)
+            var duration = 0
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                for item in self?.albumContents ?? []{
+                    duration += Int(item.playbackDuration)
+                }
+                DispatchQueue.main.async {
+                    let songCount = String(self?.albumContents.count ?? 0) + (self?.albumContents.count == 1 ? " Song · " : " Songs · ")
+                    cell.textLabel?.text = songCount + String(duration/60) + " Minutes"
+                    cell.textLabel?.font = UIFont(name: "System", size: 17)
+                    cell.textLabel?.textColor = UIColor.lightGray
+                    cell.detailTextLabel?.text = nil
+                }
             }
             return cell
         }

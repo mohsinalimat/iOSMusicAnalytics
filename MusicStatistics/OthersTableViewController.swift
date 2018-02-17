@@ -26,19 +26,6 @@ class OthersTableViewController: UITableViewController {
         (allItems,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: playlists, andMode: "Artists")
     }
     
-    @IBAction func segmentIndexChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.title = "Artists"
-            self.tabBarItem.image = UIImage(named: "artistIcon")
-        case 1:
-            self.title = "Playlists"
-            self.tabBarItem.image = UIImage(named: "playlistBarIcon")
-        default: break
-        }
-    }
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

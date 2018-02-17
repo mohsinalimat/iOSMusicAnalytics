@@ -555,7 +555,7 @@
         <scene sceneID="hTM-kA-03g">
             <objects>
                 <tableViewController id="go6-7X-kAJ" customClass="AlbumTableViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pca-lf-kxP">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pca-lf-kxP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
@@ -565,7 +565,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ssy-Cw-djO" id="oXI-ts-3E7">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ir6-Ea-MbR">
@@ -590,7 +590,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="364"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Ku-wQ-MdA" id="lca-SC-fir">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="363.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="364"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k69-H7-xdA">
@@ -1330,13 +1330,58 @@
         <scene sceneID="s9P-Ea-KLF">
             <objects>
                 <viewController id="xch-PE-BSm" customClass="OthersSegmentViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DJP-Vn-Dtc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWD-Ti-he3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="sGe-cM-Slj" kind="embed" id="GTQ-aE-vC5"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drI-Es-5tW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="35D-W1-nik" kind="embed" id="RcM-N3-pCr"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="drI-Es-5tW" firstAttribute="trailing" secondItem="XWD-Ti-he3" secondAttribute="trailing" id="1Dv-he-8ST"/>
+                            <constraint firstItem="drI-Es-5tW" firstAttribute="bottom" secondItem="XWD-Ti-he3" secondAttribute="bottom" id="5b3-6z-fMo"/>
+                            <constraint firstAttribute="bottom" secondItem="XWD-Ti-he3" secondAttribute="bottom" id="5yg-U8-2Zd"/>
+                            <constraint firstItem="drI-Es-5tW" firstAttribute="top" secondItem="XWD-Ti-he3" secondAttribute="top" id="ao8-Br-qrA"/>
+                            <constraint firstItem="XWD-Ti-he3" firstAttribute="top" secondItem="DJP-Vn-Dtc" secondAttribute="top" id="ejv-sb-x7R"/>
+                            <constraint firstItem="XWD-Ti-he3" firstAttribute="leading" secondItem="DJP-Vn-Dtc" secondAttribute="leading" id="nQM-Bd-Xrt"/>
+                            <constraint firstItem="drI-Es-5tW" firstAttribute="leading" secondItem="XWD-Ti-he3" secondAttribute="leading" id="s9P-9b-WRI"/>
+                            <constraint firstAttribute="trailing" secondItem="XWD-Ti-he3" secondAttribute="trailing" id="zbd-bp-h2u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3kJ-p1-7kW"/>
+                    </view>
                     <navigationItem key="navigationItem" id="sbV-gA-m2c">
                         <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Xds-t2-Tb8">
+                            <rect key="frame" x="123" y="7" width="129" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Artist"/>
+                                <segment title="Playlists"/>
+                            </segments>
+                            <connections>
+                                <action selector="switchOthersMode:" destination="xch-PE-BSm" eventType="valueChanged" id="5qS-Yc-yKC"/>
+                            </connections>
+                        </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="artistView" destination="XWD-Ti-he3" id="b6C-0j-ra7"/>
+                        <outlet property="playlistView" destination="drI-Es-5tW" id="ZYh-Lo-wdQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cny-Sh-aLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-921" y="3140"/>
+            <point key="canvasLocation" x="-922.39999999999998" y="3139.8800599700153"/>
         </scene>
         <!--Others Table View Controller-->
         <scene sceneID="hLo-7n-FYH">
