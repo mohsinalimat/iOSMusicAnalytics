@@ -895,7 +895,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltS-De-4tK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1092" y="3931"/>
+            <point key="canvasLocation" x="-1137" y="4373"/>
         </scene>
         <!--Analytics Table View Controller-->
         <scene sceneID="WFp-Xj-qcB">
@@ -1111,7 +1111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JzT-mH-MBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-330" y="3930"/>
+            <point key="canvasLocation" x="-418" y="4372"/>
         </scene>
         <!--Analytics Graph View Controller-->
         <scene sceneID="85Q-dp-GAb">
@@ -1141,7 +1141,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46G-dW-lbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="492" y="4448.7256371814101"/>
+            <point key="canvasLocation" x="482" y="4836"/>
         </scene>
         <!--Analytics Detail Table View Controller-->
         <scene sceneID="Uc7-GZ-7oO">
@@ -1190,7 +1190,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-ni-psk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="482" y="3650"/>
+            <point key="canvasLocation" x="478" y="4170"/>
         </scene>
         <!--Queue Table View Controller-->
         <scene sceneID="pEe-rO-MgE">
@@ -1326,6 +1326,18 @@
             </objects>
             <point key="canvasLocation" x="-1602" y="2337"/>
         </scene>
+        <!--Others Segment View Controller-->
+        <scene sceneID="s9P-Ea-KLF">
+            <objects>
+                <viewController id="xch-PE-BSm" customClass="OthersSegmentViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="sbV-gA-m2c">
+                        <nil key="title"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cny-Sh-aLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-921" y="3140"/>
+        </scene>
         <!--Others Table View Controller-->
         <scene sceneID="hLo-7n-FYH">
             <objects>
@@ -1372,23 +1384,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="8hS-XX-uwG">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="L69-7q-9CQ">
-                            <rect key="frame" x="123" y="7" width="129" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Artists"/>
-                                <segment title="Playlists"/>
-                            </segments>
-                            <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <connections>
-                                <action selector="segmentIndexChanged:" destination="sGe-cM-Slj" eventType="valueChanged" id="bAH-3q-tit"/>
-                            </connections>
-                        </segmentedControl>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ie-yv-I46" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-791.20000000000005" y="3125.4872563718145"/>
+            <point key="canvasLocation" x="-143" y="2979"/>
         </scene>
         <!--Artists-->
         <scene sceneID="VaR-6z-gMt">
@@ -1403,12 +1403,26 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="sGe-cM-Slj" kind="relationship" relationship="rootViewController" id="1WQ-sj-joV"/>
+                        <segue destination="xch-PE-BSm" kind="relationship" relationship="rootViewController" id="lcK-Xp-3aD"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mo-M2-f3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1602" y="3125"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="6Ky-uw-nh7">
+            <objects>
+                <viewController id="35D-W1-nik" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fug-PZ-BCH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QUC-sf-HJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-143" y="3658"/>
         </scene>
     </scenes>
     <resources>
@@ -1428,6 +1442,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="xkq-18-Jo0"/>
         <segue reference="pyi-QO-YHc"/>
-        <segue reference="ce0-2I-rr8"/>
+        <segue reference="V00-vT-euH"/>
     </inferredMetricsTieBreakers>
 </document>

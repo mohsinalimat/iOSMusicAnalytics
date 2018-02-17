@@ -40,6 +40,7 @@
 		048320A720157FD6007B91F1 /* analyticsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 048320A520157FD6007B91F1 /* analyticsModel.xcdatamodeld */; };
 		048320A920158609007B91F1 /* AddViewLyricsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048320A820158609007B91F1 /* AddViewLyricsModel.swift */; };
 		048320AB20159724007B91F1 /* LyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048320AA20159724007B91F1 /* LyricsViewController.swift */; };
+		0486265F2037EC43003E1400 /* OthersSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486265E2037EC43003E1400 /* OthersSegmentViewController.swift */; };
 		048BBF6B1FF68D010040817F /* SortSongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048BBF6A1FF68D010040817F /* SortSongsViewController.swift */; };
 		048BBF6D1FF700230040817F /* Play Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF6C1FF700230040817F /* Play Button.png */; };
 		048BBF741FF71FDE0040817F /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 048BBF721FF71FDE0040817F /* next.png */; };
@@ -97,6 +98,7 @@
 		048320A620157FD6007B91F1 /* analyticsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = analyticsModel.xcdatamodel; sourceTree = "<group>"; };
 		048320A820158609007B91F1 /* AddViewLyricsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewLyricsModel.swift; sourceTree = "<group>"; };
 		048320AA20159724007B91F1 /* LyricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsViewController.swift; sourceTree = "<group>"; };
+		0486265E2037EC43003E1400 /* OthersSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersSegmentViewController.swift; sourceTree = "<group>"; };
 		048BBF6A1FF68D010040817F /* SortSongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSongsViewController.swift; sourceTree = "<group>"; };
 		048BBF6C1FF700230040817F /* Play Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play Button.png"; sourceTree = "<group>"; };
 		048BBF721FF71FDE0040817F /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				04FEE1B820157A5D00EDB737 /* Assets.xcassets */,
 				04415A021FF47B2000E024DF /* LaunchScreen.storyboard */,
 				044159FA1FF47B2000E024DF /* Main.storyboard */,
+				0486265E2037EC43003E1400 /* OthersSegmentViewController.swift */,
 				048320A520157FD6007B91F1 /* analyticsModel.xcdatamodeld */,
 				04415A051FF47B2000E024DF /* Info.plist */,
 				048BBF6A1FF68D010040817F /* SortSongsViewController.swift */,
@@ -393,6 +396,7 @@
 				042086732007DC3700730C9C /* AlbumHeaderCollectionReusableView.swift in Sources */,
 				04045076201DB5C300A3E5FD /* OthersAlbumTableViewController.swift in Sources */,
 				047FC00020059CBA00F46B1A /* Common.swift in Sources */,
+				0486265F2037EC43003E1400 /* OthersSegmentViewController.swift in Sources */,
 				04415A141FF57CD900E024DF /* AlbumCollectionViewCell.swift in Sources */,
 				044159F91FF47B2000E024DF /* PlayerViewController.swift in Sources */,
 				0453CC33200DCACC00810BB2 /* AnalyticsDataTableViewCell.swift in Sources */,
