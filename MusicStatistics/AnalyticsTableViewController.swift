@@ -10,10 +10,11 @@ import UIKit
 
 class AnalyticsTableViewController: UITableViewController {
     let analyticsMode: Dictionary<Int,String> =
-        [0:"Most Listened Songs", 1:"Least Listened Songs", 2:"Most Skipped Songs",3 : "Recently Played Songs", 4: "Recently Added Songs",5:"Longest Songs"]
+        [0:"Most Listened Songs", 1:"Least Listened Songs", 2:"Most Skipped Songs",3 : "Recently Played Songs", 4: "Recently Added Songs",5:"Longest Songs",
+         6: "Oldest Songs"]
     let modeIcons: Dictionary<Int, UIImage> =
         [0: UIImage(named: "mostPlayedIcon")!,1: UIImage(named: "worried")!,2: UIImage(named: "fearfulIcon")!,
-         3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!,5:UIImage(named: "guitarIcon")!]
+         3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!,5:UIImage(named: "lengthIcon")!, 6:UIImage(named: "ageIcon")!]
     var sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
     var dataDescriptors:[String] = Array()
     var dataDescriptorValues:[Int] = Array()

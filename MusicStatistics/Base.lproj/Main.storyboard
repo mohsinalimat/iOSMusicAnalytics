@@ -1151,6 +1151,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="2em-hn-YuI">
+                            <rect key="frame" x="0.0" y="72" width="375" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="analyticsDetail" textLabel="9V3-gX-8X3" detailTextLabel="pfb-8P-1nG" imageView="Tii-oN-1Mn" style="IBUITableViewCellStyleValue1" id="2ag-zP-MaK">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -1187,6 +1191,9 @@
                             <outlet property="delegate" destination="qE1-WF-M8r" id="hkX-Ov-qDy"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="analyticsLoading" destination="2em-hn-YuI" id="l4z-77-enN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-ni-psk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1463,6 +1470,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="EEA-ek-mTn"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QUC-sf-HJW" userLabel="First Responder" sceneMemberID="firstResponder"/>

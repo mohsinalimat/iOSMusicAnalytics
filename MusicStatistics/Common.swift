@@ -321,6 +321,18 @@ func getStringFromDate(with date:Date) -> String{
             String(Calendar.current.component(.day, from: date))
 }
 
+/**
+ Truncate the text label of right detail table view cells so that the right detail
+ remains visible.
+ */
+func truncateTableViewText(with text: String) -> String{
+    if text.count > 27{
+        let index  = text.index(text.startIndex, offsetBy: 24)
+        return String(text[..<index]) + "..."
+    }
+    return text
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]

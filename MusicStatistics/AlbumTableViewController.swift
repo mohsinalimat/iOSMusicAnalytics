@@ -54,8 +54,6 @@ class AlbumTableViewController: UITableViewController {
                 DispatchQueue.main.async {
                     let songCount = String(self?.albumContents.count ?? 0) + (self?.albumContents.count == 1 ? " Song · " : " Songs · ")
                     cell.textLabel?.text = songCount + String(duration/60) + " Minutes"
-                    cell.textLabel?.font = UIFont(name: "System", size: 17)
-                    cell.textLabel?.textColor = UIColor.lightGray
                     cell.detailTextLabel?.text = nil
                 }
             }
@@ -63,12 +61,19 @@ class AlbumTableViewController: UITableViewController {
         }
 
         // Configure the cell...
+        var trackNumber = ""; var spacing = ""; var trackTitle = ""
         let cell = tableView.dequeueReusableCell(withIdentifier: "songPerAlbum", for: indexPath)
-        let trackNumber = String(albumContents[indexPath.row - 1].albumTrackNumber) 
-        let trackTitle = albumContents[indexPath.row - 1].title ?? ""
+        
+        DispatchQueue.global(qos: .userInteractive).async{
+            trackNumber = String(self.albumContents[indexPath.row - 1].albumTrackNumber)
+            let originalTitle = self.albumContents[indexPath.row - 1].title ?? ""
+            trackTitle = truncateTableViewText(with: originalTitle) // makes sure right detail is visible
+            spacing = trackNumber.count == 1 ? "        " : "       "
+            DispatchQueue.main.async {
+                cell.textLabel?.text = trackNumber + spacing + trackTitle
+            }
+        }
         let duration = timeIntervalToReg(albumContents[indexPath.row - 1].playbackDuration)
-        let spacing = trackNumber.count == 1 ? "        " : "       "
-        cell.textLabel?.text = trackNumber + spacing + trackTitle
         cell.detailTextLabel?.text = String(duration)
         return cell
     }

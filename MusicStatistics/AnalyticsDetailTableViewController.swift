@@ -14,30 +14,40 @@ class AnalyticsDetailTableViewController: UITableViewController {
     var mode: String!
     let dateFormatter = DateFormatter()
     var appDelegate: AppDelegate!
-
+    @IBOutlet weak var analyticsLoading: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        analyticsLoading.startAnimating()
         let allSongs = MPMediaQuery.songs().items ?? []
         dateFormatter.dateFormat = "MMM dd"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        switch mode{
-        case "Most Listened Songs":
-            if !requestedSongs.isEmpty{
-                requestedSongs.sort(by: {$0.playCount > $1.playCount})
-            } else {
-                requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
+        DispatchQueue.global(qos: .userInitiated).async{
+            switch self.mode{
+            case "Most Listened Songs":
+                if !self.requestedSongs.isEmpty{
+                    self.requestedSongs.sort(by: {$0.playCount > $1.playCount})
+                } else {
+                    self.requestedSongs = allSongs.sorted(by: {$0.playCount > $1.playCount})
+                }
+            case "Least Listened Songs":
+                self.requestedSongs = allSongs.sorted(by: {$0.playCount < $1.playCount})
+            case "Most Skipped Songs":
+                self.requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
+            case "Recently Played Songs":
+                self.requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
+            case "Recently Added Songs":
+                self.requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
+            case "Longest Songs":
+                self.requestedSongs = allSongs.sorted(by: {$0.playbackDuration > $1.playbackDuration})
+            case "Oldest Songs":
+                self.requestedSongs = allSongs.sorted(by: {$0.releaseDate ?? refDate() < $1.releaseDate ?? refDate()})
+            default: break
             }
-        case "Least Listened Songs":
-            requestedSongs = allSongs.sorted(by: {$0.playCount < $1.playCount})
-        case "Most Skipped Songs":
-            requestedSongs = allSongs.sorted(by: {$0.skipCount > $1.skipCount})
-        case "Recently Played Songs":
-            requestedSongs = allSongs.sorted(by: {$0.lastPlayedDate ?? refDate() > $1.lastPlayedDate ?? refDate()})
-        case "Recently Added Songs":
-            requestedSongs = allSongs.sorted(by: {$0.dateAdded > $1.dateAdded})
-        case "Longest Songs":
-            requestedSongs = allSongs.sorted(by: {$0.playbackDuration > $1.playbackDuration})
-        default: break
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.analyticsLoading.stopAnimating()
+            }
         }
     }
 
@@ -77,10 +87,14 @@ class AnalyticsDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "analyticsDetail", for: indexPath)
 
-        // Configure the cell...
         cell.imageView?.image = getArtworkIconWithDefaults(using: requestedSongs[indexPath.row])
-        cell.textLabel?.text = requestedSongs[indexPath.row].title ?? ""
-        //cell.detailTextLabel?.text = String(requestedSongs[indexPath.row].playCount) + " Plays"
+        var title = ""
+        DispatchQueue.global(qos: .userInteractive).async{ [weak self] in
+            title = truncateTableViewText(with: self?.requestedSongs[indexPath.row].title ?? "")
+            DispatchQueue.main.async {
+                cell.textLabel?.text = title
+            }
+        }
         switch mode{
         case "Most Listened Songs", "Least Listened Songs":
             cell.detailTextLabel?.text = String(requestedSongs[indexPath.row].playCount) + " Plays"
@@ -92,6 +106,9 @@ class AnalyticsDetailTableViewController: UITableViewController {
             cell.detailTextLabel?.text = dateFormatter.string(from: requestedSongs[indexPath.row].dateAdded)
         case "Longest Songs":
             cell.detailTextLabel?.text = timeIntervalToReg(requestedSongs[indexPath.row].playbackDuration)
+        case "Oldest Songs":
+            cell.detailTextLabel?.text =
+                String(Calendar.current.component(.year , from: requestedSongs[indexPath.row].releaseDate ?? refDate()))
         default: break
         }
 

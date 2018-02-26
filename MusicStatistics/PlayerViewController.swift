@@ -145,7 +145,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     func updateQueue(){
         if appDelegate.currentQueue.isEmpty{
             appDelegate.currentQueue = [nowPlaying]
-            collection = MPMediaItemCollection(items: [nowPlaying])
+            collection = MPMediaItemCollection(items: appDelegate.currentQueue)
         } else {
             collection = MPMediaItemCollection(items: appDelegate.currentQueue)
         }
