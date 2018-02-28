@@ -1143,6 +1143,44 @@
             </objects>
             <point key="canvasLocation" x="482" y="4836"/>
         </scene>
+        <!--Table View Controller-->
+        <scene sceneID="I39-Be-fsi">
+            <objects>
+                <tableViewController id="ck6-D2-nQM" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wOs-Go-v35">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.086273245509999999" green="0.086273662749999994" blue="0.086274556820000001" alpha="0.82999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playlistItem" textLabel="1o3-Je-a8C" rowHeight="55" style="IBUITableViewCellStyleDefault" id="41T-1z-DOG">
+                                <rect key="frame" x="0.0" y="28" width="375" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="41T-1z-DOG" id="J1R-au-oTv">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1o3-Je-a8C">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="54.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ck6-D2-nQM" id="Wio-xN-eox"/>
+                            <outlet property="delegate" destination="ck6-D2-nQM" id="Iiz-9S-yc3"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="83c-Nx-OHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-143.19999999999999" y="3683.2083958020994"/>
+        </scene>
         <!--Analytics Detail Table View Controller-->
         <scene sceneID="Uc7-GZ-7oO">
             <objects>
@@ -1151,7 +1189,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.83005136989999995" colorSpace="custom" customColorSpace="displayP3"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="2em-hn-YuI">
+                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="2em-hn-YuI">
                             <rect key="frame" x="0.0" y="72" width="375" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
@@ -1350,7 +1388,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drI-Es-5tW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <connections>
-                                    <segue destination="35D-W1-nik" kind="embed" id="RcM-N3-pCr"/>
+                                    <segue destination="ck6-D2-nQM" kind="embed" id="Zcg-fg-0DJ"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -1462,21 +1500,6 @@
             </objects>
             <point key="canvasLocation" x="-1602" y="3125"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="6Ky-uw-nh7">
-            <objects>
-                <viewController id="35D-W1-nik" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Fug-PZ-BCH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="EEA-ek-mTn"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QUC-sf-HJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-143" y="3658"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Play Button.png" width="211" height="211"/>
@@ -1493,7 +1516,7 @@
         <image name="songIcon.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xkq-18-Jo0"/>
+        <segue reference="inS-29-bGM"/>
         <segue reference="pyi-QO-YHc"/>
         <segue reference="V00-vT-euH"/>
     </inferredMetricsTieBreakers>

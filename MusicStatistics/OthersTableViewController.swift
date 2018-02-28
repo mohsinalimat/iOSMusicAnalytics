@@ -15,15 +15,15 @@ class OthersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var playlists: [[MPMediaItem]]! = []
+        var artists: [[MPMediaItem]]! = []
         
-        let allPlaylists = MPMediaQuery.artists()
-        allPlaylists.groupingType = .albumArtist
-        let collections = allPlaylists.collections
+        let allArtists = MPMediaQuery.artists()
+        allArtists.groupingType = .albumArtist
+        let collections = allArtists.collections
         for playlist in collections!{
-            playlists.append(playlist.items)
+            artists.append(playlist.items)
         }
-        (allItems,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: playlists, andMode: "Artists")
+        (allItems,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: artists, andMode: "Artists")
     }
     
     override func didReceiveMemoryWarning() {
