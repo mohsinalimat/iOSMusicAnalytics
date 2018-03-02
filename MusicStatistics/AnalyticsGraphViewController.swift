@@ -11,21 +11,24 @@ import Charts
 
 class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var chartView: BarChartView!
+    var yData: [Int]! = []
+    var xData: [String]! = []
+    var mode: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let testDict: Dictionary<Int,Int> = [1:10, 2:20, 3:30, 4:40, 5:50, 6: 30]
-        setUpCharts(with: testDict, and:  "Hello")
+        //xData.insert("", at: 0)
+        setUpCharts(with: yData, and:  mode)
     }
     
-    func setUpCharts(with data:Dictionary<Int,Int>, and label: String){
+    func setUpCharts(with data:[Int], and label: String){
         chartView.chartDescription?.enabled = false
         chartView.dragEnabled = true
         chartView.setScaleEnabled(true)
         chartView.pinchZoomEnabled = false
         chartView.rightAxis.enabled = false
         
-        chartView.maxVisibleCount = 60
+        chartView.maxVisibleCount = 20
         
         let xAxis = chartView.xAxis
         xAxis.labelPosition = .bottom
@@ -65,7 +68,8 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
         l.xEntrySpace = 4
         
-        chartView.data = generateBarChartData(with: data, andTitle: "Hello")
+        chartView.data = generateBarChartData(with: data, andTitle: label)
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xData)
     }
 
     override func didReceiveMemoryWarning() {

@@ -10,20 +10,17 @@ import UIKit
 import MediaPlayer
 
 class PlaylistTableViewController: UITableViewController {
-    var allItems: [[MPMediaItem]] = []
-    var playlistProperties: [String] = []
+    var allItems: [MPMediaPlaylist] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //var playlists: [[MPMediaItem]]! = []
         
         let allPlaylists = MPMediaQuery.playlists()
-        allPlaylists.groupingType = .playlist
         let collections = allPlaylists.collections
-        for playlist in collections!{
-            allItems.append(playlist.items)
-            playlistProperties.append(playlist.value(forProperty: MPMediaPlaylistPropertyName) as! String)
+        for collection in collections!{
+            if let playlist = collection as? MPMediaPlaylist{
+                allItems.append(playlist)
+            }
         }
     }
 
@@ -49,46 +46,12 @@ class PlaylistTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistItem", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = playlistProperties[indexPath.row]
-
+        cell.textLabel?.text = allItems[indexPath.row].name
+        let author = allItems[indexPath.row].authorDisplayName ?? "Nothing"
+        cell.detailTextLabel?.text =  author.isEmpty ? "Nothing" : author
+        cell.imageView?.image = getArtworkIconWithDefaults(using: allItems[indexPath.row].items.first)
         return cell
     }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation

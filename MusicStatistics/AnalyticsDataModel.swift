@@ -13,12 +13,12 @@ func storeLastLaunchDate(){
     UserDefaults.standard.set(getStringFromDate(with: Date()), forKey: "lastLaunchDate")
 }
 
-func getLastLaunchDate() -> String {
-    return UserDefaults.standard.object(forKey: "lastLaunchDate") as! String
-}
-
-func isLastLaunchDateNil() -> Bool {
-    return UserDefaults.standard.object(forKey: "lastLaunchDate") == nil
+/**
+ returns nil if last lauch data is not found. Otherwise return the launch date
+ */
+func getLastLaunchDate() -> String? {
+    guard UserDefaults.standard.object(forKey: "lastLaunchDate") != nil else { return nil }
+    return UserDefaults.standard.object(forKey: "lastLaunchDate") as? String
 }
 
 /**
@@ -34,9 +34,6 @@ class AnalyticsDate: NSManagedObject{
     
     class func addNewEntry(with values:[Int], in context:NSManagedObjectContext){
          //reate a new entry in database due to new date
-//        if getMonthAndDayFromDate(with: Date()) != getMonthAndDayFromDate(with: getLastLaunchDate()){
-//
-//        }
         let newDate = AnalyticsDate(context: context)
         newDate.date = getStringFromDate(with: Date())
         let newDataEntry = AnalyticsDataEntry(context: context)
@@ -51,6 +48,8 @@ class AnalyticsDate: NSManagedObject{
         let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
         var dataDict: Dictionary<String, [Int]> = [:]
         request.predicate = NSPredicate(value: true) // return freaking everything!
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        request.sortDescriptors = [sortDescriptor]
         do {
             let matches = try context.fetch(request)
             for item in matches{

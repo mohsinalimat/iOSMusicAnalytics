@@ -298,18 +298,20 @@ func overlayTextWithVisualEffect(using text:String, on view: UIView){
     }
 }
 
-func getArtworkIconWithDefaults(using item:MPMediaItem) -> UIImage{
-    if item.artwork != nil {
-        return item.artwork!.image(at: CGSize(width:30,height:30))!
-    }
-    return UIImage(named: "guitarIcon")!
+// beauty of guard statements
+func getArtworkIconWithDefaults(using item:MPMediaItem?) -> UIImage{
+    guard let song = item else { return UIImage(named: "guitarIcon")!} // return default if item is nil
+    guard let artwork = song.artwork else { return UIImage(named: "guitarIcon")! } // return default if no artwork
+    return artwork.image(at: CGSize(width:30,height:30))!
 }
 
-func generateBarChartData(with data: Dictionary<Int,Int>, andTitle title:String) -> BarChartData{
+func generateBarChartData(with data: [Int], andTitle title:String) -> BarChartData{
     var dataSet: BarChartDataSet!
     var dataArr = [BarChartDataEntry]()
-    for (key,val) in data{
-        dataArr.append(BarChartDataEntry(x: Double(key), y: Double(val)))
+    var count = 0
+    for val in data{
+        dataArr.append(BarChartDataEntry(x: Double(count), y: Double(val)))
+        count += 1
     }
     dataSet = BarChartDataSet(values: dataArr, label: title)
     return BarChartData(dataSet: dataSet)

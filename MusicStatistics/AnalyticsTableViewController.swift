@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AnalyticsTableViewController: UITableViewController {
     let analyticsMode: Dictionary<Int,String> =
@@ -21,10 +22,22 @@ class AnalyticsTableViewController: UITableViewController {
     let dataSpecificsDescriptors = ["Most Listened Artist", "Most Listened Genre"]
     var dataSpecifics:[String] = []
     var mostRecentSectionTitle = "N/A"
+    var container : NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
 
     func loadAnalyticsData(){
         (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentSectionTitle) = obtainAnalyticsData()
         sectionsTitles[0] = mostRecentSectionTitle
+    }
+    
+    func updateAnalyticsDatabase(){
+        if (getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date())){ // add new entry
+            AnalyticsDate.addNewEntry(with: dataDescriptorValues, in: container!.viewContext)
+            storeLastLaunchDate()
+        } else { // edit entry
+            AnalyticsDate.editAnalyticsData(using:
+                (getStringFromDate(with: Date()),dataDescriptorValues), in: container!.viewContext)
+        }
+        try? container?.viewContext.save()
     }
 
     override func viewDidLoad() {
@@ -32,6 +45,7 @@ class AnalyticsTableViewController: UITableViewController {
         self.title = "Analytics"
         //self.navigationController?.hidesBarsOnSwipe = true
         loadAnalyticsData()
+        updateAnalyticsDatabase()
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +108,7 @@ class AnalyticsTableViewController: UITableViewController {
         DispatchQueue.main.async { [weak self] in
             self?.loadAnalyticsData()
             self?.tableView.reloadData()
+            self?.updateAnalyticsDatabase()
             self?.refreshControl?.endRefreshing()
         }
     }
@@ -113,6 +128,22 @@ class AnalyticsTableViewController: UITableViewController {
 //            else {
 //                dest.analyticsDetails = []
 //            }
+        }
+        if let dest = destinationViewController as? AnalyticsGraphViewController{
+            let data = AnalyticsDate.retrieveAnalyticsData(in: container!.viewContext)
+            var tempX = [String]()
+            var tempY = [Int]()
+            for (date, numbers) in data{
+                tempX.append(date)
+                let tappedIndex = tableView.indexPathForSelectedRow!.row
+                tempY.append(numbers[tappedIndex])
+            }
+            dest.xData = tempX
+            dest.yData = tempY
+            let mode = (tableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! AnalyticsDataTableViewCell).descriptor.text ?? "Analytics"
+            dest.mode = mode
+            dest.navigationItem.title = mode
+            
         }
     }
     
