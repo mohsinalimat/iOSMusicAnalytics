@@ -30,7 +30,9 @@ class AnalyticsTableViewController: UITableViewController {
     }
     
     func updateAnalyticsDatabase(){
-        if (getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date())){ // add new entry
+        if ((getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date()))
+            && !AnalyticsDate.doesDataEntryExist(with: getStringFromDate(with: Date()), in: container!.viewContext)){
+            // add new entry
             AnalyticsDate.addNewEntry(with: dataDescriptorValues, in: container!.viewContext)
             storeLastLaunchDate()
         } else { // edit entry
@@ -143,7 +145,6 @@ class AnalyticsTableViewController: UITableViewController {
             let mode = (tableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! AnalyticsDataTableViewCell).descriptor.text ?? "Analytics"
             dest.mode = mode
             dest.navigationItem.title = mode
-            
         }
     }
     

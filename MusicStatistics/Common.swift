@@ -314,6 +314,8 @@ func generateBarChartData(with data: [Int], andTitle title:String) -> BarChartDa
         count += 1
     }
     dataSet = BarChartDataSet(values: dataArr, label: title)
+    dataSet.colors = [myOrange()]
+    dataSet.valueTextColor = UIColor.lightGray
     return BarChartData(dataSet: dataSet)
 }
 

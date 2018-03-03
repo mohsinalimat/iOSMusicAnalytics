@@ -1123,10 +1123,10 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKf-ZA-DSD" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="84" width="343" height="517"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zKf-ZA-DSD" firstAttribute="top" secondItem="GPi-i4-Eil" secondAttribute="top" constant="20" id="549-Hb-cyN"/>
                             <constraint firstItem="zKf-ZA-DSD" firstAttribute="trailing" secondItem="v4T-l4-W0V" secondAttribute="trailingMargin" id="Dz1-dv-XbA"/>

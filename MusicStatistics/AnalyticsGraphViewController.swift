@@ -17,7 +17,6 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //xData.insert("", at: 0)
         setUpCharts(with: yData, and:  mode)
     }
     
@@ -27,14 +26,17 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         chartView.setScaleEnabled(true)
         chartView.pinchZoomEnabled = false
         chartView.rightAxis.enabled = false
-        
-        chartView.maxVisibleCount = 20
+        chartView.gridBackgroundColor = .black
+        chartView.maxVisibleCount = 7
         
         let xAxis = chartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.labelFont = .systemFont(ofSize: 10)
         xAxis.granularity = 1
         xAxis.labelCount = 7
+        xAxis.gridColor = .black
+        xAxis.axisLineColor = .lightGray
+        xAxis.labelTextColor = .lightGray
         
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
@@ -49,6 +51,8 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         leftAxis.labelPosition = .outsideChart
         leftAxis.spaceTop = 0.15
         leftAxis.axisMinimum = 0
+        leftAxis.axisLineColor = .white
+        leftAxis.labelTextColor = .lightGray
         
         let rightAxis = chartView.rightAxis
         rightAxis.enabled = true
@@ -67,9 +71,11 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         l.formSize = 9
         l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
         l.xEntrySpace = 4
+        l.textColor = .lightGray
         
         chartView.data = generateBarChartData(with: data, andTitle: label)
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xData)
+        chartView.animate(xAxisDuration: 1.50, yAxisDuration: 1.50)
     }
 
     override func didReceiveMemoryWarning() {
