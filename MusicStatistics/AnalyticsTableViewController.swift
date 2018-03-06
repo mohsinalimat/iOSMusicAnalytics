@@ -115,6 +115,33 @@ class AnalyticsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func manuallyAddToDatabase(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Enter Data",
+                                                message: "Enter data separated by space: date(yyyymmdd), # songs listened, #minutes listened, #diff albums listened, #diff artists listened",
+                                                preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.keyboardType = .namePhonePad
+            textField.keyboardAppearance = .dark
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            guard let unwrappedText = textField?.text else { return }
+            let textArr = unwrappedText.components(separatedBy: " ")
+            guard textArr.count == 5 else { return }
+            var dataSet = [Int]()
+            for item in textArr{
+                if item == textArr.first! { continue }
+                guard let dataNum = Int(item) else { return }
+                dataSet.append(dataNum)
+            }
+            AnalyticsDate.manuallyAddNewEntry(with: dataSet, andName: textArr.first!, in: self.container!.viewContext)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.view.tintColor = myOrange()
+        self.present(alert, animated: true)
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var destinationViewController = segue.destination
         if let navigationViewController = destinationViewController as? UINavigationController {
@@ -136,7 +163,7 @@ class AnalyticsTableViewController: UITableViewController {
             var tempX = [String]()
             var tempY = [Int]()
             for (date, numbers) in data{
-                tempX.append(date)
+                tempX.append(convertAnalyticsDateToReadableText(with: date))
                 let tappedIndex = tableView.indexPathForSelectedRow!.row
                 tempY.append(numbers[tappedIndex])
             }

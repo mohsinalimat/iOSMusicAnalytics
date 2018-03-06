@@ -45,15 +45,26 @@ class AnalyticsDate: NSManagedObject{
         newDate.dataEntry = newDataEntry
     }
     
+    class func manuallyAddNewEntry(with values:[Int],andName dateString:String, in context:NSManagedObjectContext){
+        //reate a new entry in database due to new date
+        let newDate = AnalyticsDate(context: context)
+        newDate.date = dateString
+        let newDataEntry = AnalyticsDataEntry(context: context)
+        newDataEntry.songsListened = Int32(values[0])
+        newDataEntry.minutesListened = Int32(values[1])
+        newDataEntry.diffAlbumListened = Int32(values[2])
+        newDataEntry.diffArtistListened = Int32(values[3])
+        newDate.dataEntry = newDataEntry
+    }
+    
     class func retrieveAnalyticsData(in context: NSManagedObjectContext) -> Dictionary<String,[Int]>{
         let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
         var dataDict: Dictionary<String, [Int]> = [:]
         request.predicate = NSPredicate(value: true) // return freaking everything!
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        request.sortDescriptors = [sortDescriptor]
         do {
             let matches = try context.fetch(request)
-            for item in matches{
+            let sortedMatches = matches.sorted(by: {$0.date ?? "0" < $1.date ?? "0"});
+            for item in sortedMatches{
                 let var1 = Int(item.dataEntry?.songsListened ?? 0)
                 let var2 = Int(item.dataEntry?.minutesListened ?? 0)
                 let var3 = Int(item.dataEntry?.diffAlbumListened ?? 0)
@@ -90,6 +101,16 @@ class AnalyticsDate: NSManagedObject{
             return fetchedDates.count > 0
         }
         return false
+    }
+    
+    class func deleteAll(inContext context: NSManagedObjectContext){
+        let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
+        request.predicate = NSPredicate(value: true) // return freaking everything!
+        if let toDelete = try? context.fetch(request){
+            for item in toDelete{
+                context.delete(item)
+            }
+        }
     }
 }
 

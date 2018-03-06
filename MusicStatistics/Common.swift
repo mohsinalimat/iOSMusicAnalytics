@@ -320,9 +320,28 @@ func generateBarChartData(with data: [Int], andTitle title:String) -> BarChartDa
 }
 
 func getStringFromDate(with date:Date) -> String{
-    return  String(Calendar.current.component(.year, from: date)) +
-            String(Calendar.current.component(.month, from: date)) +
-            String(Calendar.current.component(.day, from: date))
+    let year = String(Calendar.current.component(.year, from: date))
+    var month = String(Calendar.current.component(.month, from: date))
+    var day = String(Calendar.current.component(.day, from: date))
+    if month.count == 1 { month = "0" + month }
+    if day.count == 1 { day = "0" + day }
+    return year + month + day
+}
+
+func convertAnalyticsDateToReadableText(with data:String) -> String {
+    guard data.count == 8 else { return data }
+    let conversionDict:Dictionary<String, String> = ["01":"Jan", "02" : "Feb", "03": "Mar", "04" : "Apr", "05": "May",
+                                                     "06":"Jun", "07": "Jul", "08": "Aug", "09" : "Sep", "10": "Oct",
+                                                     "11":"Nov", "12":"Dec"]
+    var start = data.index(data.startIndex, offsetBy: 4)
+    var end = data.index(data.endIndex, offsetBy: -2)
+    var range = start..<end
+    let month = String(data[range])
+    start = data.index(data.startIndex, offsetBy: 6)
+    end = data.endIndex
+    range = start..<end
+    let day = String(data[range])
+    return conversionDict[month]! + " " + day
 }
 
 /**

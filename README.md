@@ -22,6 +22,7 @@ This app functions both as a music player of music stored on local device, and a
         * Number of songs listened, minutes listened, etc
         * Most listened artist and genre
     * Overall:
+        * **Plot anaytics data  (minutes listened, etc) over time**
         * Most listened songs, most skipped songs, longest songs, and much much more
     
 
