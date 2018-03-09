@@ -45,6 +45,18 @@ class AnalyticsDate: NSManagedObject{
         newDate.dataEntry = newDataEntry
     }
     
+    class func addNewEntryAtDate(with values:[Int], andDate dateVal:Date, in context:NSManagedObjectContext){
+        //reate a new entry in database due to new date
+        let newDate = AnalyticsDate(context: context)
+        newDate.date = getStringFromDate(with: dateVal)
+        let newDataEntry = AnalyticsDataEntry(context: context)
+        newDataEntry.songsListened = Int32(values[0])
+        newDataEntry.minutesListened = Int32(values[1])
+        newDataEntry.diffAlbumListened = Int32(values[2])
+        newDataEntry.diffArtistListened = Int32(values[3])
+        newDate.dataEntry = newDataEntry
+    }
+    
     class func manuallyAddNewEntry(with values:[Int],andName dateString:String, in context:NSManagedObjectContext){
         //reate a new entry in database due to new date
         let newDate = AnalyticsDate(context: context)
@@ -57,24 +69,26 @@ class AnalyticsDate: NSManagedObject{
         newDate.dataEntry = newDataEntry
     }
     
-    class func retrieveAnalyticsData(in context: NSManagedObjectContext) -> Dictionary<String,[Int]>{
+    class func retrieveAnalyticsData(in context: NSManagedObjectContext) -> [(String, [Int])]{
         let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
-        var dataDict: Dictionary<String, [Int]> = [:]
-        request.predicate = NSPredicate(value: true) // return freaking everything!
+        var dataArr = [(String, [Int])]()
+        let descriptor = NSSortDescriptor(key: "date", ascending: false)
+        // only return Analytics data for the past month
+        request.predicate = NSPredicate(format: "date > %@", getStringFromDate(with: Date.monthPrior()))
+        request.sortDescriptors = [descriptor]
         do {
             let matches = try context.fetch(request)
-            let sortedMatches = matches.sorted(by: {$0.date ?? "0" < $1.date ?? "0"});
-            for item in sortedMatches{
+            for item in matches{
                 let var1 = Int(item.dataEntry?.songsListened ?? 0)
                 let var2 = Int(item.dataEntry?.minutesListened ?? 0)
                 let var3 = Int(item.dataEntry?.diffAlbumListened ?? 0)
                 let var4 = Int(item.dataEntry?.diffArtistListened ?? 0)
-                dataDict[item.date ?? ""] = [var1,var2,var3,var4]
+                dataArr.append((item.date ?? "", [var1,var2,var3,var4]))
             }
         } catch {
             print(error)
         }
-        return dataDict
+        return dataArr
     }
     
     class func editAnalyticsData(using dateData: (String,[Int]), in context: NSManagedObjectContext){

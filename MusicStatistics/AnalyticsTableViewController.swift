@@ -21,16 +21,24 @@ class AnalyticsTableViewController: UITableViewController {
     var dataDescriptorValues:[Int] = Array()
     let dataSpecificsDescriptors = ["Most Listened Artist", "Most Listened Genre"]
     var dataSpecifics:[String] = []
-    var mostRecentSectionTitle = "N/A"
+    var mostRecentlyPlayedDate = Date()
     var container : NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    var dateFormatter = DateFormatter()
 
     func loadAnalyticsData(){
-        (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentSectionTitle) = obtainAnalyticsData()
-        sectionsTitles[0] = mostRecentSectionTitle
+        (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentlyPlayedDate) = obtainAnalyticsData()
+        sectionsTitles[0] = dateFormatter.string(from: mostRecentlyPlayedDate)
     }
     
     func updateAnalyticsDatabase(){
-        if ((getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date()))
+        let mostRecentTitle = getStringFromDate(with: mostRecentlyPlayedDate)
+        if (mostRecentTitle != getStringFromDate(with: Date())){
+            if AnalyticsDate.doesDataEntryExist(with: mostRecentTitle, in: container!.viewContext){
+                AnalyticsDate.editAnalyticsData(using: (mostRecentTitle,dataDescriptorValues), in: container!.viewContext)
+            } else {
+                AnalyticsDate.addNewEntryAtDate(with: dataDescriptorValues, andDate: mostRecentlyPlayedDate, in: container!.viewContext)
+            }
+        } else if ((getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date()))
             && !AnalyticsDate.doesDataEntryExist(with: getStringFromDate(with: Date()), in: container!.viewContext)){
             // add new entry
             AnalyticsDate.addNewEntry(with: dataDescriptorValues, in: container!.viewContext)
@@ -45,7 +53,7 @@ class AnalyticsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
-        //self.navigationController?.hidesBarsOnSwipe = true
+        dateFormatter.dateFormat = "MMM dd"
         loadAnalyticsData()
         updateAnalyticsDatabase()
     }
@@ -117,7 +125,7 @@ class AnalyticsTableViewController: UITableViewController {
     
     @IBAction func manuallyAddToDatabase(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Enter Data",
-                                                message: "Enter data separated by space: date(yyyymmdd), # songs listened, #minutes listened, #diff albums listened, #diff artists listened",
+                                                message: "Enter data separated by space: date(yyyymmdd), # songs listened, #minutes listened, #diff albums listened, #diff artists listened \n e.g. 20180310 200 20 18 16",
                                                 preferredStyle: .alert)
         alert.addTextField { textField in
             textField.keyboardType = .namePhonePad

@@ -75,6 +75,7 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         
         chartView.data = generateBarChartData(with: data, andTitle: label)
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xData)
+        chartView.setVisibleXRangeMaximum(6)
         chartView.animate(xAxisDuration: 1.50, yAxisDuration: 1.50)
     }
 

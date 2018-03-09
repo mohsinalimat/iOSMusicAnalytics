@@ -200,9 +200,9 @@ func analyticsCompareDate(with date1: Date, date2: Date) -> Bool{
 
 
 //returns -> descriptors,numeric data, specific text data,  mostRecentSectionTitle
-func obtainAnalyticsData() -> ([String],[Int], [String] , String){
+func obtainAnalyticsData() -> ([String],[Int], [String] , Date){
     let descriptors = ["Songs Listened", "Minutes Listened", "Different Albums Listened", "Different Artists Listened"]
-    var mostRecentSectionTitle = "N/A"
+    var mostRecentSectionTitle: Date!
     mostListenedArtist.removeAll()
     mostListenedGenre.removeAll()
     var descriptorResults:[Int] = []
@@ -216,7 +216,7 @@ func obtainAnalyticsData() -> ([String],[Int], [String] , String){
     for item in requestedSongs{
         if item == requestedSongs.first! {
             lastDate = item.lastPlayedDate ?? refDate()
-            mostRecentSectionTitle = dateFormatter.string(from: lastDate)
+            mostRecentSectionTitle = lastDate
             songsCount += 1
             minutesCount += item.playbackDuration
             albumsSet.insert(item.albumTitle ?? "Unknown")
@@ -329,7 +329,7 @@ func getStringFromDate(with date:Date) -> String{
 }
 
 func convertAnalyticsDateToReadableText(with data:String) -> String {
-    guard data.count == 8 else { return data }
+    guard data.count == 8 else { return data } // must be in the form yyyymmdd
     let conversionDict:Dictionary<String, String> = ["01":"Jan", "02" : "Feb", "03": "Mar", "04" : "Apr", "05": "May",
                                                      "06":"Jun", "07": "Jul", "08": "Aug", "09" : "Sep", "10": "Oct",
                                                      "11":"Nov", "12":"Dec"]
@@ -362,6 +362,16 @@ extension String {
     }
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+}
+
+extension Date{
+    static func monthPrior() -> Date {
+        return Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
+    }
+    
+    static func weekPrior() -> Date {
+        return Calendar.current.date(byAdding: .weekOfMonth , value: -1, to: Date()) ?? Date()
     }
 }
 
