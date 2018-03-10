@@ -23,6 +23,40 @@ func getLastLaunchDate() -> String? {
 }
 
 /**
+ Update the database with appropriate inputs
+ */
+func updateAnalyticsDatabase(with mostRecentlyPlayedDate:Date, andData dataDescriptorValues: [Int], in context:NSManagedObjectContext){
+    let mostRecentTitle = getStringFromDate(with: mostRecentlyPlayedDate)
+    if (mostRecentTitle != getStringFromDate(with: Date())){
+        if AnalyticsDate.doesDataEntryExist(with: mostRecentTitle, in: context){
+            AnalyticsDate.editAnalyticsData(using: (mostRecentTitle,dataDescriptorValues), in: context)
+        } else {
+            AnalyticsDate.addNewEntryAtDate(with: dataDescriptorValues, andDate: mostRecentlyPlayedDate, in: context)
+        }
+    } else if ((getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date()))
+        && !AnalyticsDate.doesDataEntryExist(with: getStringFromDate(with: Date()), in: context)){
+        // add new entry
+        AnalyticsDate.addNewEntry(with: dataDescriptorValues, in: context)
+        storeLastLaunchDate()
+    } else { // edit entry
+        AnalyticsDate.editAnalyticsData(using:
+            (getStringFromDate(with: Date()),dataDescriptorValues), in: context)
+    }
+    try? context.save()
+}
+
+func obtainAnalyticsGraphData(from lowerBound: Date, to upperBound: Date, withIndex tappedIndex: Int,in context: NSManagedObjectContext) -> ([String],[Int]){
+    let data = AnalyticsDate.retrieveAnalyticsData(from: lowerBound, to: upperBound, in: context)
+    var tempX = [String]()
+    var tempY = [Int]()
+    for (date, numbers) in data{
+        tempX.append(convertAnalyticsDateToReadableText(with: date))
+        tempY.append(numbers[tappedIndex])
+    }
+    return (tempX,tempY)
+}
+
+/**
  If first launch
     Fetch and store data from the previous date
  Else
@@ -69,12 +103,14 @@ class AnalyticsDate: NSManagedObject{
         newDate.dataEntry = newDataEntry
     }
     
-    class func retrieveAnalyticsData(in context: NSManagedObjectContext) -> [(String, [Int])]{
+    /**
+     Obtain data from date range
+    */
+    class func retrieveAnalyticsData(from lowerBound: Date, to upperBound: Date, in context: NSManagedObjectContext) -> [(String, [Int])]{
         let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
         var dataArr = [(String, [Int])]()
         let descriptor = NSSortDescriptor(key: "date", ascending: false)
-        // only return Analytics data for the past month
-        request.predicate = NSPredicate(format: "date > %@", getStringFromDate(with: Date.monthPrior()))
+        request.predicate = NSPredicate(format: "date > %@ && date <= %@", getStringFromDate(with: lowerBound), getStringFromDate(with: upperBound))
         request.sortDescriptors = [descriptor]
         do {
             let matches = try context.fetch(request)
@@ -106,6 +142,18 @@ class AnalyticsDate: NSManagedObject{
             toEdit.first!.dataEntry?.diffAlbumListened = Int32(dateData.1[2])
             toEdit.first!.dataEntry?.diffArtistListened = Int32(dateData.1[3])
         }
+    }
+    
+    class func doesRangeContainValue(from lowerBound: Date, to upperBound: Date, in context: NSManagedObjectContext) -> Bool{
+        let request: NSFetchRequest<AnalyticsDate> = AnalyticsDate.fetchRequest()
+        request.predicate = NSPredicate(format: "date > %@ && date <= %@", getStringFromDate(with: lowerBound), getStringFromDate(with: upperBound))
+        do {
+            let matches = try context.fetch(request)
+            return matches.count > 0
+        } catch {
+            print(error)
+        }
+        return false
     }
     
     class func doesDataEntryExist(with date:String, in context: NSManagedObjectContext) -> Bool{

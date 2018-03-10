@@ -356,6 +356,14 @@ func truncateTableViewText(with text: String) -> String{
     return text
 }
 
+func configureButton(using cornerRadius: CGFloat, borderColor color: UIColor?, borderWidth width: CGFloat?, with button:UIButton){
+    button.clipsToBounds = true
+    button.layer.cornerRadius = cornerRadius
+    guard color != nil, width != nil else { return }
+    button.layer.borderColor = color!.cgColor
+    button.layer.borderWidth = width!
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]
@@ -372,6 +380,26 @@ extension Date{
     
     static func weekPrior() -> Date {
         return Calendar.current.date(byAdding: .weekOfMonth , value: -1, to: Date()) ?? Date()
+    }
+    
+    static func dayPrior() -> Date{
+        return Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
+    }
+    
+    static func monthPriorFromDate(using date:Date) -> Date{
+        return Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date()
+    }
+    
+    static func monthAfterFromDate(using date:Date) -> Date{
+        return Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date()
+    }
+    
+    static func dayPriorFromDate(using date:Date) -> Date{
+        return Calendar.current.date(byAdding: .day, value: -2, to: date) ?? Date()
+    }
+    
+    static func daysAfterFromDate(using date:Date) -> Date{
+        return Calendar.current.date(byAdding: .day, value: 2, to: date) ?? Date()
     }
 }
 

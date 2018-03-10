@@ -29,33 +29,13 @@ class AnalyticsTableViewController: UITableViewController {
         (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentlyPlayedDate) = obtainAnalyticsData()
         sectionsTitles[0] = dateFormatter.string(from: mostRecentlyPlayedDate)
     }
-    
-    func updateAnalyticsDatabase(){
-        let mostRecentTitle = getStringFromDate(with: mostRecentlyPlayedDate)
-        if (mostRecentTitle != getStringFromDate(with: Date())){
-            if AnalyticsDate.doesDataEntryExist(with: mostRecentTitle, in: container!.viewContext){
-                AnalyticsDate.editAnalyticsData(using: (mostRecentTitle,dataDescriptorValues), in: container!.viewContext)
-            } else {
-                AnalyticsDate.addNewEntryAtDate(with: dataDescriptorValues, andDate: mostRecentlyPlayedDate, in: container!.viewContext)
-            }
-        } else if ((getLastLaunchDate() == nil || getLastLaunchDate() != getStringFromDate(with: Date()))
-            && !AnalyticsDate.doesDataEntryExist(with: getStringFromDate(with: Date()), in: container!.viewContext)){
-            // add new entry
-            AnalyticsDate.addNewEntry(with: dataDescriptorValues, in: container!.viewContext)
-            storeLastLaunchDate()
-        } else { // edit entry
-            AnalyticsDate.editAnalyticsData(using:
-                (getStringFromDate(with: Date()),dataDescriptorValues), in: container!.viewContext)
-        }
-        try? container?.viewContext.save()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
         dateFormatter.dateFormat = "MMM dd"
         loadAnalyticsData()
-        updateAnalyticsDatabase()
+        updateAnalyticsDatabase(with: mostRecentlyPlayedDate, andData: dataDescriptorValues, in: container!.viewContext)
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,7 +98,7 @@ class AnalyticsTableViewController: UITableViewController {
         DispatchQueue.main.async { [weak self] in
             self?.loadAnalyticsData()
             self?.tableView.reloadData()
-            self?.updateAnalyticsDatabase()
+            updateAnalyticsDatabase(with: (self?.mostRecentlyPlayedDate)!, andData: (self?.dataDescriptorValues)!, in: (self?.container!.viewContext)!)
             self?.refreshControl?.endRefreshing()
         }
     }
@@ -167,19 +147,17 @@ class AnalyticsTableViewController: UITableViewController {
 //            }
         }
         if let dest = destinationViewController as? AnalyticsGraphViewController{
-            let data = AnalyticsDate.retrieveAnalyticsData(in: container!.viewContext)
+            let tappedIndex = tableView.indexPathForSelectedRow!.row
             var tempX = [String]()
             var tempY = [Int]()
-            for (date, numbers) in data{
-                tempX.append(convertAnalyticsDateToReadableText(with: date))
-                let tappedIndex = tableView.indexPathForSelectedRow!.row
-                tempY.append(numbers[tappedIndex])
-            }
+            (tempX, tempY) = obtainAnalyticsGraphData(from: Date.monthPrior(), to: Date(), withIndex: tappedIndex, in: container!.viewContext)
             dest.xData = tempX
             dest.yData = tempY
             let mode = (tableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! AnalyticsDataTableViewCell).descriptor.text ?? "Analytics"
             dest.mode = mode
             dest.navigationItem.title = mode
+            dest.dateIndex = tappedIndex
+            dest.datePosition = (Date.monthPrior() ,Date())
         }
     }
     

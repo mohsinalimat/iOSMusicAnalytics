@@ -1128,26 +1128,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKf-ZA-DSD" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="84" width="343" height="517"/>
+                                <rect key="frame" x="16" y="124" width="343" height="477"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="8qm-aQ-jUL">
+                                <rect key="frame" x="53.5" y="78" width="267" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QiD-lq-07f">
+                                        <rect key="frame" x="0.0" y="0.0" width="119" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="   Last Month   ">
+                                            <color key="titleColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="decrementDate:" destination="KND-Xi-qjq" eventType="touchUpInside" id="TGJ-Vz-zJ2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUQ-hi-J4z">
+                                        <rect key="frame" x="144" y="0.0" width="123" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="   Next Month   ">
+                                            <color key="titleColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="incrementDate:" destination="KND-Xi-qjq" eventType="touchUpInside" id="fQP-v3-Sfd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zKf-ZA-DSD" firstAttribute="top" secondItem="GPi-i4-Eil" secondAttribute="top" constant="20" id="549-Hb-cyN"/>
+                            <constraint firstItem="zKf-ZA-DSD" firstAttribute="top" secondItem="GPi-i4-Eil" secondAttribute="top" constant="60" id="549-Hb-cyN"/>
                             <constraint firstItem="zKf-ZA-DSD" firstAttribute="trailing" secondItem="v4T-l4-W0V" secondAttribute="trailingMargin" id="Dz1-dv-XbA"/>
+                            <constraint firstItem="zKf-ZA-DSD" firstAttribute="top" secondItem="8qm-aQ-jUL" secondAttribute="bottom" constant="16" id="GRn-zQ-jqg"/>
                             <constraint firstItem="GPi-i4-Eil" firstAttribute="bottom" secondItem="zKf-ZA-DSD" secondAttribute="bottom" constant="17" id="eKr-dh-nVm"/>
                             <constraint firstItem="zKf-ZA-DSD" firstAttribute="leading" secondItem="v4T-l4-W0V" secondAttribute="leadingMargin" id="kK4-Vr-Xdo"/>
+                            <constraint firstItem="8qm-aQ-jUL" firstAttribute="centerX" secondItem="GPi-i4-Eil" secondAttribute="centerX" id="sh5-bc-UNW"/>
+                            <constraint firstItem="8qm-aQ-jUL" firstAttribute="top" secondItem="GPi-i4-Eil" secondAttribute="top" constant="14" id="wMh-W3-fXd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GPi-i4-Eil"/>
                     </view>
                     <connections>
                         <outlet property="chartView" destination="zKf-ZA-DSD" id="7pi-mb-Yjf"/>
+                        <outlet property="lastMonthButton" destination="QiD-lq-07f" id="ScV-fQ-0pE"/>
+                        <outlet property="nextMonthButton" destination="wUQ-hi-J4z" id="3qu-tk-YrN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46G-dW-lbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="482" y="4836"/>
+            <point key="canvasLocation" x="480.80000000000001" y="4835.5322338830592"/>
         </scene>
         <!--Playlist Table View Controller-->
         <scene sceneID="I39-Be-fsi">
