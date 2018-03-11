@@ -24,8 +24,8 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBOutlet weak var background: UIImageView!
     
     var nowPlaying: MPMediaItem!
-    //var player:MPMusicPlayerApplicationController!
-    let player = MPMusicPlayerController.systemMusicPlayer
+    let player = MPMusicPlayerApplicationController.applicationQueuePlayer
+    //let player = MPMusicPlayerController.systemMusicPlayer
     var isPlayerLoaded = false
     var timer: Timer!
     var beginPlaying: Bool!
@@ -186,6 +186,9 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             if doesLyricsExist { dest.existingLyrics = nowPlaying.lyrics! }
             dest.navigationItem.title = nowPlaying.title ?? "Unknown"
         }
+        if let dest = destinationViewController as? QueueTableViewController{
+            dest.titleToDivideSections = nowPlaying.title ?? "Unknown"
+        }
     }
     
     @IBAction func playPause(_ sender: UIButton) {
@@ -322,8 +325,33 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     }
     
     @IBAction func updatePlayingQueue(with segue:UIStoryboardSegue){
-        if let _ = segue.source as? QueueTableViewController{
+        if let src = segue.source as? QueueTableViewController{
             returnFromQueueEditor = true
+            nowPlaying = appDelegate.currentQueue[src.indexInQueue]
+            player.nowPlayingItem = nowPlaying
+            updateUI(with: player.nowPlayingItem!)
+            playOrPause = true
+            player.play()
+        }
+    }
+    
+    @IBAction func seekingForward(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state{
+        case .began:
+            player.beginSeekingForward()
+        case .ended:
+            player.endSeeking()
+        default: break
+        }
+    }
+    
+    @IBAction func seekingBackward(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state{
+        case .began:
+            player.beginSeekingBackward()
+        case .ended:
+            player.endSeeking()
+        default: break
         }
     }
     
@@ -336,14 +364,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         default: break;
         }
         
-    }
-}
-
-extension Array {
-    func randomItem() -> Element? {
-        if isEmpty { return nil }
-        let index = Int(arc4random_uniform(UInt32(self.count)))
-        return self[index]
     }
 }
 

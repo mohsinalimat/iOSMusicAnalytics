@@ -267,6 +267,33 @@ func setupAlbumCollectionViewLayout(with collectionView: UICollectionView?){
     collectionView!.collectionViewLayout = layout
 }
 
+func divideMusicQueueIntoSections(using queue:[MPMediaItem], andTitle title:String) -> [[MPMediaItem]]{
+    var result: [[MPMediaItem]] = [[],[],[]]
+    var isCurrentAdded = false
+    for item in queue{
+        if item.title ?? "Unknown" == title{
+            result[1].append(item)
+            isCurrentAdded = true
+            continue
+        }
+        if !isCurrentAdded{
+            result[0].append(item)
+        } else {
+            result[2].append(item)
+        }
+    }
+    return result
+}
+
+func convertQueneIndex(using indexPath: IndexPath, with queue: [[MPMediaItem]]) -> Int{
+    if indexPath.section == 0 {
+        return indexPath.row
+    } else if indexPath.section == 1{
+        return queue[0].count + indexPath.row
+    }
+    return queue[0].count + queue[1].count + indexPath.row
+}
+
 
 func timeIntervalToReg(_ interval:TimeInterval) -> String{
     let minute = String(Int(interval) / 60)
@@ -423,6 +450,15 @@ extension UIImageView{
         if let blurView = self.subviews.first as? UIVisualEffectView{
             blurView.removeFromSuperview()
         }
+    }
+}
+
+
+extension Array {
+    func randomItem() -> Element? {
+        if isEmpty { return nil }
+        let index = Int(arc4random_uniform(UInt32(self.count)))
+        return self[index]
     }
 }
 

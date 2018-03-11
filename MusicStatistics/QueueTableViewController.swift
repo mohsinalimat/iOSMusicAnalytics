@@ -11,14 +11,24 @@ import MediaPlayer
 
 class QueueTableViewController: UITableViewController {
     var appDelegate: AppDelegate!
-    //var songs: [MPMediaItem]!
+    var titleToDivideSections: String!
+    var dividedSections: [[MPMediaItem]] = [[],[],[]]
+    var sectionTitles = ["Previous Songs","Now Playing","Upcoming Songs"]
+    var indexInQueue: Int! = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Current Queue"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.tableView.setEditing(true, animated: true)
+        //load the data structure
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.dividedSections = divideMusicQueueIntoSections(using: self.appDelegate.currentQueue, andTitle: self.titleToDivideSections)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                let indexToScrollTo = IndexPath(row: 0, section: 1)
+                self.tableView.scrollToRow(at: indexToScrollTo, at: .top , animated: true)
+            }
+        }
         
     }
 
@@ -31,63 +41,55 @@ class QueueTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return appDelegate.currentQueue.count
+        return dividedSections[section].count
     }
-
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "queueItem", for: indexPath)
 
-        cell.textLabel?.text = appDelegate.currentQueue[indexPath.row].title
-        let artistInfo = (appDelegate.currentQueue[indexPath.row].artist ?? "")
-        let albumInfo =  " · " + (appDelegate.currentQueue[indexPath.row].albumTitle ?? "")
-        let genreInfo = " · " + (appDelegate.currentQueue[indexPath.row].genre ?? "")
+        cell.textLabel?.text = dividedSections[indexPath.section][indexPath.row].title
+        let artistInfo = (dividedSections[indexPath.section][indexPath.row].artist ?? "")
+        let albumInfo =  " · " + (dividedSections[indexPath.section][indexPath.row].albumTitle ?? "")
+        let genreInfo = " · " + (dividedSections[indexPath.section][indexPath.row].genre ?? "")
         cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
-       cell.imageView?.image = getArtworkIconWithDefaults(using: appDelegate.currentQueue[indexPath.row])
-        cell.showsReorderControl = true
-
-
+        cell.imageView?.image = getArtworkIconWithDefaults(using: dividedSections[indexPath.section][indexPath.row])
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .none
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        indexInQueue = convertQueneIndex(using: indexPath, with: dividedSections)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "updateQueue", sender: self)
+        }
     }
-
-    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UITableViewHeaderFooterView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: tableView.sectionHeaderHeight))
+        headerView.contentView.backgroundColor = UIColor.lightText
+        return headerView
     }
-
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let movedSong = appDelegate.currentQueue[fromIndexPath.row]
-        appDelegate.currentQueue.remove(at: fromIndexPath.row)
-        appDelegate.currentQueue.insert(movedSong, at: to.row)
-        tableView.reloadData()
-    }
- 
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        var destinationViewController = segue.destination
+        if let navigationViewController = destinationViewController as? UINavigationController {
+            destinationViewController = navigationViewController.visibleViewController ?? destinationViewController
+        }
+        if let _ = destinationViewController as? PlayerViewController{
+            // the indexInQueue must be the current index
+            if indexInQueue == -1 { // not selected
+                indexInQueue = dividedSections.first!.count
+            }
+        }
     }
-    */
 
 }

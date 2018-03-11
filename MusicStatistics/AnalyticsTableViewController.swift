@@ -105,7 +105,7 @@ class AnalyticsTableViewController: UITableViewController {
     
     @IBAction func manuallyAddToDatabase(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Enter Data",
-                                                message: "Enter data separated by space: date(yyyymmdd), # songs listened, #minutes listened, #diff albums listened, #diff artists listened \n e.g. 20180310 200 20 18 16",
+                                                message: "Enter data separated by space: \n Date (yyyymmdd), \n Number of songs listened, \n Number of minutes listened, \n Number of different albums listened, \n Number of different artists listened \n e.g. 20180310 50 200 30 27",
                                                 preferredStyle: .alert)
         alert.addTextField { textField in
             textField.keyboardType = .namePhonePad

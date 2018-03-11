@@ -122,6 +122,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfX-Ad-yNe">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="40"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="V0Y-cW-wuU"/>
                                             <constraint firstAttribute="height" constant="40" id="bt8-a2-HeV"/>
@@ -129,6 +130,7 @@
                                         <state key="normal" image="prev.png"/>
                                         <connections>
                                             <action selector="prevSong:" destination="BYZ-38-t0r" eventType="touchUpInside" id="heE-KN-n6e"/>
+                                            <outletCollection property="gestureRecognizers" destination="2xV-lt-kjH" appends="YES" id="XTS-F8-MMQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQX-yh-BXV">
@@ -144,6 +146,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0F-3j-IzM">
                                         <rect key="frame" x="124" y="0.0" width="44" height="40"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="5kh-u6-pm4"/>
                                             <constraint firstAttribute="width" constant="44" id="WIf-6N-nRt"/>
@@ -151,6 +154,7 @@
                                         <state key="normal" image="next.png"/>
                                         <connections>
                                             <action selector="nextSong:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fzV-qP-kO8"/>
+                                            <outletCollection property="gestureRecognizers" destination="NtT-RQ-x9D" appends="YES" id="zMh-6g-b4d"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -277,6 +281,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="NtT-RQ-x9D">
+                    <connections>
+                        <action selector="seekingForward:" destination="BYZ-38-t0r" id="ipZ-PF-h8L"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="2xV-lt-kjH">
+                    <connections>
+                        <action selector="seekingBackward:" destination="BYZ-38-t0r" id="TTb-XN-ipk"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1058.4000000000001" y="1562.9685157421291"/>
         </scene>
@@ -1320,7 +1334,7 @@
                             <color key="tintColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="leaveQueue:" destination="8IS-a9-foc" id="RuA-VR-eXA"/>
-                                <segue destination="WRt-Qa-eXZ" kind="unwind" unwindAction="updatePlayingQueueWith:" id="7mJ-lB-CKx"/>
+                                <segue destination="WRt-Qa-eXZ" kind="unwind" identifier="updateQueue" unwindAction="updatePlayingQueueWith:" id="7mJ-lB-CKx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
