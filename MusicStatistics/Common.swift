@@ -18,6 +18,12 @@ private var mostListenedGenre: Dictionary<String, Int> = [:]
 
 func myOrange() -> UIColor { return UIColor(red: 1, green: 132/255, blue: 23/255, alpha: 1) }
 
+func noMusicAlert() -> Bool {
+    guard let songs = MPMediaQuery.songs().items else { return true }
+    guard songs.count > 0 else { return true }
+    return false
+}
+
 func addArtistForRecent(with item:MPMediaItem){
     let artistName = item.artist ?? "Unknown"
     if mostListenedArtist[artistName] == nil {

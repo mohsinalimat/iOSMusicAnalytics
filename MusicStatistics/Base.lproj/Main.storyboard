@@ -313,14 +313,18 @@
         <!--Authorization View Controller-->
         <scene sceneID="GsD-VB-sVY">
             <objects>
-                <viewController id="PrM-ph-pR4" customClass="AuthorizationViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Auth" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PrM-ph-pR4" customClass="AuthorizationViewController" customModule="MusicStatistics" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MNp-LX-kdD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHc-4Q-4rn">
-                                <rect key="frame" x="83" y="430" width="209" height="72"/>
+                                <rect key="frame" x="75" y="442" width="224" height="60"/>
                                 <color key="backgroundColor" red="0.16862541440000001" green="0.16862609980000001" blue="0.1686275005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="Fjb-Ch-p1M"/>
+                                    <constraint firstAttribute="width" secondItem="oHc-4Q-4rn" secondAttribute="height" multiplier="97:26" id="XYn-so-gpL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Grant Access">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -329,30 +333,21 @@
                                     <action selector="beginAuthorization:" destination="PrM-ph-pR4" eventType="touchUpInside" id="QND-Zc-b7i"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0K-SF-w03">
-                                <rect key="frame" x="329" y="637" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5519172483" blue="0.088928704289999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="5Py-qU-CQN" firstAttribute="bottom" secondItem="oHc-4Q-4rn" secondAttribute="bottom" constant="165" id="6sw-Kh-EPo"/>
-                            <constraint firstItem="oHc-4Q-4rn" firstAttribute="top" secondItem="5Py-qU-CQN" secondAttribute="top" constant="410" id="MKn-QF-wFm"/>
-                            <constraint firstItem="oHc-4Q-4rn" firstAttribute="leading" secondItem="5Py-qU-CQN" secondAttribute="leading" constant="83" id="l5n-zF-uuj"/>
-                            <constraint firstItem="oHc-4Q-4rn" firstAttribute="centerX" secondItem="MNp-LX-kdD" secondAttribute="centerX" id="ynM-7E-poW"/>
+                            <constraint firstItem="oHc-4Q-4rn" firstAttribute="centerX" secondItem="5Py-qU-CQN" secondAttribute="centerX" id="3U5-zx-zSC"/>
+                            <constraint firstItem="5Py-qU-CQN" firstAttribute="bottom" secondItem="oHc-4Q-4rn" secondAttribute="bottom" constant="165" id="xDR-QP-1M1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Py-qU-CQN"/>
                     </view>
                     <connections>
-                        <segue destination="5if-Rc-Rtk" kind="show" identifier="authorized" id="lud-Iq-tUu"/>
+                        <outlet property="authorizeButton" destination="oHc-4Q-4rn" id="Qst-8v-y5n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iut-ZZ-FXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3233" y="1467"/>
+            <point key="canvasLocation" x="-3394.4000000000001" y="1466.7166416791606"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ByZ-3r-6Gt">
@@ -1177,7 +1172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46G-dW-lbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="480.80000000000001" y="4835.5322338830592"/>
+            <point key="canvasLocation" x="582" y="4846"/>
         </scene>
         <!--Playlist Table View Controller-->
         <scene sceneID="I39-Be-fsi">
@@ -1278,7 +1273,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-ni-psk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="478" y="4170"/>
+            <point key="canvasLocation" x="583" y="4178"/>
         </scene>
         <!--Queue Table View Controller-->
         <scene sceneID="pEe-rO-MgE">
