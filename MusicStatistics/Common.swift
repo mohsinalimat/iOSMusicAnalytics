@@ -397,6 +397,14 @@ func configureButton(using cornerRadius: CGFloat, borderColor color: UIColor?, b
     button.layer.borderWidth = width!
 }
 
+func isFirstLaunch() -> Bool{
+    if UserDefaults.standard.bool(forKey: "launch") == false {
+        UserDefaults.standard.set(true, forKey: "launch")
+        return true
+    }
+    return false
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]

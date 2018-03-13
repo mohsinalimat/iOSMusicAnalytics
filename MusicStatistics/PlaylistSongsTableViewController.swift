@@ -50,10 +50,18 @@ class PlaylistSongsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistContent", for: indexPath)
-        cell.textLabel?.text = requestedSongs[indexPath.row].title ?? "Unknown"
-        cell.detailTextLabel?.text = requestedSongs[indexPath.row].artist ?? "Unknown"
+        let currSong = requestedSongs[indexPath.row]
+        cell.textLabel?.text = currSong.title
+        let artistInfo = (currSong.artist ?? "Unknown")
+        let albumInfo =  " · " + (currSong.albumTitle ?? "Unknown")
+        let genreInfo = " · " + (currSong.genre ?? "Unknown")
+        cell.detailTextLabel?.text = artistInfo + albumInfo + genreInfo
         cell.imageView?.image = getArtworkIconWithDefaults(using: requestedSongs[indexPath.row])
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50.0
     }
     
 }

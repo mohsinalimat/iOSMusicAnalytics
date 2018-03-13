@@ -47,13 +47,28 @@ class PlaylistTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.textLabel?.text = allItems[indexPath.row].name
-        let author = allItems[indexPath.row].authorDisplayName ?? "Nothing"
-        cell.detailTextLabel?.text =  author.isEmpty ? "Nothing" : author
+        //let author = allItems[indexPath.row].authorDisplayName ?? "Nothing"
+        let songCount = allItems[indexPath.row].items.count
+        cell.detailTextLabel?.text =  songCount != 1 ? "\(songCount) Songs": "1 Song"
         cell.imageView?.image = getArtworkIconWithDefaults(using: allItems[indexPath.row].items.first)
         return cell
     }
-
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "playlistSegue"{
+            guard let selectedIndex = tableView.indexPathForSelectedRow?.row else { return false }
+            if allItems[selectedIndex].items.count == 0 {
+                let alert = UIAlertController(title: "No Songs", message: "This playlist contains no songs. Try adding music to playlists in the default music app", preferredStyle: .alert)
+                alert.view.tintColor = myOrange()
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
+                return false
+            }
+        }
+        return true
+    }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -66,6 +81,7 @@ class PlaylistTableViewController: UITableViewController {
         }
         if let dest = destinationViewController as? PlaylistSongsTableViewController{
             dest.requestedSongs = allItems[tableView.indexPathForSelectedRow!.row].items
+            dest.navigationItem.title = allItems[tableView.indexPathForSelectedRow!.row].name
         }
     }
     

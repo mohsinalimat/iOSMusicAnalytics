@@ -18,10 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        if MPMediaLibrary.authorizationStatus() != .authorized || noMusicAlert(){
+        if isFirstLaunch() {
+            let rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pageController")
+            self.window?.rootViewController = rootViewController
+        } else if MPMediaLibrary.authorizationStatus() != .authorized || noMusicAlert(){
             let rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Auth")
             self.window?.rootViewController = rootViewController
         }
+        let _ = selectTabBarItemFor(shortcutIdentifier: .OpenPlaying)
         return true
     }
 

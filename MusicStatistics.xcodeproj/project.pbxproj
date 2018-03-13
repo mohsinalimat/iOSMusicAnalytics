@@ -60,6 +60,7 @@
 		04BBAE05202A880B0090A8FC /* AnalyticsGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BBAE04202A880B0090A8FC /* AnalyticsGraphViewController.swift */; };
 		04BBAE08202A9B6B0090A8FC /* AnalyticsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BBAE07202A9B6B0090A8FC /* AnalyticsDataModel.swift */; };
 		04DBBD13205780C50067D96B /* PlaylistSongsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DBBD12205780C50067D96B /* PlaylistSongsTableViewController.swift */; };
+		04DBBD1620584DE00067D96B /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DBBD1520584DE00067D96B /* SplashScreenViewController.swift */; };
 		04FEE1B920157A5D00EDB737 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FEE1B820157A5D00EDB737 /* Assets.xcassets */; };
 		CC22CDD1EC21957B16393DF3 /* Pods_MusicStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F39879F098C541FF157506 /* Pods_MusicStatistics.framework */; };
 /* End PBXBuildFile section */
@@ -121,6 +122,7 @@
 		04BBAE07202A9B6B0090A8FC /* AnalyticsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDataModel.swift; sourceTree = "<group>"; };
 		04CD9BC6703B0D9D67CE7F94 /* Pods-MusicStatistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicStatistics.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics.release.xcconfig"; sourceTree = "<group>"; };
 		04DBBD12205780C50067D96B /* PlaylistSongsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSongsTableViewController.swift; sourceTree = "<group>"; };
+		04DBBD1520584DE00067D96B /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		04FEE1B820157A5D00EDB737 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3333EB3C7A910040B4C73165 /* Pods-MusicStatistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicStatistics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicStatistics/Pods-MusicStatistics.debug.xcconfig"; sourceTree = "<group>"; };
 		49F39879F098C541FF157506 /* Pods_MusicStatistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicStatistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,13 +188,13 @@
 		044159F51FF47B1F00E024DF /* MusicStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				04DBBD1420584DAC0067D96B /* Splash Screen */,
 				04FEE1B820157A5D00EDB737 /* Assets.xcassets */,
 				04415A021FF47B2000E024DF /* LaunchScreen.storyboard */,
 				044159FA1FF47B2000E024DF /* Main.storyboard */,
 				048320A520157FD6007B91F1 /* analyticsModel.xcdatamodeld */,
 				04415A051FF47B2000E024DF /* Info.plist */,
 				048BBF6A1FF68D010040817F /* SortSongsViewController.swift */,
-				0453CC30200D2AEA00810BB2 /* AuthorizationViewController.swift */,
 				044159F61FF47B2000E024DF /* AppDelegate.swift */,
 				044159F81FF47B2000E024DF /* PlayerViewController.swift */,
 				0405C8E32012E8A0004FCE49 /* SearchSongsTableViewController.swift */,
@@ -224,6 +226,15 @@
 				0402E4E71FFEE07900479CC6 /* Images */,
 			);
 			path = MusicStatistics;
+			sourceTree = "<group>";
+		};
+		04DBBD1420584DAC0067D96B /* Splash Screen */ = {
+			isa = PBXGroup;
+			children = (
+				0453CC30200D2AEA00810BB2 /* AuthorizationViewController.swift */,
+				04DBBD1520584DE00067D96B /* SplashScreenViewController.swift */,
+			);
+			path = "Splash Screen";
 			sourceTree = "<group>";
 		};
 		3A10247ED1CFBA9BD059EEC9 /* Frameworks */ = {
@@ -409,6 +420,7 @@
 				0453CC33200DCACC00810BB2 /* AnalyticsDataTableViewCell.swift in Sources */,
 				04045074201DA2F800A3E5FD /* OthersTableViewController.swift in Sources */,
 				04415A121FF563EB00E024DF /* AlbumCollectionViewController.swift in Sources */,
+				04DBBD1620584DE00067D96B /* SplashScreenViewController.swift in Sources */,
 				048320A720157FD6007B91F1 /* analyticsModel.xcdatamodeld in Sources */,
 				04415A101FF530A900E024DF /* InfoImageTableViewCell.swift in Sources */,
 				04BBAE08202A9B6B0090A8FC /* AnalyticsDataModel.swift in Sources */,
