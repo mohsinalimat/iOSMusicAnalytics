@@ -36,6 +36,8 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var isViewingLyrics: Bool!
     var songNameInDB:String!
     var doesLyricsExist = false
+    var originalQueue: [MPMediaItem] = []
+    var shuffleMode: Bool = false
     
     var playOrPause: Bool!{
         didSet{
@@ -94,6 +96,10 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             self.checkAndUpdatePlayerInfo()
             self.updatePlaybackStatus()
         }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: UIApplication.shared, queue: OperationQueue.main){ _ in
+            self.checkAndUpdatePlayerInfo()
+            self.updatePlaybackStatus()
+        }
         // called when the application terminates -> stop the player
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillTerminate, object: UIApplication.shared, queue: OperationQueue.main)
         { _ in self.player.stop() }
@@ -113,6 +119,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     public func updateUI(with song:MPMediaItem?){
@@ -138,7 +145,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             background.removeBlurEffect()
             background.image = artwork?.image(at: artworkSize)
             background.addBlurEffect()
-            
         }
     }
     
@@ -215,11 +221,15 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     }
     
     @IBAction func changeShuffleMode(_ sender: UIButton) {
-        if player.shuffleMode == .off{
-            player.shuffleMode = .songs
+        if shuffleMode == false {
+            shuffleMode = true
             shuffleIcon.tintColor = UIColor.orange
-        } else if player.shuffleMode == .songs{
-            player.shuffleMode = .off
+            DispatchQueue.global(qos: .userInitiated).async {
+                (self.originalQueue, self.appDelegate.currentQueue) = randomizeMusicQueue(with: self.appDelegate.currentQueue, andCurrent: self.nowPlaying)
+            }
+        } else {
+            shuffleMode = false
+            appDelegate.currentQueue = originalQueue
             shuffleIcon.tintColor = UIColor.white
         }
         

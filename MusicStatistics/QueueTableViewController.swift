@@ -87,7 +87,8 @@ class QueueTableViewController: UITableViewController {
         if let _ = destinationViewController as? PlayerViewController{
             // the indexInQueue must be the current index
             if indexInQueue == -1 { // not selected
-                indexInQueue = dividedSections.first!.count
+                let nowPlayingIndex = IndexPath(row: 0, section: 1)
+                indexInQueue = convertQueneIndex(using: nowPlayingIndex, with: dividedSections)
             }
         }
     }

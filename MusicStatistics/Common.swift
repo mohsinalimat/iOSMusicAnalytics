@@ -405,6 +405,35 @@ func isFirstLaunch() -> Bool{
     return false
 }
 
+/**
+ Not using the shuffleMode of MPMusicApplicationPlayer because there is no API to obtain
+ the randomized queue
+ This function randomizes the given queue in O(n) and returns the original queue and the randomized queue
+ */
+func randomizeMusicQueue(with queue:[MPMediaItem], andCurrent curr: MPMediaItem) -> ([MPMediaItem], [MPMediaItem]){
+    var mutable = Array(queue)
+    var lowerBound = 0
+    for item in queue{
+        if curr.title ?? "Unknown" == item.title ?? "Unknown"{
+            break // found current index, start shuffling
+        }
+        lowerBound += 1
+    }
+    // Modified Fisher Yates Algorithm
+    var i = queue.count - 1
+    let lower_i = lowerBound + 1
+    while(i - lowerBound > 0){
+        let s = queue.randomItem(withLowerBound: lower_i, andUpperBound: i)!
+        // swap i w/ s
+        let temp = mutable[i]
+        mutable[i] = mutable[s]
+        mutable[s] = temp
+        i -= 1
+    }
+    
+    return (queue,mutable)
+}
+
 extension String {
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]
@@ -467,6 +496,15 @@ extension Array {
         if isEmpty { return nil }
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
+    }
+    /**
+     Return an index element located between the an range
+     */
+    func randomItem(withLowerBound lowerBound:Int, andUpperBound upperBound: Int) -> Int? {
+        if isEmpty { return nil }
+        if upperBound - lowerBound < 0 { return nil }
+        let index = Int(arc4random_uniform(UInt32(upperBound - lowerBound)))
+        return index + lowerBound
     }
 }
 
