@@ -8,6 +8,8 @@
 
 import UIKit
 import MediaPlayer
+import AVFoundation
+import AVKit
 
 class SongTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate{
 
@@ -21,16 +23,26 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     //@IBOutlet weak var songSearchBar: UISearchBar!
     var searchController: UISearchController!
     var sectionTitles:[String] = []
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Songs"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        unfilteredSongs = MPMediaQuery.songs().items ?? []
-        (songSections, sectionTitles) = sortIntoSongSections(with: unfilteredSongs, and: "Title")
         sortMode = "Title" // initialize at title sorting mode
+        tableView.separatorColor = UIColor.black
+        activityIndicator.startAnimating()
         self.popoverPresentationController?.delegate = self
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.unfilteredSongs = MPMediaQuery.songs().items ?? []
+            (self.songSections, self.sectionTitles) = sortIntoSongSections(with: self.unfilteredSongs, and: "Title")
+            DispatchQueue.main.async {
+                self.tableView.separatorColor = UIColor.white
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +70,19 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if songSections[indexPath.section][indexPath.row].mediaType.rawValue == 2049{
+//            print("Detected video")
+//            let video = songSections[indexPath.section][indexPath.row]
+//            guard let url = video.value(forProperty: MPMediaItemPropertyAssetURL) as? NSURL else { return }//as! URL
+//            let videoPlayer = AVPlayer(playerItem: AVPlayerItem(url: url as URL))
+//            let playerViewController = AVPlayerViewController()
+//            playerViewController.player = videoPlayer
+//            self.present(playerViewController, animated: true){
+//                playerViewController.player!.play()
+//            }
+//            return
+//        }
+        
         let totalNumberSongsInSection = songSections[indexPath.section].count - 1
         appDelegate.currentQueue = Array(songSections[indexPath.section][indexPath.row...totalNumberSongsInSection])
         if let tabbar = appDelegate.window!.rootViewController as? UITabBarController{
@@ -121,11 +146,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
                 ppc.delegate = self
             }
         }
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "toolbar" && lastSong == nil{ return false }
-        return true
     }
     
     // change presentation behavior for popover in landscape and portrait mode

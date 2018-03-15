@@ -335,7 +335,8 @@ func overlayTextWithVisualEffect(using text:String, on view: UIView){
 func getArtworkIconWithDefaults(using item:MPMediaItem?) -> UIImage{
     guard let song = item else { return UIImage(named: "guitarIcon")!} // return default if item is nil
     guard let artwork = song.artwork else { return UIImage(named: "guitarIcon")! } // return default if no artwork
-    return artwork.image(at: CGSize(width:30,height:30))!
+    guard let image = artwork.image(at: CGSize(width:30,height:30)) else { return UIImage(named: "guitarIcon")! }
+    return image
 }
 
 func generateBarChartData(with data: [Int], andTitle title:String) -> BarChartData{

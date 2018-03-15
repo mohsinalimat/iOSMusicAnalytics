@@ -20,12 +20,13 @@ class AlbumCollectionViewController: UICollectionViewController {
     var contents:[MPMediaItem]! = []
     var indexView: BDKCollectionIndexView!
     @IBOutlet weak var albumAnalyticsButton: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
         (albums,sectionTitles) = ([],["N"])
-//        if isNativeAlbumController {self.navigationItem.rightBarButtonItems?.last?.isEnabled = false}
+        activityIndicator.startAnimating()
     }
     
     func loadIndexView(with sectionTitles: [String]){
@@ -51,14 +52,25 @@ class AlbumCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if (isNativeAlbumController){
-            (albums,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
-            loadIndexView(with: sectionTitles)
-            self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
+            DispatchQueue.global(qos: .userInitiated).async {
+                (self.albums,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
+                DispatchQueue.main.async {
+                    self.loadIndexView(with: self.sectionTitles)
+                    self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
+                    self.collectionView?.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
+            }
         } else {
-            albums = [sortSongIntoAlbums(with: contents)]
-            sectionTitles = ["All"]
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.albums = [sortSongIntoAlbums(with: self.contents)]
+                self.sectionTitles = ["All"]
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
+            }
         }
-        collectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {

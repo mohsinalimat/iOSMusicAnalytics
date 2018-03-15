@@ -12,18 +12,25 @@ import MediaPlayer
 class OthersTableViewController: UITableViewController {
     var allItems: [[[MPMediaItem]]] = []
     var sectionTitles: [String] = []
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         var artists: [[MPMediaItem]]! = []
-        
-        let allArtists = MPMediaQuery.artists()
-        allArtists.groupingType = .albumArtist
-        let collections = allArtists.collections
-        for playlist in collections!{
-            artists.append(playlist.items)
+        DispatchQueue.global(qos: .userInitiated).async{
+            let allArtists = MPMediaQuery.artists()
+            allArtists.groupingType = .albumArtist
+            let collections = allArtists.collections
+            for playlist in collections!{
+                artists.append(playlist.items)
+            }
+            (self.allItems,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: artists, andMode: "Artists")
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            }
         }
-        (allItems,sectionTitles) = sortAlbumsOrArtistsIntoSections(with: artists, andMode: "Artists")
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,7 +67,7 @@ class OthersTableViewController: UITableViewController {
         cell.imageView?.layer.cornerRadius = 30.0
         cell.imageView?.clipsToBounds = true
         cell.textLabel?.text = allItems[indexPath.section][indexPath.row].first?.albumArtist
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let count = self?.allItems[indexPath.section][indexPath.row].count ?? 0
             var countStr = "\(count) song"
             if count != 1 { countStr += "s"}

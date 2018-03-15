@@ -16,7 +16,7 @@ class AnalyticsTableViewController: UITableViewController {
     let modeIcons: Dictionary<Int, UIImage> =
         [0: UIImage(named: "mostPlayedIcon")!,1: UIImage(named: "worried")!,2: UIImage(named: "fearfulIcon")!,
          3: UIImage(named: "recentsIcon")!, 4:UIImage(named: "addIcon")!,5:UIImage(named: "lengthIcon")!, 6:UIImage(named: "ageIcon")!]
-    var sectionsTitles: [String] = ["Most Recent", "Interesting Stuff"]
+    var sectionsTitles: [String] = []
     var dataDescriptors:[String] = Array()
     var dataDescriptorValues:[Int] = Array()
     let dataSpecificsDescriptors = ["Most Listened Artist", "Most Listened Genre"]
@@ -24,18 +24,32 @@ class AnalyticsTableViewController: UITableViewController {
     var mostRecentlyPlayedDate = Date()
     var container : NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     var dateFormatter = DateFormatter()
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     func loadAnalyticsData(){
         (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentlyPlayedDate) = obtainAnalyticsData()
         sectionsTitles[0] = dateFormatter.string(from: mostRecentlyPlayedDate)
+    }
+    
+    func loadAnalyticsDataWithoutSectionTitles(){
+         (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentlyPlayedDate) = obtainAnalyticsData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Analytics"
         dateFormatter.dateFormat = "MMM dd"
-        loadAnalyticsData()
-        updateAnalyticsDatabase(with: mostRecentlyPlayedDate, andData: dataDescriptorValues, in: container!.viewContext)
+        activityIndicator.startAnimating()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.loadAnalyticsDataWithoutSectionTitles()
+            self.sectionsTitles = ["Most Recent", "Interesting Stuff"]
+            DispatchQueue.main.async {
+                self.sectionsTitles[0] = self.dateFormatter.string(from: self.mostRecentlyPlayedDate)
+                updateAnalyticsDatabase(with: self.mostRecentlyPlayedDate, andData: self.dataDescriptorValues, in: self.container!.viewContext)
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,7 +60,7 @@ class AnalyticsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return sectionsTitles.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
