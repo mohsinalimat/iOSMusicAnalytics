@@ -23,7 +23,7 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     //@IBOutlet weak var songSearchBar: UISearchBar!
     var searchController: UISearchController!
     var sectionTitles:[String] = []
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,11 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         sortMode = "Title" // initialize at title sorting mode
         tableView.separatorColor = UIColor.black
-        activityIndicator.startAnimating()
+        
+        //activityIndicator.startAnimating()
+        let spinner = CustomSpinner(frame: view.bounds)
+        spinner.startSpinning(on: view)
+        
         self.popoverPresentationController?.delegate = self
         DispatchQueue.global(qos: .userInitiated).async {
             self.unfilteredSongs = MPMediaQuery.songs().items ?? []
@@ -40,7 +44,8 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
             DispatchQueue.main.async {
                 self.tableView.separatorColor = UIColor.white
                 self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
+                //self.activityIndicator.stopAnimating()
+                spinner.endSpinning(on: self.view)
             }
         }
     }

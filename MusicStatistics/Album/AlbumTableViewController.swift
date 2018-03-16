@@ -16,6 +16,8 @@ class AlbumTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,7 +82,7 @@ class AlbumTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 { //for the album info cell
-            return UIScreen.main.bounds.size.width
+            return UITableViewAutomaticDimension//UIScreen.main.bounds.size.width
         }
         return 50.0
     }

@@ -23,7 +23,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBOutlet weak var songProgress: UISlider!
     @IBOutlet weak var background: UIImageView!
     
-    var nowPlaying: MPMediaItem!
     let player = MPMusicPlayerApplicationController.applicationQueuePlayer
     //let player = MPMusicPlayerController.systemMusicPlayer
     var isPlayerLoaded = false
@@ -48,6 +47,15 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
             }
         }
     }
+    
+    var nowPlaying: MPMediaItem!
+//    {
+//        didSet{
+//            guard oldValue != nil else { return }
+//            guard nowPlaying.title != oldValue.title else { return }
+//            player.skipToBeginning()
+//        }
+//    }
     
     
     var collection:MPMediaItemCollection!{
