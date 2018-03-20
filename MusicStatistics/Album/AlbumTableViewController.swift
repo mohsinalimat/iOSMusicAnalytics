@@ -16,6 +16,8 @@ class AlbumTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        // Self-sizing cell: tell tableview to automatically calculate height of cell with autolayout constraints.
+        // can be overridden with HeightForRowAtIndexPath
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50.0
     }

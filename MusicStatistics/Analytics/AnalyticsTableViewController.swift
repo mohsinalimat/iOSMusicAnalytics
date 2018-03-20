@@ -24,7 +24,6 @@ class AnalyticsTableViewController: UITableViewController {
     var mostRecentlyPlayedDate = Date()
     var container : NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     var dateFormatter = DateFormatter()
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     func loadAnalyticsData(){
         (dataDescriptors,dataDescriptorValues,dataSpecifics,mostRecentlyPlayedDate) = obtainAnalyticsData()
@@ -39,7 +38,8 @@ class AnalyticsTableViewController: UITableViewController {
         super.viewDidLoad()
         self.title = "Analytics"
         dateFormatter.dateFormat = "MMM dd"
-        activityIndicator.startAnimating()
+        let activityIndicator = CustomSpinner(with: view, andFrame: view.bounds)
+        activityIndicator.startSpinning()
         DispatchQueue.global(qos: .userInitiated).async {
             self.loadAnalyticsDataWithoutSectionTitles()
             self.sectionsTitles = ["Most Recent", "Interesting Stuff"]
@@ -47,7 +47,7 @@ class AnalyticsTableViewController: UITableViewController {
                 self.sectionsTitles[0] = self.dateFormatter.string(from: self.mostRecentlyPlayedDate)
                 updateAnalyticsDatabase(with: self.mostRecentlyPlayedDate, andData: self.dataDescriptorValues, in: self.container!.viewContext)
                 self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
+                activityIndicator.endSpinning()
             }
         }
     }

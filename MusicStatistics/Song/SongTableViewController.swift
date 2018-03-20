@@ -23,7 +23,6 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
     //@IBOutlet weak var songSearchBar: UISearchBar!
     var searchController: UISearchController!
     var sectionTitles:[String] = []
-    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +33,8 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
         tableView.separatorColor = UIColor.black
         
         //activityIndicator.startAnimating()
-        let spinner = CustomSpinner(frame: view.bounds)
-        spinner.startSpinning(on: view)
+        let spinner = CustomSpinner(with: view, andFrame: view.bounds)
+        spinner.startSpinning()
         
         self.popoverPresentationController?.delegate = self
         DispatchQueue.global(qos: .userInitiated).async {
@@ -44,8 +43,7 @@ class SongTableViewController: UITableViewController, UIPopoverPresentationContr
             DispatchQueue.main.async {
                 self.tableView.separatorColor = UIColor.white
                 self.tableView.reloadData()
-                //self.activityIndicator.stopAnimating()
-                spinner.endSpinning(on: self.view)
+                spinner.endSpinning()
             }
         }
     }

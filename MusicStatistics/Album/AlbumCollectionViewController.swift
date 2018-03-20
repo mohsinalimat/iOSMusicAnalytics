@@ -20,13 +20,11 @@ class AlbumCollectionViewController: UICollectionViewController {
     var contents:[MPMediaItem]! = []
     var indexView: BDKCollectionIndexView!
     @IBOutlet weak var albumAnalyticsButton: UIBarButtonItem!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
         (albums,sectionTitles) = ([],["N"])
-        activityIndicator.startAnimating()
     }
     
     func loadIndexView(with sectionTitles: [String]){
@@ -51,6 +49,8 @@ class AlbumCollectionViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let spinner = CustomSpinner(with: view, andFrame: view.bounds)
+        spinner.startSpinning()
         if (isNativeAlbumController){
             DispatchQueue.global(qos: .userInitiated).async {
                 (self.albums,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
@@ -58,7 +58,7 @@ class AlbumCollectionViewController: UICollectionViewController {
                     self.loadIndexView(with: self.sectionTitles)
                     self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
                     self.collectionView?.reloadData()
-                    self.activityIndicator.stopAnimating()
+                    spinner.endSpinning()
                 }
             }
         } else {
@@ -67,7 +67,7 @@ class AlbumCollectionViewController: UICollectionViewController {
                 self.sectionTitles = ["All"]
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
-                    self.activityIndicator.stopAnimating()
+                    spinner.endSpinning()
                 }
             }
         }

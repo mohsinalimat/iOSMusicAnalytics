@@ -12,11 +12,11 @@ import MediaPlayer
 class OthersTableViewController: UITableViewController {
     var allItems: [[[MPMediaItem]]] = []
     var sectionTitles: [String] = []
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.startAnimating()
+        let activityIndicator = CustomSpinner(with: view, andFrame: view.bounds)
+        activityIndicator.startSpinning()
         var artists: [[MPMediaItem]]! = []
         DispatchQueue.global(qos: .userInitiated).async{
             let allArtists = MPMediaQuery.artists()
@@ -28,7 +28,7 @@ class OthersTableViewController: UITableViewController {
             (self.allItems,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: artists, andMode: "Artists")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
+                activityIndicator.endSpinning()
             }
         }
     }
