@@ -96,6 +96,9 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         yData = fetchedData.1
         chartView.data = generateBarChartData(with: yData, andTitle: mode)
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xData)
+        chartView.data?.notifyDataChanged()
+        chartView.notifyDataSetChanged()
+        chartView.setNeedsDisplay()
         chartView.animate(xAxisDuration: 1.50, yAxisDuration: 1.50)
         enableOrDisableDateButtons()
     }
@@ -108,6 +111,9 @@ class AnalyticsGraphViewController: UIViewController, ChartViewDelegate {
         yData = fetchedData.1
         chartView.data = generateBarChartData(with: yData, andTitle: mode)
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xData)
+        chartView.data?.notifyDataChanged()
+        chartView.notifyDataSetChanged()
+        //chartView.setNeedsDisplay()
         chartView.animate(xAxisDuration: 1.50, yAxisDuration: 1.50)
         enableOrDisableDateButtons()
     }

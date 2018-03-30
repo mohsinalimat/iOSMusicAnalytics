@@ -1,8 +1,8 @@
 PODS:
   - BDKCollectionIndexView (2.2.2)
-  - Charts (3.0.4):
-    - Charts/Core (= 3.0.4)
-  - Charts/Core (3.0.4)
+  - Charts (3.1.0):
+    - Charts/Core (= 3.1.0)
+  - Charts/Core (3.1.0)
 
 DEPENDENCIES:
   - BDKCollectionIndexView
@@ -10,7 +10,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   BDKCollectionIndexView: 489a0c57d27fafe6944ef61e5a4192902148ea84
-  Charts: 0705898046257443f0afbbc3179f4b67507b6e48
+  Charts: 0b0c96f6118b6ce63f11adbcaa3b31045ee4d772
 
 PODFILE CHECKSUM: 679162ddea441f04e5fe627bc97afa7fa13e46c7
 

@@ -14,11 +14,11 @@ class AnalyticsDetailTableViewController: UITableViewController {
     var mode: String!
     let dateFormatter = DateFormatter()
     var appDelegate: AppDelegate!
-    @IBOutlet weak var analyticsLoading: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        analyticsLoading.startAnimating()
+        let analyticsLoading = CustomSpinner(with: view, andFrame: view.bounds)
+        analyticsLoading.startSpinning()
         let allSongs = MPMediaQuery.songs().items ?? []
         dateFormatter.dateFormat = "MMM dd"
         appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -46,7 +46,7 @@ class AnalyticsDetailTableViewController: UITableViewController {
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.analyticsLoading.stopAnimating()
+                analyticsLoading.endSpinning()
             }
         }
     }

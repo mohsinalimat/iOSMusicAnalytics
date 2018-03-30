@@ -24,7 +24,29 @@ class AlbumCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
-        (albums,sectionTitles) = ([],["N"])
+        let spinner = CustomSpinner(with: view, andFrame: view.bounds)
+        spinner.startSpinning()
+        if (isNativeAlbumController){
+            DispatchQueue.global(qos: .userInitiated).async {
+                (self.albums,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
+                DispatchQueue.main.async {
+                    self.loadIndexView(with: self.sectionTitles)
+                    self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
+                    self.collectionView?.reloadData()
+                    spinner.endSpinning()
+                }
+            }
+        } else {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.contents.sort(by: {$0.albumTitle ?? "Unknown" < $1.albumTitle ?? "Unknown"})
+                self.albums = [sortSongIntoAlbums(with: self.contents)]
+                self.sectionTitles = ["All"]
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                    spinner.endSpinning()
+                }
+            }
+        }
     }
     
     func loadIndexView(with sectionTitles: [String]){
@@ -44,35 +66,13 @@ class AlbumCollectionViewController: UICollectionViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupAlbumCollectionViewLayout(with: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let spinner = CustomSpinner(with: view, andFrame: view.bounds)
-        spinner.startSpinning()
-        if (isNativeAlbumController){
-            DispatchQueue.global(qos: .userInitiated).async {
-                (self.albums,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: sortSongsIntoAlbumsSimpleApproach(),andMode: "Albums")
-                DispatchQueue.main.async {
-                    self.loadIndexView(with: self.sectionTitles)
-                    self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
-                    self.collectionView?.reloadData()
-                    spinner.endSpinning()
-                }
-            }
-        } else {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.albums = [sortSongIntoAlbums(with: self.contents)]
-                self.sectionTitles = ["All"]
-                DispatchQueue.main.async {
-                    self.collectionView?.reloadData()
-                    spinner.endSpinning()
-                }
-            }
-        }
+        setupAlbumCollectionViewLayout(with: collectionView)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -15,6 +15,7 @@ class OthersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorColor = UIColor.black
         let activityIndicator = CustomSpinner(with: view, andFrame: view.bounds)
         activityIndicator.startSpinning()
         var artists: [[MPMediaItem]]! = []
@@ -28,6 +29,7 @@ class OthersTableViewController: UITableViewController {
             (self.allItems,self.sectionTitles) = sortAlbumsOrArtistsIntoSections(with: artists, andMode: "Artists")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.tableView.separatorColor = UIColor.white
                 activityIndicator.endSpinning()
             }
         }
@@ -96,7 +98,7 @@ class OthersTableViewController: UITableViewController {
         }
         if let dest = destinationViewController as? AlbumCollectionViewController{
             dest.isNativeAlbumController = false
-            dest.contents = allItems[tableView.indexPathForSelectedRow!.section][tableView.indexPathForSelectedRow!.row].sorted(by: {$0.albumTitle ?? "Unknown" < $1.albumTitle ?? "Unknown"})
+            dest.contents = allItems[tableView.indexPathForSelectedRow!.section][tableView.indexPathForSelectedRow!.row]
             dest.navigationItem.title = allItems[tableView.indexPathForSelectedRow!.section][tableView.indexPathForSelectedRow!.row].first?.albumArtist
         }
     }
