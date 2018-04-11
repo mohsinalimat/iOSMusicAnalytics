@@ -37,26 +37,9 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     var doesLyricsExist = false
     var originalQueue: [MPMediaItem] = []
     var shuffleMode: Bool = false
-    
-    var playOrPause: Bool!{
-        didSet{
-            if playOrPause { // play -> pause
-                playButton.setImage(UIImage(named: "Pause Button"), for: .normal)
-            } else { // pause -> play
-                playButton.setImage(UIImage(named: "Play Button"), for: .normal)
-            }
-        }
-    }
-    
     var nowPlaying: MPMediaItem!
-//    {
-//        didSet{
-//            guard oldValue != nil else { return }
-//            guard nowPlaying.title != oldValue.title else { return }
-//            player.skipToBeginning()
-//        }
-//    }
     
+    var playOrPause: Bool!
     
     var collection:MPMediaItemCollection!{
         didSet{
@@ -82,6 +65,8 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         isPlayerLoaded = true
         player.shuffleMode = .off
         player.repeatMode = .none
+        player.pause()
+        player.beginGeneratingPlaybackNotifications()
         songProgress.setThumbImage(UIImage(named:"playerThumb"), for: .normal)
         songProgress.isContinuous = false
         background.clipsToBounds = true
@@ -98,8 +83,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
                 updateQueue()
             }
         }
-        checkAndUpdatePlayerInfo()
-        updatePlaybackStatus()
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: UIApplication.shared, queue: OperationQueue.main){ _ in
             self.checkAndUpdatePlayerInfo()
             self.updatePlaybackStatus()
@@ -113,6 +96,24 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         { _ in self.player.stop() }
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared, queue: OperationQueue.main)
         { _ in if self.beginPlaying { self.timer.invalidate() } }
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayBackStatusChange), name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: player)
+    }
+    
+    @objc func handlePlayBackStatusChange(){
+        //updatePlaybackStatus()
+        switch player.playbackState{
+        case .paused:
+            playButton.setImage(UIImage(named: "Play Button"), for: .normal)
+        case .playing:
+            playOrPause = true
+            playButton.setImage(UIImage(named: "Pause Button"), for: .normal)
+            checkAndUpdatePlayerInfo()
+            if !beginPlaying {
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
+                beginPlaying = true
+            }
+        default: break
+        }
     }
     
     @objc func checkAndUpdatePlayerInfo(){
@@ -128,6 +129,7 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
     
     public func updateUI(with song:MPMediaItem?){
@@ -208,10 +210,6 @@ class PlayerViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBAction func playPause(_ sender: UIButton) {
         playOrPause ? player.pause() : player.play()
         playOrPause = !playOrPause
-        if !beginPlaying {
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PlayerViewController.updatePlaybackTime), userInfo: nil, repeats: true)
-            beginPlaying = true
-        }
     }
     
     @IBAction func nextSong(_ sender: UIButton) {
